@@ -1,0 +1,35 @@
+{
+    "name": "domlist",
+    "version": "1.0.0",
+    "description": "Native document.queySelectorAll helper.",
+    "readme": "readme.md",
+
+    "keywords": [
+        "domlist",
+        "query selector"
+    ],
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mahdaen/domlist.git"
+    },
+
+    "dependencies": {
+        "grunt": "*",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-less": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-sync": "*",
+        "grunt-apidoc": "*"
+    },
+
+    "license": "MIT",
+
+    "authors": [
+        {
+            "name": "Nanang Mahdaen El Agung",
+            "email": "mahdaen@gmail.com"
+        }
+    ]
+}
