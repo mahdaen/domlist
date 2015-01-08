@@ -1,0 +1,29 @@
+{
+    "name": "domlist",
+    "version": "1.0.0",
+    "description": "Native document.queySelectorAll helper.",
+    "readme": "readme.md",
+    "keywords": [
+        "domlist",
+        "query",
+        "selector"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mahdaen/domlist.git"
+    },
+    "license": "MIT",
+    "authors": [
+        "Nanang Mahdaen El Agung <mahdaen@gmail.com>"
+    ],
+    "main": "dist/domlist.js",
+    "homepage": "https://mahdaen.github.io/domlist",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "libraries/",
+        "test",
+        "tests"
+    ]
+}
