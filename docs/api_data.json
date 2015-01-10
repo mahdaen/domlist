@@ -205,6 +205,24 @@
   },
   {
     "group": "DOMList_Module_Core",
+    "type": "children",
+    "url": "DOMList.children();",
+    "title": ".children()",
+    "name": "Children",
+    "description": "<p>Get child elements of first selected element.</p> ",
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('.container').children();",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "source/domlist.js",
+    "groupTitle": "DOMList_Module_Core"
+  },
+  {
+    "group": "DOMList_Module_Core",
     "type": "data",
     "url": "DOMList.data(name,value);",
     "title": ".data()",
