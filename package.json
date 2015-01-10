@@ -1,6 +1,6 @@
 {
     "name": "domlist",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Native document.queySelectorAll helper.",
     "readme": "readme.md",
 
@@ -21,7 +21,9 @@
         "grunt-contrib-uglify": "*",
         "grunt-contrib-watch": "*",
         "grunt-sync": "*",
-        "grunt-apidoc": "*"
+        "grunt-apidoc": "*",
+        "jquery": "*",
+        "native-js": "*"
     },
 
     "license": "MIT",

@@ -3,7 +3,7 @@
  * This script help us to extend native `element.querySelectorAll()`, makes it looks like a jQuery.
  * Language: Javascript.
  * Browser Supports: Chrome 31+, Firefox 33+, IE9+, Safari 7+.
- * Dependencies: NativeJS v1.0.0+ (https://github.com/mahdaen/native-js).
+ * Dependencies: NativeJS v1.0.1+ (https://github.com/mahdaen/native-js).
  * Created by mahdaen on 1/7/15.
  * License: GNU General Public License v2 or later.
  */
@@ -12,7 +12,7 @@
     'use strict';
 
     /**
-     * @apiVersion 1.0.0
+     * @apiVersion 1.0.1
      * @apiGroup DOMList
      *
      * @api {selector} $dom(query,context); $dom()
@@ -51,7 +51,7 @@
         this.length = 0;
 
         /* Proceed only if query is string */
-        if (isString(query)) {
+        if (typeof query === 'string') {
             var result, $this = this;
 
             /* Using HTMLElement as context */
@@ -101,13 +101,10 @@
 
             /* Iterating result */
             if (result && result.length > 0) {
-                foreach(result, function (key, node) {
-                    if (key !== 'length') {
-                        $this[key] = node;
-                    }
-                });
-
-                $this.length = result.length;
+                for (var i = 0; i < result.length; ++i) {
+                    $this[i] = result[i];
+                    $this.length++;
+                }
             }
         }
 
@@ -144,9 +141,132 @@
         /* Copy splice from array */
         splice: Array.prototype.splice,
 
+        /* BASIC ----------------------------------- */
+
         /**
-         * @apiVersion 1.0.0
-         * @apiGroup DOMList Module Basic
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {first} DOMList.first(); .first()
+         * @apiName First
+         * @apiDescription Get the first child of selected elements. Return new DOMList object.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').first();
+         */
+        first: function() {
+            return this.length > 0 ? new DOMList(this[0]) : this;
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {firstchild} DOMList.firstChild(); .firstChild()
+         * @apiName FirstChild
+         * @apiDescription Get the first child of the first selected elements. Return new DOMList object.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('.container').firstChild();
+         */
+        firstChild: function() {
+            if (this.length <= 0) return this;
+
+            var first = this[0];
+            var child = first.children;
+
+            if (child.length > 0) {
+                return new DOMList(child[0]);
+            } else {
+                return new DOMList();
+            }
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {last} DOMList.last(); .last()
+         * @apiName Last
+         * @apiDescription Get the last child of selected elements. Return new DOMList object.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').last();
+         */
+        last: function() {
+            return this.length > 0 ? new DOMList(this[this.length - 1]) : this;
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {lastchild} DOMList.lastChild(); .lastChild()
+         * @apiName LastChild
+         * @apiDescription Get the last child of the first selected elements. Return new DOMList object.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('.container').lastChild();
+         */
+        lastChild: function() {
+            if (this.length <= 0) return this;
+
+            var first = this[0];
+            var child = first.children;
+
+            if (child.length > 0) {
+                return new DOMList(child[child.length - 1]);
+            } else {
+                return new DOMList();
+            }
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {nth} DOMList.nth(index); .nth()
+         * @apiName NTH
+         * @apiDescription Get the selected elements by specific index. Return new DOMList object.
+         *
+         * @apiParam {Number} index Index number. Start from 0.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').nth(0);
+         */
+        nth: function(i) {
+            return isNumber(i) && this.hasOwnProperty(i) ? new DOMList(this[i]) : new DOMList();
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {nthChild} DOMList.nthChild(index); .nthChild()
+         * @apiName NthChild
+         * @apiDescription Get the child elements by specific index from the first selected elements. Return new DOMList object.
+         *
+         * @apiParam {Number} index Index number. Start from 0.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('.container').nthChild(3);
+         */
+        nthChild: function(i) {
+            if (this.length <= 0) return this;
+
+            var fisrt = this[0];
+            var child = fisrt.children;
+
+            if (child.length > 0) {
+                return child.hasOwnProperty(i) ? new DOMList(child[i]) : new DOMList();
+            } else {
+                return new DOMList();
+            }
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
          *
          * @api {finder} DOMList.find(query); .find()
          * @apiName Find
@@ -164,9 +284,36 @@
             }
         },
 
+        filter: function(query) {
+            var $this = this;
+
+            if (!isString(query)) return this;
+
+            var wrap = document.createElement('div'), elems = '', result, src = [], cand = [];
+
+            this.each(function() {
+                elems += this.outerHTML;
+                src.push(this.outerHTML);
+            });
+
+            wrap.innerHTML = elems;
+
+            result = wrap.find(query);
+
+            result.each(function() {
+                var self = this.outerHTML;
+
+                if (src.indexOf(self) > -1) {
+                    cand.push(this);
+                }
+            });
+
+            return new DOMList(cand);
+        },
+
         /**
-         * @apiVersion 1.0.0
-         * @apiGroup DOMList Module Basic
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
          *
          * @api {iterator} DOMList.each(handler); .each()
          * @apiName Iterator
@@ -198,8 +345,8 @@
         },
 
         /**
-         * @apiGroup DOMList.Module.Basic
-         * @apiVersion 1.0.0
+         * @apiGroup DOMList Module Core
+         * @apiVersion 1.0.1
          *
          * @api {attr} DOMList.attr(name,value); .attr()
          * @apiName Attr
@@ -259,6 +406,10 @@
                     /* Iterate each element to assign attribute and value */
                     $this.each(function() {
                         this.setAttribute(name, value);
+
+                        if (this.hasOwnProperty(name)) {
+                            this[name] = value;
+                        }
                     });
 
                     return this;
@@ -335,8 +486,134 @@
         },
 
         /**
-         * @apiVersion 1.0.0
-         * @apiGroup DOMList.Module.Basic
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {remattr} DOMList.remAttr(name); .remAttr()
+         * @apiName RemAttr
+         * @apiDescription Remove one or many attribute from selected elements.
+         *
+         * @apiParam {Any} name String attribute name or array name list.<br />Use space to separate the attribute name for multiple removal. E.g 'foo bar'.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').remAtrr('foo'); // Remove single attribute.
+         * $dom('span').remAttr(['foo', 'bar']); // Remove multiple attribute.
+         * $dom('span').remAttr('foo bar'); // Remove multiple attribute.
+         */
+        remAttr: function(name) {
+            if (isString(name)) {
+                if (name.match(/\s+/)) {
+                    name = name.split(/\s+/);
+                    this.each(function() {
+                        var self = this;
+
+                        foreach(name, function (name) {
+                            self.removeAttribute(name);
+                        });
+                    });
+                } else {
+                    this.each(function() {
+                        this.removeAttribute(name);
+                    });
+                }
+            } else if (isArray(name)) {
+                this.each(function() {
+                    var self = this;
+
+                    foreach(name, function (name) {
+                        self.removeAttribute(name);
+                    });
+                });
+            }
+
+            return this;
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {prop} DOMList.prop(name,value); .prop()
+         * @apiName Prop
+         * @apiDescription Get the first selected elements property value or set all selected elements property value.<br />If element also have attribute with that name, setting property will also set the attribute.
+         *
+         * @apiParam {String} name String property name.
+         * @apiParam {Any} [value] String property value.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('input[type="text"]').prop('value'); // Get value.
+         * $dom('input[type="text"]').prop('value', 'Foo'); // Set value to Foo.
+         */
+        prop: function(name, value) {
+            var $this = this;
+
+            if ($this.length <= 0) return $this;
+
+            if (isString(name)) {
+                if (isDefined(value)) {
+                    $this.each(function() {
+                        this[name] = value;
+
+                        if (this.getAttribute(name)) {
+                            this.setAttribute(name, value);
+                        }
+                    })
+                } else {
+                    var first = $this[0];
+
+                    if (first.hasOwnProperty(name)) {
+                        return first[name];
+                    }
+                }
+            }
+
+            return $this;
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {val} DOMList.val(value); .val()
+         * @apiName Val
+         * @apiDescription Get the first selected elements value or set all selected elements value.
+         *
+         * @apiParam {Any} [value] Value to set. Leave blank if you want to get the value.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('input[type="text"]').val(); // Get value.
+         * $dom('input[type="text"]').val('Foo'); // Set value to Foo.
+         */
+        val: function(value) {
+            if (isDefined(value)) {
+                this.prop('value', value);
+            } else {
+                return this.prop('value');
+            }
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {remove} DOMList.remove(); .remove()
+         * @apiName Remove
+         * @apiDescription Remove selected elements.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('.foo').remove();
+         */
+        remove: function() {
+            this.each(function() {
+                this.remove();
+            });
+
+            return this;
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
          *
          * @api {sort} DOMList.sortBy(attr,options); .sortBy()
          * @apiName Sort
@@ -437,8 +714,10 @@
             return this;
         },
 
+        /* CLASS ------------------------------------ */
+
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Class
          *
          * @api {addclass} DOMList.addClass(name); .addClass()
@@ -454,9 +733,16 @@
             var $this = this;
 
             if (isString(name)) {
-                $this.each(function() {
-                    this.classList.add(name);
-                });
+                if (name.match(/\s+/)) {
+                    name = name.split(/\s+/);
+                    foreach(name, function(attr) {
+                        $this.addClass(attr);
+                    });
+                } else {
+                    $this.each(function() {
+                        this.classList.add(name);
+                    });
+                }
             } else if (isArray(name)) {
                 foreach(name, function (attr) {
                     $this.addClass(attr);
@@ -467,7 +753,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Class
          *
          * @api {remclass} DOMList.remClass(name); .remClass()
@@ -484,9 +770,16 @@
             var $this = this;
 
             if (isString(name)) {
-                $this.each(function() {
-                    this.classList.remove(name);
-                });
+                if (name.match(/\s+/)) {
+                    name = name.split(/\s+/);
+                    foreach(name, function(attr) {
+                        $this.remClass(attr);
+                    });
+                } else {
+                    $this.each(function() {
+                        this.classList.remove(name);
+                    });
+                }
             } else if (isArray(name)) {
                 foreach(name, function (attr) {
                     $this.remClass(attr);
@@ -497,7 +790,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Class
          *
          * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
@@ -526,27 +819,10 @@
             return this;
         },
 
-        /**
-         * @apiVersion 1.0.0
-         * @apiGroup DOMList.Module.Basic
-         *
-         * @api {remove} DOMList.remove(); .remove()
-         * @apiName Remove
-         * @apiDescription Remove selected elements.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').remove();
-         */
-        remove: function() {
-            this.each(function() {
-                this.remove();
-            });
-
-            return this;
-        },
+        /* INJECT ------------------------------------------ */
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {append} DOMList.append(childs); .append()
@@ -611,7 +887,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {prepend} DOMList.prepend(childs) .prepend()
@@ -709,7 +985,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {appendto} DOMList.appendTo(destination) .appendTo()
@@ -758,7 +1034,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {perependto} DOMList.prependTo(destination) .prependTo()
@@ -848,7 +1124,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
@@ -902,7 +1178,7 @@
         },
 
         /**
-         * @apiVersion 1.0.0
+         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
@@ -955,6 +1231,63 @@
             return this;
         },
 
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Inject
+         *
+         * @api {text} DOMList.text(value); .text()
+         * @apiName Text
+         * @apiDescription Get the first selected elements innerText or set all selected elements innerText.
+         *
+         * @apiParam {Any} value Inner text value.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').text(); // Get first selected span innerText
+         * $dom('span').text('foo'); // Set all span innerText to foo.
+         */
+        text: function(value) {
+            if (this.length <= 0) return this;
+
+            if (isDefined(value)) {
+                this.each(function() {
+                    this.innerText = value;
+                });
+            } else {
+                return this[0].innerText;
+            }
+
+            return this;
+        },
+
+        /**
+         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Inject
+         *
+         * @api {html} DOMList.html(value); .html()
+         * @apiName HTML
+         * @apiDescription Get the first selected elements innerHTML or set all selected elements innerHTML.
+         *
+         * @apiParam {Any} value Inner html value.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').html(); // Get first selected span innerHTML
+         * $dom('span').html('foo'); // Set all span innerHTML to foo.
+         */
+        html: function(value) {
+            if (this.length <= 0) return this;
+
+            if (isDefined(value)) {
+                this.each(function() {
+                    this.innerHTML = value;
+                });
+            } else {
+                return this[0].innerHTML;
+            }
+
+            return this;
+        },
+
+        /* EFFECT --------------------------------------------------- */
         /**
          * Animate elements. This module using Greensock (third party).
          * @param props - {object} - CSS Properties List.
