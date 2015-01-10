@@ -260,6 +260,28 @@
         /**
          * @apiGroup DOMList Module Core
          *
+         * @api {children} DOMList.children(); .children()
+         * @apiName Children
+         * @apiDescription Get child elements of first selected element.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('.container').children();
+         */
+        children: function() {
+            if (this.first().length > 0) {
+                var childs = this.first()[0].children;
+
+                childs.constructor.prototype.name = 'DOMList';
+
+                return new DOMList(childs);
+            } else {
+                return new DOMList();
+            }
+        },
+
+        /**
+         * @apiGroup DOMList Module Core
+         *
          * @api {finder} DOMList.find(query); .find()
          * @apiName Find
          * @apiDescription Find elements from current selected elements.
