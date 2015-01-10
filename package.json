@@ -1,37 +1,39 @@
 {
-    "name": "domlist",
-    "version": "1.0.1",
-    "description": "Native document.queySelectorAll helper.",
-    "readme": "readme.md",
-
-    "keywords": [
-        "domlist",
-        "query selector"
-    ],
-
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/mahdaen/domlist.git"
-    },
-
-    "dependencies": {
-        "grunt": "*",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-less": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-contrib-watch": "*",
-        "grunt-sync": "*",
-        "grunt-apidoc": "*",
-        "jquery": "*",
-        "native-js": "*"
-    },
-
-    "license": "MIT",
-
-    "authors": [
-        {
-            "name": "Nanang Mahdaen El Agung",
-            "email": "mahdaen@gmail.com"
-        }
-    ]
+  "name": "domlist",
+  "version": "1.0.1",
+  "description": "Native document.queySelectorAll helper.",
+  "keywords": [
+    "domlist",
+    "query selector"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahdaen/domlist"
+  },
+  "dependencies": {
+    "grunt": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-sync": "*",
+    "grunt-apidoc": "*",
+    "jquery": "*",
+    "native-js": "*"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahdaen/domlist/issues"
+  },
+  "homepage": "https://github.com/mahdaen/domlist",
+  "main": "Gruntfile.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nanang Mahdaen El Agung <mahdaen@gmail.com>"
 }
