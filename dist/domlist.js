@@ -12,7 +12,6 @@
     'use strict';
 
     /**
-     * @apiVersion 1.0.1
      * @apiGroup DOMList
      *
      * @api {selector} $dom(query,context); $dom()
@@ -144,7 +143,6 @@
         /* BASIC ----------------------------------- */
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {first} DOMList.first(); .first()
@@ -159,7 +157,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {firstchild} DOMList.firstChild(); .firstChild()
@@ -183,7 +180,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {last} DOMList.last(); .last()
@@ -198,7 +194,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {lastchild} DOMList.lastChild(); .lastChild()
@@ -222,7 +217,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {nth} DOMList.nth(index); .nth()
@@ -239,7 +233,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {nthChild} DOMList.nthChild(index); .nthChild()
@@ -265,7 +258,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {finder} DOMList.find(query); .find()
@@ -312,7 +304,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {iterator} DOMList.each(handler); .each()
@@ -346,7 +337,6 @@
 
         /**
          * @apiGroup DOMList Module Core
-         * @apiVersion 1.0.1
          *
          * @api {attr} DOMList.attr(name,value); .attr()
          * @apiName Attr
@@ -486,7 +476,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {remattr} DOMList.remAttr(name); .remAttr()
@@ -530,7 +519,37 @@
         },
 
         /**
-         * @apiVersion 1.0.1
+         * @apiGroup DOMList Module Core
+         *
+         * @api {data} DOMList.data(name,value); .data()
+         * @apiName Data
+         * @apiDescription Get first selected element data or set all selected elements data.
+         *
+         * @apiParam {String} name String data-attribute name. E.g. 'profile' for 'data-profile'.
+         * @apiParam {Any} value Value to set. Leave blank if yout want to get the data-attribute-value.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').data('foo'); // Get value of 'data-foo'.
+         * $dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.
+         */
+        data: function(name, value) {
+            var $this = this;
+
+            /* Return if no selected childs */
+            if ($this.length <= 0) $this;
+
+            if (isString(name)) {
+                if (isDefined(value)) {
+                    $this.attr('data-' + name, value);
+                } else {
+                    return $this.first().attr('data-' + name);
+                }
+            }
+
+            return $this;
+        },
+
+        /**
          * @apiGroup DOMList Module Core
          *
          * @api {prop} DOMList.prop(name,value); .prop()
@@ -571,7 +590,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {val} DOMList.val(value); .val()
@@ -593,7 +611,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {remove} DOMList.remove(); .remove()
@@ -612,7 +629,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Core
          *
          * @api {sort} DOMList.sortBy(attr,options); .sortBy()
@@ -717,7 +733,6 @@
         /* CLASS ------------------------------------ */
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Class
          *
          * @api {addclass} DOMList.addClass(name); .addClass()
@@ -753,7 +768,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Class
          *
          * @api {remclass} DOMList.remClass(name); .remClass()
@@ -790,7 +804,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Class
          *
          * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
@@ -822,7 +835,6 @@
         /* INJECT ------------------------------------------ */
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {append} DOMList.append(childs); .append()
@@ -887,7 +899,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {prepend} DOMList.prepend(childs) .prepend()
@@ -985,7 +996,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {appendto} DOMList.appendTo(destination) .appendTo()
@@ -1034,7 +1044,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {perependto} DOMList.prependTo(destination) .prependTo()
@@ -1124,7 +1133,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
@@ -1178,7 +1186,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
@@ -1232,7 +1239,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Inject
          *
          * @api {text} DOMList.text(value); .text()
@@ -1260,7 +1266,6 @@
         },
 
         /**
-         * @apiVersion 1.0.1
          * @apiGroup DOMList Module Inject
          *
          * @api {html} DOMList.html(value); .html()

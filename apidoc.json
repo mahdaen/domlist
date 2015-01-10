@@ -1,6 +1,6 @@
 {
     "name": "DOMList",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "A small `document.querySelectorAll()` helper.<br/>Extend the functionallity of native selector.<br/>Use it if you don't want to use jQuery and targetting to modern browsers.",
     "title": "DOMList - Native Query Helper"
 }
