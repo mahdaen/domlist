@@ -1,6 +1,5 @@
 define({ "api": [
   {
-    "version": "1.0.1",
     "group": "DOMList",
     "type": "selector",
     "url": "$dom(query,context);",
@@ -49,11 +48,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Class",
     "type": "addclass",
     "url": "DOMList.addClass(name);",
@@ -80,11 +79,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Class"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Class",
     "type": "remclass",
     "url": "DOMList.remClass(name);",
@@ -111,11 +110,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Class"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Class",
     "type": "toggleclass",
     "url": "DOMList.toggleClass(name);",
@@ -142,12 +141,12 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Class"
   },
   {
     "group": "DOMList_Module_Core",
-    "version": "1.0.1",
     "type": "attr",
     "url": "DOMList.attr(name,value);",
     "title": ".attr()",
@@ -200,11 +199,49 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
+    "group": "DOMList_Module_Core",
+    "type": "data",
+    "url": "DOMList.data(name,value);",
+    "title": ".data()",
+    "name": "Data",
+    "description": "<p>Get first selected element data or set all selected elements data.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>String data-attribute name. E.g. &#39;profile&#39; for &#39;data-profile&#39;.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Any",
+            "optional": false,
+            "field": "value",
+            "description": "<p>Value to set. Leave blank if yout want to get the data-attribute-value.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').data('foo'); // Get value of 'data-foo'.\n$dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "source/domlist.js",
+    "groupTitle": "DOMList_Module_Core"
+  },
+  {
     "group": "DOMList_Module_Core",
     "type": "finder",
     "url": "DOMList.find(query);",
@@ -231,11 +268,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "first",
     "url": "DOMList.first();",
@@ -249,11 +286,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "firstchild",
     "url": "DOMList.firstChild();",
@@ -267,11 +304,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "iterator",
     "url": "DOMList.each(handler);",
@@ -305,11 +342,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "last",
     "url": "DOMList.last();",
@@ -323,11 +360,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "lastchild",
     "url": "DOMList.lastChild();",
@@ -341,11 +378,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "nth",
     "url": "DOMList.nth(index);",
@@ -372,11 +409,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "nthChild",
     "url": "DOMList.nthChild(index);",
@@ -403,11 +440,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "prop",
     "url": "DOMList.prop(name,value);",
@@ -441,11 +478,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "remattr",
     "url": "DOMList.remAttr(name);",
@@ -472,11 +509,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "remove",
     "url": "DOMList.remove();",
@@ -490,11 +527,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "sort",
     "url": "DOMList.sortBy(attr,options);",
@@ -528,11 +565,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Core",
     "type": "val",
     "url": "DOMList.val(value);",
@@ -559,11 +596,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "append",
     "url": "DOMList.append(childs);",
@@ -605,11 +642,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "appendto",
     "url": "DOMList.appendTo(destination)",
@@ -636,11 +673,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "html",
     "url": "DOMList.html(value);",
@@ -667,11 +704,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "prepend",
     "url": "DOMList.prepend(childs)",
@@ -713,11 +750,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "perependto",
     "url": "DOMList.prependTo(destination)",
@@ -744,11 +781,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "text",
     "url": "DOMList.text(value);",
@@ -775,11 +812,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "insertafter",
     "url": "DOMList.insertAfter(destination)",
@@ -806,11 +843,11 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "version": "1.0.1",
     "group": "DOMList_Module_Inject",
     "type": "insertbefore",
     "url": "DOMList.insertBefore(destination)",
@@ -837,6 +874,7 @@ define({ "api": [
         "type": "js"
       }
     ],
+    "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   }
