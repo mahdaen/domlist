@@ -624,6 +624,37 @@
         /**
          * @apiGroup DOMList Module Core
          *
+         * @api DOMList.remData(name); .remData()
+         * @apiName RemData
+         * @apiDescription Remove data-attribute from selected elements.
+         *
+         * @apiParam {String} name String data-attribute name. E.g 'foo' for 'data-foo'.<br>Use space-delimiter to separate multiple name. E.g 'foo bar' for 'data-foo data-bar'.
+         *
+         * @apiExample Sample #1
+         * $dom('span').remData('foo'); // Remove data-foo.
+         * $dom('span').remData('foo bar'); // Remove data-foo and data-bar.
+         */
+        remData: function(name) {
+            var $this = this;
+
+            if (isString(name)) {
+                if (name.match(/\s+/)) {
+                    name = name.split(/\s+/);
+
+                    foreach(name, function (attr) {
+                        $this.remAttr('data-' + attr);
+                    });
+                } else {
+                    $this.remAttr('data-' + name);
+                }
+            }
+
+            return $this;
+        },
+
+        /**
+         * @apiGroup DOMList Module Core
+         *
          * @api {prop} DOMList.prop(name,value); .prop()
          * @apiName Prop
          * @apiDescription Get the first selected elements property value or set all selected elements property value.<br />If element also have attribute with that name, setting property will also set the attribute.

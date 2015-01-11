@@ -657,6 +657,37 @@
   },
   {
     "group": "DOMList_Module_Core",
+    "type": "",
+    "url": "DOMList.remData(name);",
+    "title": ".remData()",
+    "name": "RemData",
+    "description": "<p>Remove data-attribute from selected elements.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>String data-attribute name. E.g &#39;foo&#39; for &#39;data-foo&#39;.<br>Use space-delimiter to separate multiple name. E.g &#39;foo bar&#39; for &#39;data-foo data-bar&#39;.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').remData('foo'); // Remove data-foo.\n$dom('span').remData('foo bar'); // Remove data-foo and data-bar.",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Core"
+  },
+  {
+    "group": "DOMList_Module_Core",
     "type": "remove",
     "url": "DOMList.remove();",
     "title": ".remove()",
