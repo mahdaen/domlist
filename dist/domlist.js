@@ -1493,4 +1493,40 @@
 
         return has;
     };
+
+    /**
+     * @apiGroup DOMList Module Boolean
+     *
+     * @api DOMList.hasData(name); .hasData()
+     * @apiName HasData
+     * @apiDescription Check does first selected element has specific data attribute.
+     *
+     * @apiParam {Any} String data-attribute name. Use array to check does has one of data-attribute, or use string to check does has both data-attribute.
+     *
+     * @apiExample Sample #1
+     * $dom('span').hasData('foo'); // Check does has data-attribute 'data-foo'.
+     * $dom('span').hasData(['foo', 'bar']); // Check does has data-attribute 'data-foo' or 'data-bar'.
+     * $dom('span').hasData('foo bar'); // Check does has data-attribute 'data-foo' and 'data-bar'.
+     */
+    $dom.module.hasData = function(name) {
+        var has = false, hasfalse = false;
+
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                var ns = name.split(/\s+/);
+
+                foreach(ns, function (value, i) {
+                    name = name.replace(value, 'data-' + value);
+                });
+            } else {
+                name = 'data-' + name;
+            }
+        } else if (isArray(name)) {
+            foreach(name, function (value, i) {
+                name[i] = 'data-' + value;
+            });
+        }
+
+        return this.hasAttr(name);
+    };
 })(DOMList);

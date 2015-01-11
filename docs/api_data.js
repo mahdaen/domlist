@@ -84,6 +84,37 @@ define({ "api": [
     "groupTitle": "DOMList_Module_Boolean"
   },
   {
+    "group": "DOMList_Module_Boolean",
+    "type": "",
+    "url": "DOMList.hasData(name);",
+    "title": ".hasData()",
+    "name": "HasData",
+    "description": "<p>Check does first selected element has specific data attribute.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Any",
+            "optional": false,
+            "field": "String",
+            "description": "<p>data-attribute name. Use array to check does has one of data-attribute, or use string to check does has both data-attribute.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').hasData('foo'); // Check does has data-attribute 'data-foo'.\n$dom('span').hasData(['foo', 'bar']); // Check does has data-attribute 'data-foo' or 'data-bar'.\n$dom('span').hasData('foo bar'); // Check does has data-attribute 'data-foo' and 'data-bar'.",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Boolean"
+  },
+  {
     "group": "DOMList_Module_Class",
     "type": "addclass",
     "url": "DOMList.addClass(name);",
