@@ -5,7 +5,7 @@
     "url": "$dom(query,context);",
     "title": "$dom()",
     "name": "DOMList",
-    "description": "<p>Find elements using CSS Selector or create new element using HTML formatted string. DOMList using native .querySelectorAll(), so browser support really limited. Only for modern browsers (Chrome 31+, Firefox 33+, IE9+, Safari 7+). <br/><br/></p> ",
+    "description": "<p>Select elements using CSS Selector or create new element using HTML formatted string. <br><br> Primary, DOMList using native .querySelectorAll() that&#39;s only supported by modern browsers (Chrome 31+, Firefox 33+, IE9+, Safari 7+). <br><br> If you want to use DOMList in older browser, you can load jQuery Sizzle before DOMList. DOMList will looking for Sizzle and use it if .querySelectorAll not found. <br/><br/></p> ",
     "parameter": {
       "fields": {
         "Parameter": [
