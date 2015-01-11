@@ -18,6 +18,10 @@ module.exports = function(grunt) {
             core: {
                 files: {
                     'dist/domlist.js': [
+                        // Bundling NativeJS
+                        'node_modules/native-js/dist/nativejs.js',
+
+                        // DOMList files.
                         'source/domlist.js',
                         'source/mod.bool.js',
                     ]
