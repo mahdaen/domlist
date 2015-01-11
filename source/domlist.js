@@ -1375,6 +1375,24 @@
             return new DOMList(cloned);
         },
 
+        /**
+         * @apiGroup DOMList Module Inject
+         *
+         * @api {empty} DOMList.empty(); .empty()
+         * @apiName Empty
+         * @apiDescription Empty all selected elements.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').empty();
+         */
+        empty: function() {
+            this.each(function() {
+                this.innerHTML = '';
+            });
+
+            return this;
+        },
+
         /* EFFECT --------------------------------------------------- */
         /**
          * Animate elements. This module using Greensock (third party).

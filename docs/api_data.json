@@ -715,6 +715,24 @@
   },
   {
     "group": "DOMList_Module_Inject",
+    "type": "empty",
+    "url": "DOMList.empty();",
+    "title": ".empty()",
+    "name": "Empty",
+    "description": "<p>Empty all selected elements.</p> ",
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').empty();",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "source/domlist.js",
+    "groupTitle": "DOMList_Module_Inject"
+  },
+  {
+    "group": "DOMList_Module_Inject",
     "type": "html",
     "url": "DOMList.html(value);",
     "title": ".html()",
