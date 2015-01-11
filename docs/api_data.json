@@ -871,6 +871,24 @@
     "groupTitle": "DOMList_Module_Inject_"
   },
   {
+    "group": "DOMList_Module_Inject_",
+    "type": "Texts",
+    "url": "DOMList.texts();",
+    "title": ".texts()",
+    "name": "Texts",
+    "description": "<p>Get selected elements innerText.</p> ",
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$('span').texts();",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "source/domlist.js",
+    "groupTitle": "DOMList_Module_Inject_"
+  },
+  {
     "group": "DOMList_Module_Inject",
     "type": "insertafter",
     "url": "DOMList.insertAfter(destination)",

@@ -1288,6 +1288,26 @@
         },
 
         /**
+         * @apiGroup DOMList Module Inject.
+         *
+         * @api {Texts} DOMList.texts(); .texts()
+         * @apiName Texts
+         * @apiDescription Get selected elements innerText.
+         *
+         * @apiExample {js} Sample #1
+         * $('span').texts();
+         */
+        texts: function() {
+            var result = [];
+
+            this.each(function() {
+                result.push(this.innerText);
+            });
+
+            return result;
+        },
+
+        /**
          * @apiGroup DOMList Module Inject
          *
          * @api {html} DOMList.html(value); .html()
