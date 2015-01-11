@@ -64,10 +64,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Any",
             "optional": false,
             "field": "name",
-            "description": "<p>String attribute name to check.<br>Use array or string separated by space to check does has multiple attribute.</p> "
+            "description": "<p>String attribute name to check.<br>Use array to check does have one of attributes, or string separated by space to check does has both attribute.</p> "
           }
         ]
       }
@@ -75,7 +75,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Sample #1",
-        "content": "$dom('span').hasAttr('foo'); // Single attribute check.\n$dom('span').hasAttr('foo bar'); // Multiple attributes check.\n$dom('span').hasAttr(['foo', 'bar']); // Multiple attributes check.",
+        "content": "$dom('span').hasAttr('foo'); // Does has attribute foo.\n$dom('span').hasAttr(['foo', 'bar']); // Does has attribute foo or bar.\n$dom('span').hasAttr('foo bar'); // Does has attribute foo and bar.",
         "type": "js"
       }
     ],
