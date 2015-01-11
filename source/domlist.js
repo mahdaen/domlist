@@ -1,4 +1,5 @@
 /**
+ * DOMList
  * HTML Query Selector Helper.
  * This script help us to extend native `element.querySelectorAll()`, makes it looks like a jQuery.
  * Language: Javascript.
@@ -1288,7 +1289,7 @@
         },
 
         /**
-         * @apiGroup DOMList Module Inject.
+         * @apiGroup DOMList Module Inject
          *
          * @api {Texts} DOMList.texts(); .texts()
          * @apiName Texts
@@ -1335,7 +1336,7 @@
         },
 
         /**
-         * @apiGroup DOMList Module Inject.
+         * @apiGroup DOMList Module Inject
          *
          * @api {HTMLs} DOMList.htmls(); .htmls()
          * @apiName HTMLs
