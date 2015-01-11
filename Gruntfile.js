@@ -18,7 +18,8 @@ module.exports = function(grunt) {
             core: {
                 files: {
                     'dist/domlist.js': [
-                        'source/domlist.js'
+                        'source/domlist.js',
+                        'source/mod.bool.js',
                     ]
                 }
             }
@@ -38,7 +39,7 @@ module.exports = function(grunt) {
 
         apidoc: {
             core: {
-                src: 'source/',
+                src: 'dist/',
                 dest: 'docs/'
             }
         },

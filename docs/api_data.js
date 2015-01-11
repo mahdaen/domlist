@@ -49,8 +49,39 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList"
+  },
+  {
+    "group": "DOMList_Module_Boolean",
+    "type": "hasattr",
+    "url": "DOMList.hasAttr(name);",
+    "title": ".hasAttr()",
+    "name": "HasAttr",
+    "description": "<p>Check does the first selected element has specific attribute or not.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>String attribute name to check.<br>Use array or string separated by space to check does has multiple attribute.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').hasAttr('foo'); // Single attribute check.\n$dom('span').hasAttr('foo bar'); // Multiple attributes check.\n$dom('span').hasAttr(['foo', 'bar']); // Multiple attributes check.",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Boolean"
   },
   {
     "group": "DOMList_Module_Class",
@@ -80,7 +111,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Class"
   },
   {
@@ -111,7 +142,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Class"
   },
   {
@@ -142,7 +173,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Class"
   },
   {
@@ -200,7 +231,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -218,7 +249,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -256,7 +287,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -287,7 +318,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -305,7 +336,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -323,7 +354,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -361,7 +392,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -379,7 +410,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -397,7 +428,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -428,7 +459,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -459,7 +490,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -497,7 +528,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -528,7 +559,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -546,7 +577,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -584,7 +615,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -615,7 +646,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Core"
   },
   {
@@ -661,7 +692,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -692,7 +723,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -710,7 +741,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -728,7 +759,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -759,7 +790,25 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Inject"
+  },
+  {
+    "group": "DOMList_Module_Inject",
+    "type": "HTMLs",
+    "url": "DOMList.htmls();",
+    "title": ".htmls()",
+    "name": "HTMLs",
+    "description": "<p>Get selected elements innerHTML</p> ",
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$('span').htmls();",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -805,7 +854,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -836,7 +885,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -867,29 +916,11 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
-    "group": "DOMList_Module_Inject_",
-    "type": "HTMLs",
-    "url": "DOMList.htmls();",
-    "title": ".htmls()",
-    "name": "HTMLs",
-    "description": "<p>Get selected elements innerHTML</p> ",
-    "examples": [
-      {
-        "title": "Sample #1",
-        "content": "$('span').htmls();",
-        "type": "js"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "source/domlist.js",
-    "groupTitle": "DOMList_Module_Inject_"
-  },
-  {
-    "group": "DOMList_Module_Inject_",
+    "group": "DOMList_Module_Inject",
     "type": "Texts",
     "url": "DOMList.texts();",
     "title": ".texts()",
@@ -903,8 +934,8 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
-    "groupTitle": "DOMList_Module_Inject_"
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Inject"
   },
   {
     "group": "DOMList_Module_Inject",
@@ -934,7 +965,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   },
   {
@@ -965,7 +996,7 @@ define({ "api": [
       }
     ],
     "version": "0.0.0",
-    "filename": "source/domlist.js",
+    "filename": "dist/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
   }
 ] });
