@@ -1314,6 +1314,17 @@
             return this;
         },
 
+        clone: function() {
+            var cloned = [];
+
+            this.each(function() {
+                var clone = this.cloneNode(true);
+                cloned.push(clone);
+            });
+
+            return new DOMList(cloned);
+        },
+
         /* EFFECT --------------------------------------------------- */
         /**
          * Animate elements. This module using Greensock (third party).
