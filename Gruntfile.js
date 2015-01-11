@@ -26,6 +26,13 @@ module.exports = function(grunt) {
                         'source/mod.bool.js',
                     ]
                 }
+            },
+            tags: {
+                files: {
+                    'tags/v2.0.0.js': [
+                        'dist/domlist.js'
+                    ]
+                }
             }
         },
 
@@ -43,7 +50,7 @@ module.exports = function(grunt) {
 
         apidoc: {
             core: {
-                src: 'dist/',
+                src: 'tags/',
                 dest: 'docs/'
             }
         },
@@ -72,4 +79,6 @@ module.exports = function(grunt) {
     grunt.registerTask('devel', ['concat', 'apidoc', 'watch']);
     grunt.registerTask('alpha', ['concat', 'apidoc']);
     grunt.registerTask('build', ['concat', 'apidoc', 'uglify:build']);
+
+    grunt.registerTask('docs', ['apidoc']);
 }
