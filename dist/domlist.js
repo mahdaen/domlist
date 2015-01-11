@@ -299,6 +299,18 @@
             }
         },
 
+        /**
+         * @apiGroup DOMList Module Core
+         *
+         * @api DOMList.filter(query); .filter()
+         * @apiName Filter
+         * @apiDescription Filter the selected elements with specific CSS Selector.
+         *
+         * @apiParam {String} query String CSS Selector to filter.
+         *
+         * @apiExample Sample #1
+         * $dom('span').filter('.a'); // Get all span and filter that has class 'a'.
+         */
         filter: function(query) {
             var $this = this;
 
