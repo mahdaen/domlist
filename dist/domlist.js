@@ -32,6 +32,7 @@ window.__nconfig = {};
 
 (function() {
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isDefined} isDefined(variable); isDefined()
@@ -53,6 +54,7 @@ window.__nconfig = {};
     window.isDefined = function($object) { return isDefined($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isString} isString(variable); isString()
@@ -74,6 +76,7 @@ window.__nconfig = {};
     window.isString = function($object) { return isString($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isObject} isObject(variable); isObject()
@@ -95,6 +98,7 @@ window.__nconfig = {};
     window.isObject = function($object) { return isObject($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isArray} isArray(variable); isArray()
@@ -116,6 +120,7 @@ window.__nconfig = {};
     window.isArray = function($object) { return isArray($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isFunction} isFunction(variable); isFunction()
@@ -137,6 +142,7 @@ window.__nconfig = {};
     window.isFunction = function($object) { return isFunction($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isNumber} isNumber(variable); isNumber()
@@ -158,6 +164,7 @@ window.__nconfig = {};
     window.isNumber =  function($object) { return isNumber($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isBoolean} isBoolean(variable); isBoolean()
@@ -179,6 +186,7 @@ window.__nconfig = {};
     window.isBoolean = function($object) { return isBoolean($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isJQuery} isJQuery(variable); isJQuery()
@@ -200,6 +208,7 @@ window.__nconfig = {};
     window.isJQuery = function($object) { return isJQuery($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isHTML} isHTML(variable); isHTML()
@@ -221,6 +230,7 @@ window.__nconfig = {};
     window.isHTML = function($object) { return isHTML($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isDOMList} isDOMList(variable); isDOMList()
@@ -242,6 +252,7 @@ window.__nconfig = {};
     window.isDOMList = function($object) { return isDOMList($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isHTMLString} isHTMLString(variable); isHTMLString()
@@ -263,6 +274,7 @@ window.__nconfig = {};
     window.isHTMLString = function($object) { return isHTMLString($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isColor} isColor(variable); isColor()
@@ -284,6 +296,7 @@ window.__nconfig = {};
     window.isColor = function($object) { return isColor($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isURL} isURL(variable); isURL()
@@ -305,6 +318,7 @@ window.__nconfig = {};
     window.isURL = function($object) { return isURL($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isEmail} isEmail(variable); isEmail()
@@ -326,6 +340,7 @@ window.__nconfig = {};
     window.isEmail = function($object) { return isEmail($object) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Data Type
      *
      * @api {isDate} isDate(variable); isDate()
@@ -354,6 +369,7 @@ window.__nconfig = {};
 
 (function() {
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Iterator
      *
      * @api {foreach} foreach(object,handler); foreach()
@@ -429,6 +445,7 @@ window.__nconfig = {};
     };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Iterator
      *
      * @api {reveach} reveach(object,handler); reveach()
@@ -519,6 +536,7 @@ window.__functions = {};
 
 (function() {
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Private
      *
      * @api {vars} vars(name,value); vars()
@@ -559,6 +577,7 @@ window.__functions = {};
     window.vars = function($name, $value) { return new vars($name, $value) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Private
      *
      * @api {cons} cons(name,value); cons()
@@ -604,6 +623,7 @@ window.__functions = {};
     window.cons = function($name, $value) { return new cons($name, $value) };
 
     /**
+     * @apiVersion 1.1.0
      * @apiGroup Private
      *
      * @api {func} func(name,handler); func()
@@ -729,6 +749,7 @@ window.circle = function(obj, reversed) {
     'use strict';
 
     /**
+     * @apiVersion 2.0.0
      * @apiGroup DOMList
      *
      * @api {selector} $dom(query,context); $dom()
@@ -901,6 +922,7 @@ window.circle = function(obj, reversed) {
         /* BASIC ----------------------------------- */
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {first} DOMList.first(); .first()
@@ -915,6 +937,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {firstchild} DOMList.firstChild(); .firstChild()
@@ -938,6 +961,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {last} DOMList.last(); .last()
@@ -952,6 +976,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {lastchild} DOMList.lastChild(); .lastChild()
@@ -975,6 +1000,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {nth} DOMList.nth(index); .nth()
@@ -991,6 +1017,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {nthChild} DOMList.nthChild(index); .nthChild()
@@ -1016,6 +1043,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {children} DOMList.children(); .children()
@@ -1038,6 +1066,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {finder} DOMList.find(query); .find()
@@ -1057,6 +1086,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api DOMList.filter(query); .filter()
@@ -1096,6 +1126,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {iterator} DOMList.each(handler); .each()
@@ -1128,6 +1159,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {attr} DOMList.attr(name,value); .attr()
@@ -1268,6 +1300,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {remattr} DOMList.remAttr(name); .remAttr()
@@ -1311,6 +1344,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {data} DOMList.data(name,value); .data()
@@ -1379,6 +1413,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api DOMList.remData(name); .remData()
@@ -1410,6 +1445,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {prop} DOMList.prop(name,value); .prop()
@@ -1450,6 +1486,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {val} DOMList.val(value); .val()
@@ -1471,6 +1508,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {remove} DOMList.remove(); .remove()
@@ -1489,6 +1527,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {sort} DOMList.sortBy(attr,options); .sortBy()
@@ -1593,6 +1632,7 @@ window.circle = function(obj, reversed) {
         /* CLASS ------------------------------------ */
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Class
          *
          * @api {addclass} DOMList.addClass(name); .addClass()
@@ -1628,6 +1668,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Class
          *
          * @api {remclass} DOMList.remClass(name); .remClass()
@@ -1664,6 +1705,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Class
          *
          * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
@@ -1695,6 +1737,7 @@ window.circle = function(obj, reversed) {
         /* INJECT ------------------------------------------ */
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {append} DOMList.append(childs); .append()
@@ -1759,6 +1802,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {prepend} DOMList.prepend(childs) .prepend()
@@ -1856,6 +1900,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {appendto} DOMList.appendTo(destination) .appendTo()
@@ -1904,6 +1949,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {perependto} DOMList.prependTo(destination) .prependTo()
@@ -1993,6 +2039,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
@@ -2046,6 +2093,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
@@ -2099,6 +2147,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {text} DOMList.text(value); .text()
@@ -2126,6 +2175,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {Texts} DOMList.texts(); .texts()
@@ -2146,6 +2196,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {html} DOMList.html(value); .html()
@@ -2173,6 +2224,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {HTMLs} DOMList.htmls(); .htmls()
@@ -2193,6 +2245,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {clone} DOMList.clone(); .clone()
@@ -2214,6 +2267,7 @@ window.circle = function(obj, reversed) {
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {empty} DOMList.empty(); .empty()
@@ -2284,6 +2338,7 @@ window.circle = function(obj, reversed) {
 
 (function($dom) {
     /**
+     * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
      * @api {hasattr} DOMList.hasAttr(name); .hasAttr()
@@ -2332,6 +2387,7 @@ window.circle = function(obj, reversed) {
     };
 
     /**
+     * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
      * @api DOMList.hasData(name); .hasData()
@@ -2368,6 +2424,7 @@ window.circle = function(obj, reversed) {
     };
 
     /**
+     * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
      * @api DOMList.hasClass(name); .hasClass()

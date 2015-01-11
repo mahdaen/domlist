@@ -13,6 +13,7 @@
     'use strict';
 
     /**
+     * @apiVersion 2.0.0
      * @apiGroup DOMList
      *
      * @api {selector} $dom(query,context); $dom()
@@ -185,6 +186,7 @@
         /* BASIC ----------------------------------- */
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {first} DOMList.first(); .first()
@@ -199,6 +201,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {firstchild} DOMList.firstChild(); .firstChild()
@@ -222,6 +225,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {last} DOMList.last(); .last()
@@ -236,6 +240,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {lastchild} DOMList.lastChild(); .lastChild()
@@ -259,6 +264,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {nth} DOMList.nth(index); .nth()
@@ -275,6 +281,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {nthChild} DOMList.nthChild(index); .nthChild()
@@ -300,6 +307,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {children} DOMList.children(); .children()
@@ -322,6 +330,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {finder} DOMList.find(query); .find()
@@ -341,6 +350,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api DOMList.filter(query); .filter()
@@ -380,6 +390,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {iterator} DOMList.each(handler); .each()
@@ -412,6 +423,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {attr} DOMList.attr(name,value); .attr()
@@ -552,6 +564,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {remattr} DOMList.remAttr(name); .remAttr()
@@ -595,6 +608,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {data} DOMList.data(name,value); .data()
@@ -663,6 +677,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api DOMList.remData(name); .remData()
@@ -694,6 +709,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {prop} DOMList.prop(name,value); .prop()
@@ -734,6 +750,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {val} DOMList.val(value); .val()
@@ -755,6 +772,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {remove} DOMList.remove(); .remove()
@@ -773,6 +791,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Core
          *
          * @api {sort} DOMList.sortBy(attr,options); .sortBy()
@@ -877,6 +896,7 @@
         /* CLASS ------------------------------------ */
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Class
          *
          * @api {addclass} DOMList.addClass(name); .addClass()
@@ -912,6 +932,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Class
          *
          * @api {remclass} DOMList.remClass(name); .remClass()
@@ -948,6 +969,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Class
          *
          * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
@@ -979,6 +1001,7 @@
         /* INJECT ------------------------------------------ */
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {append} DOMList.append(childs); .append()
@@ -1043,6 +1066,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {prepend} DOMList.prepend(childs) .prepend()
@@ -1140,6 +1164,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {appendto} DOMList.appendTo(destination) .appendTo()
@@ -1188,6 +1213,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {perependto} DOMList.prependTo(destination) .prependTo()
@@ -1277,6 +1303,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
@@ -1330,6 +1357,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList.Module.Inject
          *
          * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
@@ -1383,6 +1411,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {text} DOMList.text(value); .text()
@@ -1410,6 +1439,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {Texts} DOMList.texts(); .texts()
@@ -1430,6 +1460,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {html} DOMList.html(value); .html()
@@ -1457,6 +1488,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {HTMLs} DOMList.htmls(); .htmls()
@@ -1477,6 +1509,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {clone} DOMList.clone(); .clone()
@@ -1498,6 +1531,7 @@
         },
 
         /**
+         * @apiVersion 2.0.0
          * @apiGroup DOMList Module Inject
          *
          * @api {empty} DOMList.empty(); .empty()
