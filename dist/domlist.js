@@ -735,9 +735,11 @@ window.circle = function(obj, reversed) {
      * @apiName DOMList
      *
      * @apiDescription
-     * Find elements using CSS Selector or create new element using HTML formatted string.
-     * DOMList using native .querySelectorAll(), so browser support really limited.
-     * Only for modern browsers (Chrome 31+, Firefox 33+, IE9+, Safari 7+).
+     * Select elements using CSS Selector or create new element using HTML formatted string.
+     * <br><br>
+     * Primary, DOMList using native .querySelectorAll() that's only supported by modern browsers (Chrome 31+, Firefox 33+, IE9+, Safari 7+).
+     * <br><br>
+     * If you want to use DOMList in older browser, you can load jQuery Sizzle before DOMList. DOMList will looking for Sizzle and use it if .querySelectorAll not found.
      * <br/><br/>
      *
      * @apiParam {String} query HTML Element, DOMList, CSS Selector string or HTML formatted string for create element.
@@ -761,7 +763,14 @@ window.circle = function(obj, reversed) {
      * var bt = $dom('button', '.wrapper');
      */
     var DOMList = function(query, context) {
-        var $this = this;
+        var $this = this, modern;
+
+        /* Check does support native selector */
+        if (document.querySelectorAll) {
+            modern = false;
+        } else {
+            modern = false;
+        }
 
         /* Adding length */
         this.length = 0;
@@ -772,7 +781,15 @@ window.circle = function(obj, reversed) {
 
             /* Using HTMLElement as context */
             if (isHTML(context)) {
-                result = context.querySelectorAll(query);
+                if (modern) {
+                    result = context.querySelectorAll(query);
+                } else {
+                    if (window.Sizzle) {
+                        result = Sizzle(query, context);
+                    } else {
+                        result = [];
+                    }
+                }
             }
 
             /* Using NodeList as context */
@@ -781,16 +798,32 @@ window.circle = function(obj, reversed) {
 
                 /* Iterate each item to search */
                 context.each(function() {
-                    var res = this.querySelectorAll(query);
+                    if (modern) {
+                        var res = this.querySelectorAll(query);
+                    } else {
+                        if (window.Sizzle) {
+                            var res = Sizzle(query, this);
+                        } else {
+                            res = [];
+                        }
+                    }
 
                     /* Adding result finder */
-                    foreach(res, function (i, node) {
-                        if (i !== 'length') {
-                            $this[length ] = node;
+                    if (modern) {
+                        foreach(res, function (i, node) {
+                            if (i !== 'length') {
+                                $this[length] = node;
+                                $this.length = (length + 1);
+                                length++;
+                            }
+                        });
+                    } else {
+                        foreach(res, function (node, i) {
+                            $this[length] = node;
                             $this.length = (length + 1);
                             length++;
-                        }
-                    });
+                        });
+                    }
                 });
             }
 
@@ -811,7 +844,15 @@ window.circle = function(obj, reversed) {
                 }
                 /* If string is CSS Selector */
                 else {
-                    result = document.querySelectorAll(query);
+                    if (modern) {
+                        result = document.querySelectorAll(query);
+                    } else {
+                        if (window.Sizzle) {
+                            result = Sizzle(query);
+                        } else {
+                            result = [];
+                        }
+                    }
                 }
             }
 
