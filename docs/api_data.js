@@ -86,6 +86,37 @@ define({ "api": [
   {
     "group": "DOMList_Module_Boolean",
     "type": "",
+    "url": "DOMList.hasClass(name);",
+    "title": ".hasClass()",
+    "name": "HasClass",
+    "description": "<p>Check does first selected element has specific class.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Any",
+            "optional": false,
+            "field": "name",
+            "description": "<p>String class name. Use array to check does has on of class, or use string space-delimiter to check does has both class.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample#1",
+        "content": "$dom('span').hasClass('foo'); // Check does has class foo.\n$dom('span').hasClass(['foo', 'bar']); // Check does has class foo or bar.\n$dom('span').hasClass('foo bar'); // Check does has class foo and bar.",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Boolean"
+  },
+  {
+    "group": "DOMList_Module_Boolean",
+    "type": "",
     "url": "DOMList.hasData(name);",
     "title": ".hasData()",
     "name": "HasData",

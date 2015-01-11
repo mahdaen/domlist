@@ -86,4 +86,52 @@
 
         return this.hasAttr(name);
     };
+
+    /**
+     * @apiGroup DOMList Module Boolean
+     *
+     * @api DOMList.hasClass(name); .hasClass()
+     * @apiName HasClass
+     * @apiDescription Check does first selected element has specific class.
+     *
+     * @apiParam {Any} name String class name. Use array to check does has on of class, or use string space-delimiter to check does has both class.
+     *
+     * @apiExample Sample#1
+     * $dom('span').hasClass('foo'); // Check does has class foo.
+     * $dom('span').hasClass(['foo', 'bar']); // Check does has class foo or bar.
+     * $dom('span').hasClass('foo bar'); // Check does has class foo and bar.
+     */
+    $dom.module.hasClass = function(name) {
+        var has = false, hasfalse = false;
+
+        var cls = this.attr('class').split(/\s+/);
+
+        if (isString(name)) {
+            if (name.search(/\s+/)) {
+                name = name.split(/\s+/);
+
+                foreach(name, function (clas) {
+                    if (cls.indexOf(clas) > -1) {
+                        has = true;
+                    } else {
+                        hasfalse = true;
+                    }
+                });
+
+                return has === true && hasfalse === false ? true : false;
+            } else {
+                if (cls.indexOf(name) > -1) {
+                    has = true;
+                }
+            }
+        } else if (isArray(name)) {
+            foreach(name, function(clas) {
+                if (cls.indexOf(clas) > -1) {
+                    has = true;
+                }
+            });
+        }
+
+        return has;
+    };
 })(DOMList);
