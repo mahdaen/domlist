@@ -548,12 +548,17 @@
          * @apiName Data
          * @apiDescription Get first selected element data or set all selected elements data.
          *
-         * @apiParam {String} name String data-attribute name. E.g. 'profile' for 'data-profile'.
-         * @apiParam {Any} value Value to set. Leave blank if yout want to get the data-attribute-value.
+         * @apiParam {Any} name String data-attribute name. E.g. 'profile' for 'data-profile'.<br>Use string space-delimiter to get or set multiple data-attribute. E.g 'foo bar' for 'data-foo data-bar'.
+         * @apiParam {Any} [value] Value to set. Leave blank if yout want to get the data-attribute-value. Use array to wrap values if you set multiple data-attribute.
          *
          * @apiExample {js} Sample #1
+         * $dom('span').data(); // Get all data-attributes.
+         *
          * $dom('span').data('foo'); // Get value of 'data-foo'.
          * $dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.
+         *
+         * $dom('span').data('foo bar'); // Get data-foo and data-bar.
+         * $dom('span').data('foo bar', [200, {a: 1, b: 2}]); // Set data-foo with 200, data-bar with object.
          */
         data: function(name, value) {
             var $this = this;
@@ -562,11 +567,43 @@
             if ($this.length <= 0) $this;
 
             if (isString(name)) {
-                if (isDefined(value)) {
-                    $this.attr('data-' + name, value);
+                if (name.match(/\s+/)) {
+                    name = name.split(/\s+/);
+
+                    if (isDefined(value)) {
+                        foreach(name, function(attr, i) {
+                            if (isString(value)) {
+                                $this.attr('data-' + attr, value);
+                            } else if (isArray(value)) {
+                                $this.attr('data-' + attr, value[i]);
+                            }
+                        });
+                    } else {
+                        var data = {};
+
+                        foreach(name, function (attr) {
+                            data[attr] = $this.attr('data-' + attr);
+                        });
+
+                        return data;
+                    }
                 } else {
-                    return $this.first().attr('data-' + name);
+                    if (isDefined(value)) {
+                        $this.attr('data-' + name, value);
+                    } else {
+                        return $this.first().attr('data-' + name);
+                    }
                 }
+            } else {
+                var atrs = $this.attr(), data = {};
+
+                foreach(atrs, function (attr, i) {
+                    if (attr.match(/data-/)) {
+                        data[attr.replace('data-', '')] = $this.attr(attr);
+                    }
+                });
+
+                return data;
             }
 
             return $this;
