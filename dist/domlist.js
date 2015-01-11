@@ -1288,6 +1288,26 @@
         },
 
         /**
+         * @apiGroup DOMList Module Inject.
+         *
+         * @api {Texts} DOMList.texts(); .texts()
+         * @apiName Texts
+         * @apiDescription Get selected elements innerText.
+         *
+         * @apiExample {js} Sample #1
+         * $('span').texts();
+         */
+        texts: function() {
+            var result = [];
+
+            this.each(function() {
+                result.push(this.innerText);
+            });
+
+            return result;
+        },
+
+        /**
          * @apiGroup DOMList Module Inject
          *
          * @api {html} DOMList.html(value); .html()
@@ -1314,6 +1334,36 @@
             return this;
         },
 
+        /**
+         * @apiGroup DOMList Module Inject.
+         *
+         * @api {HTMLs} DOMList.htmls(); .htmls()
+         * @apiName HTMLs
+         * @apiDescription Get selected elements innerHTML
+         *
+         * @apiExample {js} Sample #1
+         * $('span').htmls();
+         */
+        htmls: function() {
+            var result = [];
+
+            this.each(function() {
+                result.push(this.innerHTML);
+            });
+
+            return result;
+        },
+
+        /**
+         * @apiGroup DOMList Module Inject
+         *
+         * @api {clone} DOMList.clone(); .clone()
+         * @apiName Clone
+         * @apiDescription Clone selected elements.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').clone();
+         */
         clone: function() {
             var cloned = [];
 
@@ -1323,6 +1373,24 @@
             });
 
             return new DOMList(cloned);
+        },
+
+        /**
+         * @apiGroup DOMList Module Inject
+         *
+         * @api {empty} DOMList.empty(); .empty()
+         * @apiName Empty
+         * @apiDescription Empty all selected elements.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').empty();
+         */
+        empty: function() {
+            this.each(function() {
+                this.innerHTML = '';
+            });
+
+            return this;
         },
 
         /* EFFECT --------------------------------------------------- */
