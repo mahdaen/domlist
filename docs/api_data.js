@@ -295,17 +295,17 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Any",
             "optional": false,
             "field": "name",
-            "description": "<p>String data-attribute name. E.g. &#39;profile&#39; for &#39;data-profile&#39;.</p> "
+            "description": "<p>String data-attribute name. E.g. &#39;profile&#39; for &#39;data-profile&#39;.<br>Use string space-delimiter to get or set multiple data-attribute. E.g &#39;foo bar&#39; for &#39;data-foo data-bar&#39;.</p> "
           },
           {
             "group": "Parameter",
             "type": "Any",
-            "optional": false,
+            "optional": true,
             "field": "value",
-            "description": "<p>Value to set. Leave blank if yout want to get the data-attribute-value.</p> "
+            "description": "<p>Value to set. Leave blank if yout want to get the data-attribute-value. Use array to wrap values if you set multiple data-attribute.</p> "
           }
         ]
       }
@@ -313,7 +313,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Sample #1",
-        "content": "$dom('span').data('foo'); // Get value of 'data-foo'.\n$dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.",
+        "content": "$dom('span').data(); // Get all data-attributes.\n\n$dom('span').data('foo'); // Get value of 'data-foo'.\n$dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.\n\n$dom('span').data('foo bar'); // Get data-foo and data-bar.\n$dom('span').data('foo bar', [200, {a: 1, b: 2}]); // Set data-foo with 200, data-bar with object.",
         "type": "js"
       }
     ],
