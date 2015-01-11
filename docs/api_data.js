@@ -354,6 +354,37 @@ define({ "api": [
   },
   {
     "group": "DOMList_Module_Core",
+    "type": "",
+    "url": "DOMList.filter(query);",
+    "title": ".filter()",
+    "name": "Filter",
+    "description": "<p>Filter the selected elements with specific CSS Selector.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>String CSS Selector to filter.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').filter('.a'); // Get all span and filter that has class 'a'.",
+        "type": "json"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "dist/domlist.js",
+    "groupTitle": "DOMList_Module_Core"
+  },
+  {
+    "group": "DOMList_Module_Core",
     "type": "finder",
     "url": "DOMList.find(query);",
     "title": ".find()",
