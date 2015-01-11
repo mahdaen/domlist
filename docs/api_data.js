@@ -697,6 +697,24 @@ define({ "api": [
   },
   {
     "group": "DOMList_Module_Inject",
+    "type": "clone",
+    "url": "DOMList.clone();",
+    "title": ".clone()",
+    "name": "Clone",
+    "description": "<p>Clone selected elements.</p> ",
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$dom('span').clone();",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "source/domlist.js",
+    "groupTitle": "DOMList_Module_Inject"
+  },
+  {
+    "group": "DOMList_Module_Inject",
     "type": "html",
     "url": "DOMList.html(value);",
     "title": ".html()",
@@ -833,6 +851,24 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "source/domlist.js",
     "groupTitle": "DOMList_Module_Inject"
+  },
+  {
+    "group": "DOMList_Module_Inject_",
+    "type": "HTMLs",
+    "url": "DOMList.htmls();",
+    "title": ".htmls()",
+    "name": "HTMLs",
+    "description": "<p>Get selected elements innerHTML</p> ",
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "$('span').htmls();",
+        "type": "js"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "source/domlist.js",
+    "groupTitle": "DOMList_Module_Inject_"
   },
   {
     "group": "DOMList_Module_Inject",

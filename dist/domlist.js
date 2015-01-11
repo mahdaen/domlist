@@ -1314,6 +1314,36 @@
             return this;
         },
 
+        /**
+         * @apiGroup DOMList Module Inject.
+         *
+         * @api {HTMLs} DOMList.htmls(); .htmls()
+         * @apiName HTMLs
+         * @apiDescription Get selected elements innerHTML
+         *
+         * @apiExample {js} Sample #1
+         * $('span').htmls();
+         */
+        htmls: function() {
+            var result = [];
+
+            this.each(function() {
+                result.push(this.innerHTML);
+            });
+
+            return result;
+        },
+
+        /**
+         * @apiGroup DOMList Module Inject
+         *
+         * @api {clone} DOMList.clone(); .clone()
+         * @apiName Clone
+         * @apiDescription Clone selected elements.
+         *
+         * @apiExample {js} Sample #1
+         * $dom('span').clone();
+         */
         clone: function() {
             var cloned = [];
 
