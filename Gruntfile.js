@@ -18,12 +18,17 @@ module.exports = function(grunt) {
             core: {
                 files: {
                     'dist/domlist.js': [
-                        // Bundling NativeJS
+                        /* Externals */
                         'node_modules/native-js/dist/nativejs.js',
 
-                        // DOMList files.
-                        'source/domlist.js',
+                        /* Cores */
+                        'source/com.core.js',
                         'source/com.data.js',
+
+                        /* Modules */
+                        'source/mod.core.js',
+                        'source/mod.class.js',
+                        'source/mod.inject.js',
                         'source/mod.bool.js',
                     ]
                 }
@@ -63,7 +68,7 @@ module.exports = function(grunt) {
             },
             core: {
                 files: ['source/**/*.js'],
-                tasks: ['concat:core', 'apidoc']
+                tasks: ['concat', 'apidoc']
             }
         }
     });
