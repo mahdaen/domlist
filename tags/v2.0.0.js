@@ -1986,6 +1986,25 @@ window.circle = function(obj, reversed) {
 
         return arr;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {parent} DOMList.parent() .parent()
+     * @apiName Parent
+     * @apiDescription Get the parent element of first selected element as DOMList object.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').parent(); // Get the parent element of first span.
+     */
+    $dom.module.parent = function() {
+        if (this.length <= 0) return this;
+
+        var first = this[0];
+
+        return $dom(first.parentElement);
+    };
 })(DOMList);
 
 (function($dom) {
