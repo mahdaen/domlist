@@ -765,4 +765,43 @@
 
         return arr;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {parent} DOMList.parent() .parent()
+     * @apiName Parent
+     * @apiDescription Get the parent element of first selected element as DOMList object.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').parent(); // Get the parent element of first span.
+     */
+    $dom.module.parent = function() {
+        if (this.length <= 0) return this;
+
+        var first = this[0];
+
+        return $dom(first.parentElement);
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     * @api {parents} DOMList.parents(); .parents()
+     * @apiName Parents
+     * @apiDescription Get all parent element of all selected elements as DOMList object.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').parents(); // Get the parent element of each span.
+     */
+    $dom.module.parents = function() {
+        var result = $dom();
+
+        this.each(function() {
+            result.push(this.parentElement);
+        });
+
+        return result;
+    };
 })(DOMList);
