@@ -737,10 +737,8 @@ window.circle = function(obj, reversed) {
 /**
  * DOMList
  * HTML Query Selector Helper.
- * This script help us to extend native `element.querySelectorAll()`, makes it looks like a jQuery.
+ * Help extends the functionallity of 'querySelectorAll', just like jQuery, but smaller, have some difference and light.
  * Language: Javascript.
- * Browser Supports: Chrome 31+, Firefox 33+, IE9+, Safari 7+.
- * Dependencies: NativeJS v1.0.1+ (https://github.com/mahdaen/native-js).
  * Created by mahdaen on 1/7/15.
  * License: GNU General Public License v2 or later.
  */
@@ -912,1380 +910,40 @@ window.circle = function(obj, reversed) {
     /* Registering DOMList to Window */
     $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) };
 
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList
+     * @api $dom.exnted(name,handler); $dom.extend()
+     * @apiName Extend
+     * @apiDescription Register DOMList Modules.
+     *
+     * @apiParam {Multi} name String module name or object contains modules.
+     * @apiParam {function} [handler] Function that handle module.
+     *
+     * @apiExample Sample
+     * $dom.extend('foo', function() {}); // Add module 'foo' to DOMList.
+     * $dom.extend({ foo: function() {}, bar: function() {} }); // Add multiple modules to DOMList.
+     */
+    $root.DOMList.extend = function(name, handler) {
+        if (isString(name) && isFunction(handler)) {
+            $root.DOMList.module[name] = handler;
+        } else if (isObject(name)) {
+            foreach(name, function (name, handler) {
+                if (isFunction(handler)) {
+                    $root.DOMList.module[name] = handler;
+                }
+            });
+        }
+
+        return name;
+    };
+
     /* Creating Modules */
-    $root.$dom.module = DOMList.prototype = {
+    $root.DOMList.module = DOMList.prototype = {
         name: 'DOMList',
 
         /* Copy splice from array */
         splice: Array.prototype.splice,
-
-        /* BASIC ----------------------------------- */
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {first} DOMList.first(); .first()
-         * @apiName First
-         * @apiDescription Get the first child of selected elements. Return new DOMList object.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').first();
-         */
-        first: function() {
-            return this.length > 0 ? new DOMList(this[0]) : this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {firstchild} DOMList.firstChild(); .firstChild()
-         * @apiName FirstChild
-         * @apiDescription Get the first child of the first selected elements. Return new DOMList object.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.container').firstChild();
-         */
-        firstChild: function() {
-            if (this.length <= 0) return this;
-
-            var first = this[0];
-            var child = first.children;
-
-            if (child.length > 0) {
-                return new DOMList(child[0]);
-            } else {
-                return new DOMList();
-            }
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {last} DOMList.last(); .last()
-         * @apiName Last
-         * @apiDescription Get the last child of selected elements. Return new DOMList object.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').last();
-         */
-        last: function() {
-            return this.length > 0 ? new DOMList(this[this.length - 1]) : this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {lastchild} DOMList.lastChild(); .lastChild()
-         * @apiName LastChild
-         * @apiDescription Get the last child of the first selected elements. Return new DOMList object.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.container').lastChild();
-         */
-        lastChild: function() {
-            if (this.length <= 0) return this;
-
-            var first = this[0];
-            var child = first.children;
-
-            if (child.length > 0) {
-                return new DOMList(child[child.length - 1]);
-            } else {
-                return new DOMList();
-            }
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {nth} DOMList.nth(index); .nth()
-         * @apiName NTH
-         * @apiDescription Get the selected elements by specific index. Return new DOMList object.
-         *
-         * @apiParam {Number} index Index number. Start from 0.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').nth(0);
-         */
-        nth: function(i) {
-            return isNumber(i) && this.hasOwnProperty(i) ? new DOMList(this[i]) : new DOMList();
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {nthChild} DOMList.nthChild(index); .nthChild()
-         * @apiName NthChild
-         * @apiDescription Get the child elements by specific index from the first selected elements. Return new DOMList object.
-         *
-         * @apiParam {Number} index Index number. Start from 0.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.container').nthChild(3);
-         */
-        nthChild: function(i) {
-            if (this.length <= 0) return this;
-
-            var fisrt = this[0];
-            var child = fisrt.children;
-
-            if (child.length > 0) {
-                return child.hasOwnProperty(i) ? new DOMList(child[i]) : new DOMList();
-            } else {
-                return new DOMList();
-            }
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {children} DOMList.children(); .children()
-         * @apiName Children
-         * @apiDescription Get child elements of first selected element.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.container').children();
-         */
-        children: function() {
-            if (this.first().length > 0) {
-                var childs = this.first()[0].children;
-
-                childs.constructor.prototype.name = 'DOMList';
-
-                return new DOMList(childs);
-            } else {
-                return new DOMList();
-            }
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {finder} DOMList.find(query); .find()
-         * @apiName Find
-         * @apiDescription Find elements from current selected elements.
-         *
-         * @apiParam {String} query CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * var wrap = $dom('.wrapper');
-         * var span = wrap.find('span');
-         */
-        find: function(query) {
-            if (isString(query)) {
-                return new DOMList(query, this);
-            }
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api DOMList.filter(query); .filter()
-         * @apiName Filter
-         * @apiDescription Filter the selected elements with specific CSS Selector.
-         *
-         * @apiParam {String} query String CSS Selector to filter.
-         *
-         * @apiExample Sample #1
-         * $dom('span').filter('.a'); // Get all span and filter that has class 'a'.
-         */
-        filter: function(query) {
-            var $this = this;
-
-            if (!isString(query)) return this;
-
-            var wrap = document.createElement('div'), elems = '', result, src = [], cand = [];
-
-            this.each(function() {
-                elems += this.outerHTML;
-                src.push(this.outerHTML);
-            });
-
-            wrap.innerHTML = elems;
-
-            result = wrap.find(query);
-
-            result.each(function() {
-                var self = this.outerHTML;
-
-                if (src.indexOf(self) > -1) {
-                    cand.push(this);
-                }
-            });
-
-            return new DOMList(cand);
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {iterator} DOMList.each(handler); .each()
-         * @apiName Iterator
-         * @apiDescription Iterate each element inside DOMList.
-         *
-         * @apiParam {Function} handler Function that handle each element. Element index will be provide as argument when calling handler.
-         * @apiParam {Boolean} [reversed] Does iteration is reversed or not.
-         *
-         * @apiExample {js} Sample #1
-         * var span = $dom('span');
-         * span.each(function(i) {
-         *     console.log(i, this);
-         * });
-         */
-        each: function(handler, reversed) {
-            if (isFunction(handler)) {
-                if (reversed) {
-                    reveach(this, function(node, i) {
-                        handler.call(node, i, node);
-                    });
-                } else {
-                    foreach(this, function(node, i) {
-                        handler.call(node, i, node);
-                    });
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {attr} DOMList.attr(name,value); .attr()
-         * @apiName Attr
-         * @apiDescription Attribute getter and setter. You can set value with anythings. They will be automatically converted. When you get the value, they also will be converted automatically.
-         *
-         * @apiParam {Any} name String attribute name or Object containing list of attributes or Array containing attribute name list.
-         * @apiParam {Any} [value] Attribute value.
-         *
-         * @apiExample {js} Sample #1
-         * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-         *
-         * // Get all attributes.
-         * var attr = $dom('.foo').attr();
-         * //>> attr => { class: "foo", bar: 10, foo: false, foobar: [1,2,3] }
-         *
-         * @apiExample {js} Sample #2
-         * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-         *
-         * // Get single attribute value.
-         * var attr = $dom('.foo').attr('foo');
-         * //>> attr => false
-         *
-         * @apiExample {js} Sample #3
-         * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-         *
-         * // Set single attribute and value.
-         * $dom('.foo').attr('barfoo', { a: 1, b: 2, c: 3 });
-         *
-         * @apiExample {js} Sample #4
-         * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-         *
-         * // Set multiple attribute and value.
-         * $dom('.foo').attr({ foo: true, bar: 100, foobar: { a: 1, b: 2, c: 3 } });
-         *
-         * @apiExample {js} Sample #5
-         * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-         *
-         * // Set multiple attribute without values.
-         * $dom('.foo').attr(['solved', 'required', 'async']);
-         *
-         */
-        attr: function(name, value) {
-            var $this = this;
-
-            /* Skip if no items */
-            if (this.length <= 0) return;
-
-            /* Single attribute setter */
-            if (isString(name)) {
-                /* Set attribute value to all items if value is defined. Else get the first item attribute */
-                if (isDefined(value)) {
-                    /* Convert to JSON if value is object or array */
-                    if (isObject(value) || isArray(value)) {
-                        value = JSON.stringify(value);
-                    }
-
-                    /* Iterate each element to assign attribute and value */
-                    $this.each(function() {
-                        this.setAttribute(name, value);
-
-                        if (this.hasOwnProperty(name)) {
-                            this[name] = value;
-                        }
-                    });
-
-                    return this;
-                } else {
-                    /* Getting attribute value */
-                    var result = $this[0].getAttribute(name), parsed;
-
-                    /* Try to convert result as object. If success, return it */
-                    try { parsed = JSON.parse(result) } catch (err) {}
-                    if (parsed) return parsed;
-
-                    /* Convert result as data if possible and return it */
-
-                    /* Boolean */
-                    if (result === 'true') {
-                        return true;
-                    } else if (result === 'false') {
-                        return false;
-                    }
-
-                    /* Convert to undefined */
-                    else if (result === 'undefined') {
-                        return undefined;
-                    }
-
-                    /* Convert to null */
-                    else if (result === 'null') {
-                        return null;
-                    }
-
-                    /* Convert to NaN */
-                    else if (result === 'NaN') {
-                        return NaN;
-                    }
-
-                    /* Convert to number */
-                    else if (Number(result)) {
-                        return Number(result);
-                    }
-
-                    /* Return as plain result */
-                    return result;
-                }
-            }
-
-            /* Multiple attribute and value setter with object */
-            else if (isObject(name)) {
-                foreach(name, function (key, value) {
-                    $this.attr(key, value);
-                });
-            }
-
-            /* Multiple attribute setter with array */
-            else if (isArray(name)) {
-                foreach(name, function (key) {
-                    $this.attr(key, '');
-                });
-            }
-
-            /* Get all attributes and convert the value */
-            else {
-                var attributes = $this[0].attributes, result = {};
-
-                foreach(attributes, function (i, attr) {
-                    if (i !== 'length') {
-                        result[attr.name] = $this.attr(attr.name);
-                    }
-                });
-
-                return result;
-            }
-
-            return $this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {remattr} DOMList.remAttr(name); .remAttr()
-         * @apiName RemAttr
-         * @apiDescription Remove one or many attribute from selected elements.
-         *
-         * @apiParam {Any} name String attribute name or array name list.<br />Use space to separate the attribute name for multiple removal. E.g 'foo bar'.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').remAtrr('foo'); // Remove single attribute.
-         * $dom('span').remAttr(['foo', 'bar']); // Remove multiple attribute.
-         * $dom('span').remAttr('foo bar'); // Remove multiple attribute.
-         */
-        remAttr: function(name) {
-            if (isString(name)) {
-                if (name.match(/\s+/)) {
-                    name = name.split(/\s+/);
-                    this.each(function() {
-                        var self = this;
-
-                        foreach(name, function (name) {
-                            self.removeAttribute(name);
-                        });
-                    });
-                } else {
-                    this.each(function() {
-                        this.removeAttribute(name);
-                    });
-                }
-            } else if (isArray(name)) {
-                this.each(function() {
-                    var self = this;
-
-                    foreach(name, function (name) {
-                        self.removeAttribute(name);
-                    });
-                });
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {data} DOMList.data(name,value); .data()
-         * @apiName Data
-         * @apiDescription Get first selected element data or set all selected elements data.
-         *
-         * @apiParam {Any} name String data-attribute name. E.g. 'profile' for 'data-profile'.<br>Use string space-delimiter to get or set multiple data-attribute. E.g 'foo bar' for 'data-foo data-bar'.
-         * @apiParam {Any} [value] Value to set. Leave blank if yout want to get the data-attribute-value. Use array to wrap values if you set multiple data-attribute.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').data(); // Get all data-attributes.
-         *
-         * $dom('span').data('foo'); // Get value of 'data-foo'.
-         * $dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.
-         *
-         * $dom('span').data('foo bar'); // Get data-foo and data-bar.
-         * $dom('span').data('foo bar', [200, {a: 1, b: 2}]); // Set data-foo with 200, data-bar with object.
-         */
-        data: function(name, value) {
-            var $this = this;
-
-            /* Return if no selected childs */
-            if ($this.length <= 0) $this;
-
-            if (isString(name)) {
-                if (name.match(/\s+/)) {
-                    name = name.split(/\s+/);
-
-                    if (isDefined(value)) {
-                        foreach(name, function(attr, i) {
-                            if (isString(value)) {
-                                $this.attr('data-' + attr, value);
-                            } else if (isArray(value)) {
-                                $this.attr('data-' + attr, value[i]);
-                            }
-                        });
-                    } else {
-                        var data = {};
-
-                        foreach(name, function (attr) {
-                            data[attr] = $this.attr('data-' + attr);
-                        });
-
-                        return data;
-                    }
-                } else {
-                    if (isDefined(value)) {
-                        $this.attr('data-' + name, value);
-                    } else {
-                        return $this.first().attr('data-' + name);
-                    }
-                }
-            } else {
-                var atrs = $this.attr(), data = {};
-
-                foreach(atrs, function (attr, i) {
-                    if (attr.match(/data-/)) {
-                        data[attr.replace('data-', '')] = $this.attr(attr);
-                    }
-                });
-
-                return data;
-            }
-
-            return $this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api DOMList.remData(name); .remData()
-         * @apiName RemData
-         * @apiDescription Remove data-attribute from selected elements.
-         *
-         * @apiParam {String} name String data-attribute name. E.g 'foo' for 'data-foo'.<br>Use space-delimiter to separate multiple name. E.g 'foo bar' for 'data-foo data-bar'.
-         *
-         * @apiExample Sample #1
-         * $dom('span').remData('foo'); // Remove data-foo.
-         * $dom('span').remData('foo bar'); // Remove data-foo and data-bar.
-         */
-        remData: function(name) {
-            var $this = this;
-
-            if (isString(name)) {
-                if (name.match(/\s+/)) {
-                    name = name.split(/\s+/);
-
-                    foreach(name, function (attr) {
-                        $this.remAttr('data-' + attr);
-                    });
-                } else {
-                    $this.remAttr('data-' + name);
-                }
-            }
-
-            return $this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {prop} DOMList.prop(name,value); .prop()
-         * @apiName Prop
-         * @apiDescription Get the first selected elements property value or set all selected elements property value.<br />If element also have attribute with that name, setting property will also set the attribute.
-         *
-         * @apiParam {String} name String property name.
-         * @apiParam {Any} [value] String property value.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('input[type="text"]').prop('value'); // Get value.
-         * $dom('input[type="text"]').prop('value', 'Foo'); // Set value to Foo.
-         */
-        prop: function(name, value) {
-            var $this = this;
-
-            if ($this.length <= 0) return $this;
-
-            if (isString(name)) {
-                if (isDefined(value)) {
-                    $this.each(function() {
-                        this[name] = value;
-
-                        if (this.getAttribute(name)) {
-                            this.setAttribute(name, value);
-                        }
-                    })
-                } else {
-                    var first = $this[0];
-
-                    if (first.hasOwnProperty(name)) {
-                        return first[name];
-                    }
-                }
-            }
-
-            return $this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {val} DOMList.val(value); .val()
-         * @apiName Val
-         * @apiDescription Get the first selected elements value or set all selected elements value.
-         *
-         * @apiParam {Any} [value] Value to set. Leave blank if you want to get the value.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('input[type="text"]').val(); // Get value.
-         * $dom('input[type="text"]').val('Foo'); // Set value to Foo.
-         */
-        val: function(value) {
-            if (isDefined(value)) {
-                this.prop('value', value);
-            } else {
-                return this.prop('value');
-            }
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {remove} DOMList.remove(); .remove()
-         * @apiName Remove
-         * @apiDescription Remove selected elements.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').remove();
-         */
-        remove: function() {
-            this.each(function() {
-                this.remove();
-            });
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Core
-         *
-         * @api {sort} DOMList.sortBy(attr,options); .sortBy()
-         * @apiName Sort
-         * @apiDescription Sort selected elements by attribute value.
-         *
-         * @apiParam {String} attr Attribute name.
-         * @apiParam {Object} [options] Options to define value type or sort direction. type: 'string'|'number', direction: 'ascending'|'descending'.
-         *
-         * @apiExample {js} Sample #1
-         * // <span class="a" age="10" name="John"></span>
-         * // <span class="c" age="5" name="Michael"></span>
-         * // <span class="b" age="8" name="Gabriele"></span>
-         *
-         * // Sort by class.
-         * $dom('span').sortBy('class');
-         *
-         * // Sort by age with numeric sorter.
-         * $dom('span').sortBy('age', { type: 'number' });
-         *
-         * // Sort by name descending.
-         * $dom('span').sortBy('name', { direction: 'descending' });
-         */
-        sortBy: function(attr, options) {
-            var $this = this;
-
-            /* Creating default option */
-            var option = { type: 'string', direction: 'ascending' };
-
-            /* Replace option using user defined if exist */
-            if (isObject(options)) {
-                foreach(options, function (key, value) {
-                    option[key] = value;
-                });
-            }
-
-            /* Attribute name should be string */
-            if (isString(attr)) {
-                /* Creating array to sort value */
-                var list = [];
-
-                /* Iterate each element to get value and add pattern as index number. */
-                $this.each(function(i) {
-                    var val = this.getAttribute(attr);
-
-                    /* If have attribute or value, just add index pattern */
-                    if (isString(val)) {
-                        list.push(val + '<>' + i);
-                    }
-
-                    /* If don't have attribute or value, use 'zabc' to ensure placed in bottom of list */
-                    else {
-                        list.push('zabc<>' + i);
-                    }
-                });
-
-                /* Use custom sort compare if type is number.*/
-                if (option.type === 'number') {
-                    /* Sort values with custom compare */
-                    list = list.sort(function(a, b) {
-                        var ap = Number(a.split('<>')[0]);
-                        var bp = Number(b.split('<>')[0]);
-
-                        if (!ap) ap = 999999999999999;
-                        if (!bp) bp = 999999999999999;
-
-                        if (ap > bp) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-
-                        return 0;
-                    });
-                } else {
-                    /* Simply sort it if not numeric values */
-                    list = list.sort();
-                }
-
-                /* Reverse order if dirs is 'desc' */
-                if (option.direction === 'descending') {
-                    list = list.reverse();
-                }
-
-                /* Create new DOMList */
-                var newlist = new DOMList();
-                /* Assign new DOMList length using values length */
-                newlist.length = list.length;
-
-                /* Iterating values to get index number and insert the element to new DOMList */
-                foreach(list, function (s, i) {
-                    s = s.split('<>')[1];
-                    newlist[i] = $this[s];
-                });
-
-                return newlist;
-            }
-
-            return this;
-        },
-
-        /* CLASS ------------------------------------ */
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Class
-         *
-         * @api {addclass} DOMList.addClass(name); .addClass()
-         * @apiName AddClass
-         * @apiDescription Add class to class selected elements lists.
-         *
-         * @apiParam {String} name String class name to add. If you want, you can use array to add multiple class.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').addClas('clearfix'); // Add single class.
-         * $dom('.foo').addClass('clearfix fit relative'); // Add multiple class.
-         * $dom('.foo').addClass(['clearfix', 'fit', 'relative']); // Add multiple class.
-         */
-        addClass: function(name) {
-            var $this = this;
-
-            if (isString(name)) {
-                if (name.match(/\s+/)) {
-                    name = name.split(/\s+/);
-                    foreach(name, function(attr) {
-                        $this.addClass(attr);
-                    });
-                } else {
-                    $this.each(function() {
-                        this.classList.add(name);
-                    });
-                }
-            } else if (isArray(name)) {
-                foreach(name, function (attr) {
-                    $this.addClass(attr);
-                });
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Class
-         *
-         * @api {remclass} DOMList.remClass(name); .remClass()
-         * @apiName RemClass
-         * @apiDescription Remove class from selected elements class lists.
-         *
-         * @apiParam {String} name String class name. You can use array if you want to use remove multiple class.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').remClass('bar');
-         * $dom('.foo').remClass(['bar', 'foo', 'foobar']);
-         */
-        remClass: function(name) {
-            var $this = this;
-
-            if (isString(name)) {
-                if (name.match(/\s+/)) {
-                    name = name.split(/\s+/);
-                    foreach(name, function(attr) {
-                        $this.remClass(attr);
-                    });
-                } else {
-                    $this.each(function() {
-                        this.classList.remove(name);
-                    });
-                }
-            } else if (isArray(name)) {
-                foreach(name, function (attr) {
-                    $this.remClass(attr);
-                });
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Class
-         *
-         * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
-         * @apiName ToggleClass
-         * @apiDescription Toggle class in selected elements class lists.
-         *
-         * @apiParam {String} name String class name. You can use array if you want to toggle multiple class.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').toggleClass('bar');
-         * $dom('.foo').toggleClass(['bar', 'foo', 'foobar']);
-         */
-        toggleClass: function(name) {
-            var $this = this;
-
-            if (isString(name)) {
-                $this.each(function() {
-                    this.classList.toggle(name);
-                });
-            } else if (isArray(name)) {
-                foreach(name, function (attr) {
-                    $this.toggleClass(attr);
-                });
-            }
-
-            return this;
-        },
-
-        /* INJECT ------------------------------------------ */
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Inject
-         *
-         * @api {append} DOMList.append(childs); .append()
-         * @apiName Append
-         * @apiDescription Append childs to first selected elements.
-         *
-         * @apiParam {Any} childs HTML Element, DOMList, Array, HTML Formatted String, or String CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * // Append HTML Element.
-         * var elm = document.querySelector('foo');
-         * $dom('.wrapper').append(elm);
-         *
-         * @apiExample {js} Sample #2
-         * // Append DOMList or Array.
-         * var elm = $dom('.foo');
-         * $dom('.wrapper').append(elm);
-         *
-         * @apiExample {js} Sample #3
-         * // Append HTML formatted string.
-         * $dom('.wrapper').append('<span class="bar">');
-         *
-         * @apiExample {js} Sample #4
-         * // Append with query.
-         * $dom('.wrapper').append('.foo');
-         */
-        append: function(childs) {
-            var $this = this;
-
-            /* Return if no selected elements */
-            if ($this.length <= 0) return $this;
-
-            /* If childs is HTML Element */
-            if (isHTML(childs)) {
-                $this[0].appendChild(childs);
-            }
-
-            /* If childs is Array or DOMList */
-            else if (isArray(childs) || isDOMList(childs)) {
-                foreach(childs, function (node) {
-                    $this[0].appendChild(node);
-                });
-            }
-
-            /* If childs is String */
-            else if (isString(childs)) {
-                /* If string is HTML Formatted string */
-                if (isHTMLString(childs)) {
-                    $this[0].insertAdjacentHTML('beforeend', childs);
-                }
-
-                /* If string is CSS Selector */
-                else {
-                    var result = new DOMList(childs);
-                    result.each(function() {
-                        $this[0].appendChild(this);
-                    });
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Inject
-         *
-         * @api {prepend} DOMList.prepend(childs) .prepend()
-         * @apiName Prepend
-         * @apiDescription Prepend elements to first selected element.
-         *
-         * @apiParam {Any} childs HTML Element, DOMList, Array, HTML Formatted String, or String CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * // Prepend HTML Element.
-         * var elm = document.querySelector('foo');
-         * $dom('.wrapper').prepend(elm);
-         *
-         * @apiExample {js} Sample #2
-         * // Prepend DOMList or Array.
-         * var elm = $dom('.foo');
-         * $dom('.wrapper').prepend(elm);
-         *
-         * @apiExample {js} Sample #3
-         * // Prepend HTML formatted string.
-         * $dom('.wrapper').prepend('<span class="bar">');
-         *
-         * @apiExample {js} Sample #4
-         * // Prepend with query.
-         * $dom('.wrapper').prepend('.foo');
-         */
-        prepend: function(childs) {
-            var $this = this;
-
-            /* Return if no selected elements */
-            if ($this.length <= 0) return this;
-
-            /* If childs is single HTML Element */
-            if (isHTML(childs)) {
-                /* If no childrens, use append */
-                if ($this[0].children.length <= 0) {
-                    $this[0].appendChild(childs);
-                }
-
-                /* Else, insert before first element */
-                else {
-                    $this[0].insertBefore(childs, $this[0].children[0]);
-                }
-            }
-
-            /* If childs is DOMList or Array */
-            else if (isDOMList(childs) || isArray(childs)) {
-                /* If no childrens, use append */
-                if ($this[0].children.length <= 0) {
-                    foreach(childs, function (node) {
-                        $this[0].appendChild(node);
-                    });
-                }
-
-                /* Else, insert before first element */
-                else {
-                    var first = $this[0].children[0];
-
-                    foreach(childs, function(node) {
-                        $this[0].insertBefore(node, first);
-                    });
-                }
-            }
-
-            /* If childs is string */
-            else if (isString(childs)) {
-                /* If string is HTML Formatted string */
-                if (isHTMLString(childs)) {
-                    $this[0].insertAdjacentHTML('afterbegin', childs);
-                }
-
-                /* If string is CSS Selector */
-                else {
-                    var result = new DOMList(childs);
-
-                    /* If no childrens, use append */
-                    if ($this[0].children.length <= 0) {
-                        result.each(function() {
-                            $this[0].appendChild(this);
-                        });
-                    }
-
-                    /* Else insert before first element */
-                    else {
-                        var first = $this[0].children[0];
-
-                        result.each(function() {
-                            $this[0].insertBefore(this, first);
-                        });
-                    }
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Inject
-         *
-         * @api {appendto} DOMList.appendTo(destination) .appendTo()
-         * @apiName AppendTo
-         * @apiDescription Append selected elements to destination element.
-         *
-         * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').appendTo('.wrapper');
-         */
-        appendTo: function(destination) {
-            var $this = this;
-
-            /* Return if no selected elements */
-            if ($this.length <= 0) return $this;
-
-            /* If destination is single HTML Element */
-            if (isHTML(destination)) {
-                $this.each(function() {
-                    destination.appendChild(this);
-                });
-            }
-
-            /* If destination is DOMList or Array */
-            else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-                destination = destination[0];
-
-                $this.each(function() {
-                    destination.appendChild(this);
-                });
-            }
-
-            /* If destination is string and not HTML Formatted string */
-            else if (isString(destination) && !isHTMLString(destination)) {
-                var result = new DOMList(destination);
-
-                if (result.length > 0) {
-                    $this.each(function() {
-                        result[0].appendChild(this);
-                    });
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Inject
-         *
-         * @api {perependto} DOMList.prependTo(destination) .prependTo()
-         * @apiName PrependTo
-         * @apiDescription Prepend selected elements to destination element.
-         *
-         * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').prependTo('.wrapper');
-         */
-        prependTo: function(destination) {
-            var $this = this;
-
-            /* Return if no selected elements */
-            if ($this.length <= 0) return $this;
-
-            /* If destination is single HTML Element */
-            if (isHTML(destination)) {
-                /* Use insertBefore if has childrens */
-                if (destination.children.length > 0) {
-                    var first = destination.children[0];
-                    var parnt = first.parentElement;
-
-                    $this.each(function() {
-                        parnt.insertBefore(this, first);
-                    });
-                }
-
-                /* Else, use append */
-                else {
-                    $this.each(function() {
-                        destination.appendChild(this);
-                    });
-                }
-            }
-
-            /* If destination is DOMList or Array */
-            else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-                destination = destination[0];
-
-                /* Use insertBefore if has childrens */
-                if (destination.children.length > 0) {
-                    var first = destination.children[0];
-                    var parnt = first.parentElement;
-
-                    $this.each(function() {
-                        parnt.insertBefore(this, first);
-                    })
-                }
-
-                /* Else, use append */
-                else {
-                    $this.each(function() {
-                        destination.appendChild(this);
-                    });
-                }
-            }
-
-            /* If destination is string and not HTML Formatted string */
-            else if (isString(destination) && !isHTMLString(destination)) {
-                var result = new DOMList(destination);
-
-                if (result.length > 0) {
-                    destination = result[0];
-
-                    /* Use insertBefore if has childrens */
-                    if (destination.children.length >= 0) {
-                        var first = destination.children[0];
-                        var parnt = first.parentElement;
-
-                        $this.each(function() {
-                            parnt.insertBefore(this, first);
-                        })
-                    }
-
-                    /* Else, use append */
-                    else {
-                        $this.each(function() {
-                            destination.appendChild(this);
-                        });
-                    }
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Inject
-         *
-         * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
-         * @apiName insertBefore
-         * @apiDescription Insert selected elements before the destination element.
-         *
-         * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').insertBefore('.bar');
-         */
-        insertBefore: function(destination) {
-            var $this = this;
-
-            /* Return if no selected elements */
-            if ($this.length <= 0) return $this;
-
-            /* If destination is single HTML Element */
-            if (isHTML(destination)) {
-                var parent = destination.parentElement;
-
-                $this.each(function() {
-                    parent.insertBefore(this, destination);
-                });
-            }
-
-            /* If destination is DOMList or Array */
-            else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-                var parent = destination[0].parentElement;
-
-                $this.each(function() {
-                    parent.insertBefore(this, destination[0]);
-                });
-            }
-
-            /* If destination is string and not HTML Formatted string */
-            else if (isString(destination) && !isHTMLString(destination)) {
-                destination = new DOMList(destination);
-
-                /* If destination exist */
-                if (destination.length > 0) {
-                    var parent = destination[0].parentElement;
-
-                    $this.each(function() {
-                        parent.insertBefore(this, destination[0]);
-                    });
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList.Module.Inject
-         *
-         * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
-         * @apiName insertAfter
-         * @apiDescription Insert selected elements after the destination element.
-         *
-         * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('.foo').insertAfter('.bar');
-         */
-        insertAfter: function(destination) {
-            var $this = this;
-
-            /* Return if no selected elements */
-            if ($this.length <= 0) return $this;
-
-            /* If destination is single HTML Element */
-            if (isHTML(destination)) {
-                var parent = destination.parentElement;
-
-                $this.each(function() {
-                    parent.insertBefore(this, destination.nextSibling);
-                }, true);
-            }
-
-            /* If destination is DOMList or Array */
-            else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-                var parent = destination[0].parentElement;
-
-                $this.each(function() {
-                    parent.insertBefore(this, destination[0].nextSibling);
-                }, true);
-            }
-
-            /* If destination is string and not HTML Formatted string */
-            else if (isString(destination) && !isHTMLString(destination)) {
-                destination = new DOMList(destination);
-
-                /* If destination exist */
-                if (destination.length > 0) {
-                    var parent = destination[0].parentElement;
-
-                    $this.each(function() {
-                        parent.insertBefore(this, destination[0].nextSibling);
-                    }, true);
-                }
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Inject
-         *
-         * @api {text} DOMList.text(value); .text()
-         * @apiName Text
-         * @apiDescription Get the first selected elements innerText or set all selected elements innerText.
-         *
-         * @apiParam {Any} value Inner text value.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').text(); // Get first selected span innerText
-         * $dom('span').text('foo'); // Set all span innerText to foo.
-         */
-        text: function(value) {
-            if (this.length <= 0) return this;
-
-            if (isDefined(value)) {
-                this.each(function() {
-                    this.innerText = value;
-                });
-            } else {
-                return this[0].innerText;
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Inject
-         *
-         * @api {Texts} DOMList.texts(); .texts()
-         * @apiName Texts
-         * @apiDescription Get selected elements innerText.
-         *
-         * @apiExample {js} Sample #1
-         * $('span').texts();
-         */
-        texts: function() {
-            var result = [];
-
-            this.each(function() {
-                result.push(this.innerText);
-            });
-
-            return result;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Inject
-         *
-         * @api {html} DOMList.html(value); .html()
-         * @apiName HTML
-         * @apiDescription Get the first selected elements innerHTML or set all selected elements innerHTML.
-         *
-         * @apiParam {Any} value Inner html value.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').html(); // Get first selected span innerHTML
-         * $dom('span').html('foo'); // Set all span innerHTML to foo.
-         */
-        html: function(value) {
-            if (this.length <= 0) return this;
-
-            if (isDefined(value)) {
-                this.each(function() {
-                    this.innerHTML = value;
-                });
-            } else {
-                return this[0].innerHTML;
-            }
-
-            return this;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Inject
-         *
-         * @api {HTMLs} DOMList.htmls(); .htmls()
-         * @apiName HTMLs
-         * @apiDescription Get selected elements innerHTML
-         *
-         * @apiExample {js} Sample #1
-         * $('span').htmls();
-         */
-        htmls: function() {
-            var result = [];
-
-            this.each(function() {
-                result.push(this.innerHTML);
-            });
-
-            return result;
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Inject
-         *
-         * @api {clone} DOMList.clone(); .clone()
-         * @apiName Clone
-         * @apiDescription Clone selected elements.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').clone();
-         */
-        clone: function() {
-            var cloned = [];
-
-            this.each(function() {
-                var clone = this.cloneNode(true);
-                cloned.push(clone);
-            });
-
-            return new DOMList(cloned);
-        },
-
-        /**
-         * @apiVersion 2.0.0
-         * @apiGroup DOMList Module Inject
-         *
-         * @api {empty} DOMList.empty(); .empty()
-         * @apiName Empty
-         * @apiDescription Empty all selected elements.
-         *
-         * @apiExample {js} Sample #1
-         * $dom('span').empty();
-         */
-        empty: function() {
-            this.each(function() {
-                this.innerHTML = '';
-            });
-
-            return this;
-        },
 
         /* EFFECT --------------------------------------------------- */
         /**
@@ -2334,27 +992,46 @@ window.circle = function(obj, reversed) {
     HTMLElement.prototype.find = function(query) { return new DOMList(query, this) }
 })(window);
 
-/**
- * domlist.
- * DOM Data Selector.
- * Language: Javascript.
- * Created by mahdaen on 1/14/15.
- * License: GNU General Public License v2 or later.
- */
-
 (function($root, $dom) {
     /**
-     * @apiGroup DOMList
      * @apiVersion 2.0.0
+     * @apiGroup DOMList
      *
-     * @api $data(name,value,context); $data()
-     * @apiName {DOMData}
-     * @apiDescription Select elements that has data-attribute name or has data-attribute name with equal value.
-     * @param name
-     * @param value
-     * @param context
-     * @returns {*}
-     * @constructor
+     * @api $dom.data(name,value,context); $dom.data()
+     * @apiName DOMData
+     * @apiDescription Select elements that has data-attribute name or has data-attribute name with equal value. Using without arguments will select all elements that has data-attribute.
+     *
+     * @apiParam {Multi} name String data-attribute name. Use space-delimiter to select multiple name. Object contains data-attribute name and value. Array contains attributes name.
+     * @apiParam {Multi} [value] Compare with value if you use string in 'name'. If value is HTML element or DOMList, it's used as context.
+     * @apiParam {Multi} [context] HTML Element or DOMList as context.
+     *
+     * @apiExample {js} Sample #1
+     * $dom.data(); // Select elements that has data-attribute.
+     *
+     * @apiExample {js} Sample #2
+     * // It's like $dom('[data-foo="bar"]');
+     *
+     * $dom.data('foo', 'bar'); // Select elements that has data-attribute 'data-foo' and 'data-foo' value is 'bar'.
+     *
+     * $dom.data('foo bar'); // Select elements that has 'data-foo' or 'data-bar'.
+     * $dom.data(['foo', 'bar']); // Select elements that has 'data-foo' or 'data-bar'.
+     *
+     * @apiExample {js} Sample #3
+     * // It's like $dom('[data-foo="bar"], [data-bar="bar"]');
+     *
+     * $dom.data('foo bar', 'bar'); // Select elements that has 'data-foo' or 'data-bar' and both value is 'bar'.
+     *
+     * @apiExample {js} Sample #4
+     * // It's like $dom('[data-foo], [data-bar]', div);
+     *
+     * var div = $dom('.foobar');
+     * $dom.data('foo bar', div); // Select elements that has 'data-foo' or 'data-bar' from 'div' above.
+     *
+     * @apiExample {js} Sample #5
+     * // Using object as name will find elements that has both condition.
+     * // It's like $dom('[data-foo="bar"][data-bar]');
+     *
+     * $dom.data({ 'foo': 'bar', 'data-bar': '' }); // Select elements that has 'data-foo' and 'data-bar' and 'data-foo' value is 'bar'.
      */
     var DOMData = function(name, value, context) {
         /* Converting Value to JSON if object or array */
@@ -2542,6 +1219,1415 @@ window.circle = function(obj, reversed) {
     /* Registering DOMData to DOMList */
     $dom.data = $root.DOMData = function(name, value, context) { return new DOMData(name, value, context) };
 })(window, DOMList);
+(function($dom) {
+    'use strict';
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {first} DOMList.first(); .first()
+     * @apiName First
+     * @apiDescription Get the first child of selected elements. Return DOMList object.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').first();
+     */
+    $dom.module.first = function() {
+        return this.length > 0 ? $dom(this[0]) : this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {firstchild} DOMList.firstChild(); .firstChild()
+     * @apiName FirstChild
+     * @apiDescription Get the first child of the first selected elements. Return DOMList object.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.container').firstChild();
+     */
+    $dom.module.firstChild = function() {
+        if (this.length <= 0) return this;
+
+        var first = this[0];
+        var child = first.children;
+
+        if (child.length > 0) {
+            return $dom(child[0]);
+        } else {
+            return $dom();
+        }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {last} DOMList.last(); .last()
+     * @apiName Last
+     * @apiDescription Get the last child of selected elements. Return DOMList object.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').last();
+     */
+    $dom.module.last = function() {
+        return this.length > 0 ? $dom(this[this.length - 1]) : this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {lastchild} DOMList.lastChild(); .lastChild()
+     * @apiName LastChild
+     * @apiDescription Get the last child of the first selected elements. Return DOMList object.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.container').lastChild();
+     */
+    $dom.module.lastChild = function() {
+        if (this.length <= 0) return this;
+
+        var first = this[0];
+        var child = first.children;
+
+        if (child.length > 0) {
+            return $dom(child[child.length - 1]);
+        } else {
+            return $dom();
+        }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {nth} DOMList.nth(index); .nth()
+     * @apiName NTH
+     * @apiDescription Get the selected elements by specific index. Return DOMList object.
+     *
+     * @apiParam {Number} index Index number. Start from 0.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').nth(0);
+     */
+    $dom.module.nth = function(i) {
+        return isNumber(i) && this.hasOwnProperty(i) ? $dom(this[i]) : $dom();
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {nthChild} DOMList.nthChild(index); .nthChild()
+     * @apiName NthChild
+     * @apiDescription Get the child elements by specific index from the first selected elements. Return DOMList object.
+     *
+     * @apiParam {Number} index Index number. Start from 0.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.container').nthChild(3);
+     */
+    $dom.module.nthChild = function(i) {
+        if (this.length <= 0) return this;
+
+        var fisrt = this[0];
+        var child = fisrt.children;
+
+        if (child.length > 0) {
+            return child.hasOwnProperty(i) ? $dom(child[i]) : $dom();
+        } else {
+            return $dom();
+        }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {children} DOMList.children(); .children()
+     * @apiName Children
+     * @apiDescription Get child elements of first selected element.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.container').children();
+     */
+    $dom.module.children = function() {
+        if (this.first().length > 0) {
+            var childs = this.first()[0].children;
+
+            childs.constructor.prototype.name = 'DOMList';
+
+            return $dom(childs);
+        } else {
+            return $dom();
+        }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {finder} DOMList.find(query); .find()
+     * @apiName Find
+     * @apiDescription Find elements from current selected elements.
+     *
+     * @apiParam {String} query CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * var wrap = $dom('.wrapper');
+     * var span = wrap.find('span');
+     */
+    $dom.module.find = function(query) {
+        if (isString(query)) {
+            return $dom(query, this);
+        }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api DOMList.filter(query); .filter()
+     * @apiName Filter
+     * @apiDescription Filter the selected elements with specific CSS Selector.
+     *
+     * @apiParam {String} query String CSS Selector to filter.
+     *
+     * @apiExample Sample #1
+     * $dom('span').filter('.a'); // Get all span and filter that has class 'a'.
+     */
+    $dom.module.filter = function(query) {
+        var $this = this;
+
+        if (!isString(query)) return this;
+
+        var wrap = document.createElement('div'), elems = '', result, src = [], cand = [];
+
+        this.each(function() {
+            elems += this.outerHTML;
+            src.push(this.outerHTML);
+        });
+
+        wrap.innerHTML = elems;
+
+        result = wrap.find(query);
+
+        result.each(function() {
+            var self = this.outerHTML;
+
+            if (src.indexOf(self) > -1) {
+                cand.push(this);
+            }
+        });
+
+        return $dom(cand);
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {iterator} DOMList.each(handler); .each()
+     * @apiName Iterator
+     * @apiDescription Iterate each element inside DOMList.
+     *
+     * @apiParam {Function} handler Function that handle each element. Element index will be provide as argument when calling handler.
+     * @apiParam {Boolean} [reversed] Does iteration is reversed or not.
+     *
+     * @apiExample {js} Sample #1
+     * var span = $dom('span');
+     * span.each(function(i) {
+         *     console.log(i, this);
+         * });
+     */
+    $dom.module.each = function(handler, reversed) {
+        if (isFunction(handler)) {
+            if (reversed) {
+                reveach(this, function(node, i) {
+                    handler.call(node, i, node);
+                });
+            } else {
+                foreach(this, function(node, i) {
+                    handler.call(node, i, node);
+                });
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {attr} DOMList.attr(name,value); .attr()
+     * @apiName Attr
+     * @apiDescription Attribute getter and setter. You can set value with anythings. They will be automatically converted. When you get the value, they also will be converted automatically.
+     *
+     * @apiParam {Any} name String attribute name or Object containing list of attributes or Array containing attribute name list.
+     * @apiParam {Any} [value] Attribute value.
+     *
+     * @apiExample {js} Sample #1
+     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+     *
+     * // Get all attributes.
+     * var attr = $dom('.foo').attr();
+     * //>> attr => { class: "foo", bar: 10, foo: false, foobar: [1,2,3] }
+     *
+     * @apiExample {js} Sample #2
+     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+     *
+     * // Get single attribute value.
+     * var attr = $dom('.foo').attr('foo');
+     * //>> attr => false
+     *
+     * @apiExample {js} Sample #3
+     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+     *
+     * // Set single attribute and value.
+     * $dom('.foo').attr('barfoo', { a: 1, b: 2, c: 3 });
+     *
+     * @apiExample {js} Sample #4
+     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+     *
+     * // Set multiple attribute and value.
+     * $dom('.foo').attr({ foo: true, bar: 100, foobar: { a: 1, b: 2, c: 3 } });
+     *
+     * @apiExample {js} Sample #5
+     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+     *
+     * // Set multiple attribute without values.
+     * $dom('.foo').attr(['solved', 'required', 'async']);
+     *
+     */
+    $dom.module.attr = function(name, value) {
+        var $this = this;
+
+        /* Skip if no items */
+        if (this.length <= 0) return;
+
+        /* Single attribute setter */
+        if (isString(name)) {
+            /* Set attribute value to all items if value is defined. Else get the first item attribute */
+            if (isDefined(value)) {
+                /* Convert to JSON if value is object or array */
+                if (isObject(value) || isArray(value)) {
+                    value = JSON.stringify(value);
+                }
+
+                /* Iterate each element to assign attribute and value */
+                $this.each(function() {
+                    this.setAttribute(name, value);
+
+                    if (this.hasOwnProperty(name)) {
+                        this[name] = value;
+                    }
+                });
+
+                return this;
+            } else {
+                /* Getting attribute value */
+                var result = $this[0].getAttribute(name), parsed;
+
+                /* Try to convert result as object. If success, return it */
+                try { parsed = JSON.parse(result) } catch (err) {}
+                if (parsed) return parsed;
+
+                /* Convert result as data if possible and return it */
+
+                /* Boolean */
+                if (result === 'true') {
+                    return true;
+                } else if (result === 'false') {
+                    return false;
+                }
+
+                /* Convert to undefined */
+                else if (result === 'undefined') {
+                    return undefined;
+                }
+
+                /* Convert to null */
+                else if (result === 'null') {
+                    return null;
+                }
+
+                /* Convert to NaN */
+                else if (result === 'NaN') {
+                    return NaN;
+                }
+
+                /* Convert to number */
+                else if (Number(result)) {
+                    return Number(result);
+                }
+
+                /* Return as plain result */
+                return result;
+            }
+        }
+
+        /* Multiple attribute and value setter with object */
+        else if (isObject(name)) {
+            foreach(name, function (key, value) {
+                $this.attr(key, value);
+            });
+        }
+
+        /* Multiple attribute setter with array */
+        else if (isArray(name)) {
+            foreach(name, function (key) {
+                $this.attr(key, '');
+            });
+        }
+
+        /* Get all attributes and convert the value */
+        else {
+            var attributes = $this[0].attributes, result = {};
+
+            foreach(attributes, function (i, attr) {
+                if (i !== 'length') {
+                    result[attr.name] = $this.attr(attr.name);
+                }
+            });
+
+            return result;
+        }
+
+        return $this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {remattr} DOMList.remAttr(name); .remAttr()
+     * @apiName RemAttr
+     * @apiDescription Remove one or many attribute from selected elements.
+     *
+     * @apiParam {Any} name String attribute name or array name list.<br />Use space to separate the attribute name for multiple removal. E.g 'foo bar'.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').remAtrr('foo'); // Remove single attribute.
+     * $dom('span').remAttr(['foo', 'bar']); // Remove multiple attribute.
+     * $dom('span').remAttr('foo bar'); // Remove multiple attribute.
+     */
+    $dom.module.remAttr = function(name) {
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                name = name.split(/\s+/);
+                this.each(function() {
+                    var self = this;
+
+                    foreach(name, function (name) {
+                        self.removeAttribute(name);
+                    });
+                });
+            } else {
+                this.each(function() {
+                    this.removeAttribute(name);
+                });
+            }
+        } else if (isArray(name)) {
+            this.each(function() {
+                var self = this;
+
+                foreach(name, function (name) {
+                    self.removeAttribute(name);
+                });
+            });
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {data} DOMList.data(name,value); .data()
+     * @apiName Data
+     * @apiDescription Get first selected element data or set all selected elements data.
+     *
+     * @apiParam {Any} name String data-attribute name. E.g. 'profile' for 'data-profile'.<br>Use string space-delimiter to get or set multiple data-attribute. E.g 'foo bar' for 'data-foo data-bar'.
+     * @apiParam {Any} [value] Value to set. Leave blank if yout want to get the data-attribute-value. Use array to wrap values if you set multiple data-attribute.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').data(); // Get all data-attributes.
+     *
+     * $dom('span').data('foo'); // Get value of 'data-foo'.
+     * $dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.
+     *
+     * $dom('span').data('foo bar'); // Get data-foo and data-bar.
+     * $dom('span').data('foo bar', [200, {a: 1, b: 2}]); // Set data-foo with 200, data-bar with object.
+     */
+    $dom.module.data = function(name, value) {
+        var $this = this;
+
+        /* Return if no selected childs */
+        if ($this.length <= 0) $this;
+
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                name = name.split(/\s+/);
+
+                if (isDefined(value)) {
+                    foreach(name, function(attr, i) {
+                        if (isString(value)) {
+                            $this.attr('data-' + attr, value);
+                        } else if (isArray(value)) {
+                            $this.attr('data-' + attr, value[i]);
+                        }
+                    });
+                } else {
+                    var data = {};
+
+                    foreach(name, function (attr) {
+                        data[attr] = $this.attr('data-' + attr);
+                    });
+
+                    return data;
+                }
+            } else {
+                if (isDefined(value)) {
+                    $this.attr('data-' + name, value);
+                } else {
+                    return $this.first().attr('data-' + name);
+                }
+            }
+        } else {
+            var atrs = $this.attr(), data = {};
+
+            foreach(atrs, function (attr, i) {
+                if (attr.match(/data-/)) {
+                    data[attr.replace('data-', '')] = $this.attr(attr);
+                }
+            });
+
+            return data;
+        }
+
+        return $this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api DOMList.remData(name); .remData()
+     * @apiName RemData
+     * @apiDescription Remove data-attribute from selected elements.
+     *
+     * @apiParam {String} name String data-attribute name. E.g 'foo' for 'data-foo'.<br>Use space-delimiter to separate multiple name. E.g 'foo bar' for 'data-foo data-bar'.
+     *
+     * @apiExample Sample #1
+     * $dom('span').remData('foo'); // Remove data-foo.
+     * $dom('span').remData('foo bar'); // Remove data-foo and data-bar.
+     */
+    $dom.module.remData = function(name) {
+        var $this = this;
+
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                name = name.split(/\s+/);
+
+                foreach(name, function (attr) {
+                    $this.remAttr('data-' + attr);
+                });
+            } else {
+                $this.remAttr('data-' + name);
+            }
+        }
+
+        return $this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {prop} DOMList.prop(name,value); .prop()
+     * @apiName Prop
+     * @apiDescription Get the first selected elements property value or set all selected elements property value.<br />If element also have attribute with that name, setting property will also set the attribute.
+     *
+     * @apiParam {String} name String property name.
+     * @apiParam {Any} [value] String property value.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('input[type="text"]').prop('value'); // Get value.
+     * $dom('input[type="text"]').prop('value', 'Foo'); // Set value to Foo.
+     */
+    $dom.module.prop = function(name, value) {
+        var $this = this;
+
+        if ($this.length <= 0) return $this;
+
+        if (isString(name)) {
+            if (isDefined(value)) {
+                $this.each(function() {
+                    this[name] = value;
+
+                    if (this.getAttribute(name)) {
+                        this.setAttribute(name, value);
+                    }
+                })
+            } else {
+                var first = $this[0];
+
+                if (first.hasOwnProperty(name)) {
+                    return first[name];
+                }
+            }
+        }
+
+        return $this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {val} DOMList.val(value); .val()
+     * @apiName Val
+     * @apiDescription Get the first selected elements value or set all selected elements value.
+     *
+     * @apiParam {Any} [value] Value to set. Leave blank if you want to get the value.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('input[type="text"]').val(); // Get value.
+     * $dom('input[type="text"]').val('Foo'); // Set value to Foo.
+     */
+    $dom.module.val = function(value) {
+        if (isDefined(value)) {
+            this.prop('value', value);
+        } else {
+            return this.prop('value');
+        }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {remove} DOMList.remove(); .remove()
+     * @apiName Remove
+     * @apiDescription Remove selected elements.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').remove();
+     */
+    $dom.module.remove = function() {
+        this.each(function() {
+            this.remove();
+        });
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api {sort} DOMList.sortBy(attr,options); .sortBy()
+     * @apiName Sort
+     * @apiDescription Sort selected elements by attribute value.
+     *
+     * @apiParam {String} attr Attribute name.
+     * @apiParam {Object} [options] Options to define value type or sort direction. type: 'string'|'number', direction: 'ascending'|'descending'.
+     *
+     * @apiExample {js} Sample #1
+     * // <span class="a" age="10" name="John"></span>
+     * // <span class="c" age="5" name="Michael"></span>
+     * // <span class="b" age="8" name="Gabriele"></span>
+     *
+     * // Sort by class.
+     * $dom('span').sortBy('class');
+     *
+     * // Sort by age with numeric sorter.
+     * $dom('span').sortBy('age', { type: 'number' });
+     *
+     * // Sort by name descending.
+     * $dom('span').sortBy('name', { direction: 'descending' });
+     */
+    $dom.module.sortBy = function(attr, options) {
+        var $this = this;
+
+        /* Creating default option */
+        var option = { type: 'string', direction: 'ascending' };
+
+        /* Replace option using user defined if exist */
+        if (isObject(options)) {
+            foreach(options, function (key, value) {
+                option[key] = value;
+            });
+        }
+
+        /* Attribute name should be string */
+        if (isString(attr)) {
+            /* Creating array to sort value */
+            var list = [];
+
+            /* Iterate each element to get value and add pattern as index number. */
+            $this.each(function(i) {
+                var val = this.getAttribute(attr);
+
+                /* If have attribute or value, just add index pattern */
+                if (isString(val)) {
+                    list.push(val + '<>' + i);
+                }
+
+                /* If don't have attribute or value, use 'zabc' to ensure placed in bottom of list */
+                else {
+                    list.push('zabc<>' + i);
+                }
+            });
+
+            /* Use custom sort compare if type is number.*/
+            if (option.type === 'number') {
+                /* Sort values with custom compare */
+                list = list.sort(function(a, b) {
+                    var ap = Number(a.split('<>')[0]);
+                    var bp = Number(b.split('<>')[0]);
+
+                    if (!ap) ap = 999999999999999;
+                    if (!bp) bp = 999999999999999;
+
+                    if (ap > bp) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+            } else {
+                /* Simply sort it if not numeric values */
+                list = list.sort();
+            }
+
+            /* Reverse order if dirs is 'desc' */
+            if (option.direction === 'descending') {
+                list = list.reverse();
+            }
+
+            /* Create DOMList */
+            var newlist = $dom();
+            /* Assign DOMList length using values length */
+            newlist.length = list.length;
+
+            /* Iterating values to get index number and insert the element to DOMList */
+            foreach(list, function (s, i) {
+                s = s.split('<>')[1];
+                newlist[i] = $this[s];
+            });
+
+            return newlist;
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
+     * @api DOMList.toArray(); .toArray()
+     * @apiName ToArray
+     * @apiDescription Convert DOMList to array.
+     *
+     * @apiExample Sample
+     * $dom('span').toArray(); // Convert DOMList contains span to array.
+     */
+    $dom.module.toArray = function() {
+        var arr = [];
+
+        this.each(function() {
+            arr.push(this);
+        });
+
+        return arr;
+    };
+})(DOMList);
+
+(function($dom) {
+    'use strict';
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Class
+     *
+     * @api {addclass} DOMList.addClass(name); .addClass()
+     * @apiName AddClass
+     * @apiDescription Add class to class selected elements lists.
+     *
+     * @apiParam {String} name String class name to add. If you want, you can use array to add multiple class.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').addClas('clearfix'); // Add single class.
+     * $dom('.foo').addClass('clearfix fit relative'); // Add multiple class.
+     * $dom('.foo').addClass(['clearfix', 'fit', 'relative']); // Add multiple class.
+     */
+    $dom.module.addClass = function(name) {
+        var $this = this;
+
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                name = name.split(/\s+/);
+                foreach(name, function(attr) {
+                    $this.addClass(attr);
+                });
+            } else {
+                $this.each(function() {
+                    this.classList.add(name);
+                });
+            }
+        } else if (isArray(name)) {
+            foreach(name, function (attr) {
+                $this.addClass(attr);
+            });
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Class
+     *
+     * @api {remclass} DOMList.remClass(name); .remClass()
+     * @apiName RemClass
+     * @apiDescription Remove class from selected elements class lists.
+     *
+     * @apiParam {String} name String class name. You can use array if you want to use remove multiple class.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').remClass('bar');
+     * $dom('.foo').remClass(['bar', 'foo', 'foobar']);
+     */
+    $dom.module.remClass = function(name) {
+        var $this = this;
+
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                name = name.split(/\s+/);
+                foreach(name, function(attr) {
+                    $this.remClass(attr);
+                });
+            } else {
+                $this.each(function() {
+                    this.classList.remove(name);
+                });
+            }
+        } else if (isArray(name)) {
+            foreach(name, function (attr) {
+                $this.remClass(attr);
+            });
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Class
+     *
+     * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
+     * @apiName ToggleClass
+     * @apiDescription Toggle class in selected elements class lists.
+     *
+     * @apiParam {String} name String class name. You can use array if you want to toggle multiple class.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').toggleClass('bar');
+     * $dom('.foo').toggleClass(['bar', 'foo', 'foobar']);
+     */
+    $dom.module.toggleClass = function(name) {
+        var $this = this;
+
+        if (isString(name)) {
+            $this.each(function() {
+                this.classList.toggle(name);
+            });
+        } else if (isArray(name)) {
+            foreach(name, function (attr) {
+                $this.toggleClass(attr);
+            });
+        }
+
+        return this;
+    };
+})(DOMList);
+(function($root, $dom) {
+    'use strict';
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Inject
+     *
+     * @api {append} DOMList.append(childs); .append()
+     * @apiName Append
+     * @apiDescription Append childs to first selected elements.
+     *
+     * @apiParam {Any} childs HTML Element, DOMList, Array, HTML Formatted String, or String CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * // Append HTML Element.
+     * var elm = document.querySelector('foo');
+     * $dom('.wrapper').append(elm);
+     *
+     * @apiExample {js} Sample #2
+     * // Append DOMList or Array.
+     * var elm = $dom('.foo');
+     * $dom('.wrapper').append(elm);
+     *
+     * @apiExample {js} Sample #3
+     * // Append HTML formatted string.
+     * $dom('.wrapper').append('<span class="bar">');
+     *
+     * @apiExample {js} Sample #4
+     * // Append with query.
+     * $dom('.wrapper').append('.foo');
+     */
+    $dom.module.append = function(childs) {
+        var $this = this;
+
+        /* Return if no selected elements */
+        if ($this.length <= 0) return $this;
+
+        /* If childs is HTML Element */
+        if (isHTML(childs)) {
+            $this[0].appendChild(childs);
+        }
+
+        /* If childs is Array or DOMList */
+        else if (isArray(childs) || is$dom(childs)) {
+            foreach(childs, function (node) {
+                $this[0].appendChild(node);
+            });
+        }
+
+        /* If childs is String */
+        else if (isString(childs)) {
+            /* If string is HTML Formatted string */
+            if (isHTMLString(childs)) {
+                $this[0].insertAdjacentHTML('beforeend', childs);
+            }
+
+            /* If string is CSS Selector */
+            else {
+                var result = $dom(childs);
+                result.each(function() {
+                    $this[0].appendChild(this);
+                });
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Inject
+     *
+     * @api {prepend} DOMList.prepend(childs) .prepend()
+     * @apiName Prepend
+     * @apiDescription Prepend elements to first selected element.
+     *
+     * @apiParam {Any} childs HTML Element, DOMList, Array, HTML Formatted String, or String CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * // Prepend HTML Element.
+     * var elm = document.querySelector('foo');
+     * $dom('.wrapper').prepend(elm);
+     *
+     * @apiExample {js} Sample #2
+     * // Prepend DOMList or Array.
+     * var elm = $dom('.foo');
+     * $dom('.wrapper').prepend(elm);
+     *
+     * @apiExample {js} Sample #3
+     * // Prepend HTML formatted string.
+     * $dom('.wrapper').prepend('<span class="bar">');
+     *
+     * @apiExample {js} Sample #4
+     * // Prepend with query.
+     * $dom('.wrapper').prepend('.foo');
+     */
+    $dom.module.prepend = function(childs) {
+        var $this = this;
+
+        /* Return if no selected elements */
+        if ($this.length <= 0) return this;
+
+        /* If childs is single HTML Element */
+        if (isHTML(childs)) {
+            /* If no childrens, use append */
+            if ($this[0].children.length <= 0) {
+                $this[0].appendChild(childs);
+            }
+
+            /* Else, insert before first element */
+            else {
+                $this[0].insertBefore(childs, $this[0].children[0]);
+            }
+        }
+
+        /* If childs is DOMList or Array */
+        else if (is$dom(childs) || isArray(childs)) {
+            /* If no childrens, use append */
+            if ($this[0].children.length <= 0) {
+                foreach(childs, function (node) {
+                    $this[0].appendChild(node);
+                });
+            }
+
+            /* Else, insert before first element */
+            else {
+                var first = $this[0].children[0];
+
+                foreach(childs, function(node) {
+                    $this[0].insertBefore(node, first);
+                });
+            }
+        }
+
+        /* If childs is string */
+        else if (isString(childs)) {
+            /* If string is HTML Formatted string */
+            if (isHTMLString(childs)) {
+                $this[0].insertAdjacentHTML('afterbegin', childs);
+            }
+
+            /* If string is CSS Selector */
+            else {
+                var result = $dom(childs);
+
+                /* If no childrens, use append */
+                if ($this[0].children.length <= 0) {
+                    result.each(function() {
+                        $this[0].appendChild(this);
+                    });
+                }
+
+                /* Else insert before first element */
+                else {
+                    var first = $this[0].children[0];
+
+                    result.each(function() {
+                        $this[0].insertBefore(this, first);
+                    });
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Inject
+     *
+     * @api {appendto} DOMList.appendTo(destination) .appendTo()
+     * @apiName AppendTo
+     * @apiDescription Append selected elements to destination element.
+     *
+     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').appendTo('.wrapper');
+     */
+    $dom.module.appendTo = function(destination) {
+        var $this = this;
+
+        /* Return if no selected elements */
+        if ($this.length <= 0) return $this;
+
+        /* If destination is single HTML Element */
+        if (isHTML(destination)) {
+            $this.each(function() {
+                destination.appendChild(this);
+            });
+        }
+
+        /* If destination is DOMList or Array */
+        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+            destination = destination[0];
+
+            $this.each(function() {
+                destination.appendChild(this);
+            });
+        }
+
+        /* If destination is string and not HTML Formatted string */
+        else if (isString(destination) && !isHTMLString(destination)) {
+            var result = $dom(destination);
+
+            if (result.length > 0) {
+                $this.each(function() {
+                    result[0].appendChild(this);
+                });
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Inject
+     *
+     * @api {perependto} DOMList.prependTo(destination) .prependTo()
+     * @apiName PrependTo
+     * @apiDescription Prepend selected elements to destination element.
+     *
+     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').prependTo('.wrapper');
+     */
+    $dom.module.prependTo = function(destination) {
+        var $this = this;
+
+        /* Return if no selected elements */
+        if ($this.length <= 0) return $this;
+
+        /* If destination is single HTML Element */
+        if (isHTML(destination)) {
+            /* Use insertBefore if has childrens */
+            if (destination.children.length > 0) {
+                var first = destination.children[0];
+                var parnt = first.parentElement;
+
+                $this.each(function() {
+                    parnt.insertBefore(this, first);
+                });
+            }
+
+            /* Else, use append */
+            else {
+                $this.each(function() {
+                    destination.appendChild(this);
+                });
+            }
+        }
+
+        /* If destination is DOMList or Array */
+        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+            destination = destination[0];
+
+            /* Use insertBefore if has childrens */
+            if (destination.children.length > 0) {
+                var first = destination.children[0];
+                var parnt = first.parentElement;
+
+                $this.each(function() {
+                    parnt.insertBefore(this, first);
+                })
+            }
+
+            /* Else, use append */
+            else {
+                $this.each(function() {
+                    destination.appendChild(this);
+                });
+            }
+        }
+
+        /* If destination is string and not HTML Formatted string */
+        else if (isString(destination) && !isHTMLString(destination)) {
+            var result = $dom(destination);
+
+            if (result.length > 0) {
+                destination = result[0];
+
+                /* Use insertBefore if has childrens */
+                if (destination.children.length >= 0) {
+                    var first = destination.children[0];
+                    var parnt = first.parentElement;
+
+                    $this.each(function() {
+                        parnt.insertBefore(this, first);
+                    })
+                }
+
+                /* Else, use append */
+                else {
+                    $this.each(function() {
+                        destination.appendChild(this);
+                    });
+                }
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Inject
+     *
+     * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
+     * @apiName insertBefore
+     * @apiDescription Insert selected elements before the destination element.
+     *
+     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').insertBefore('.bar');
+     */
+    $dom.module.insertBefore = function(destination) {
+        var $this = this;
+
+        /* Return if no selected elements */
+        if ($this.length <= 0) return $this;
+
+        /* If destination is single HTML Element */
+        if (isHTML(destination)) {
+            var parent = destination.parentElement;
+
+            $this.each(function() {
+                parent.insertBefore(this, destination);
+            });
+        }
+
+        /* If destination is DOMList or Array */
+        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+            var parent = destination[0].parentElement;
+
+            $this.each(function() {
+                parent.insertBefore(this, destination[0]);
+            });
+        }
+
+        /* If destination is string and not HTML Formatted string */
+        else if (isString(destination) && !isHTMLString(destination)) {
+            destination = $dom(destination);
+
+            /* If destination exist */
+            if (destination.length > 0) {
+                var parent = destination[0].parentElement;
+
+                $this.each(function() {
+                    parent.insertBefore(this, destination[0]);
+                });
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList.Module.Inject
+     *
+     * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
+     * @apiName insertAfter
+     * @apiDescription Insert selected elements after the destination element.
+     *
+     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('.foo').insertAfter('.bar');
+     */
+    $dom.module.insertAfter = function(destination) {
+        var $this = this;
+
+        /* Return if no selected elements */
+        if ($this.length <= 0) return $this;
+
+        /* If destination is single HTML Element */
+        if (isHTML(destination)) {
+            var parent = destination.parentElement;
+
+            $this.each(function() {
+                parent.insertBefore(this, destination.nextSibling);
+            }, true);
+        }
+
+        /* If destination is DOMList or Array */
+        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+            var parent = destination[0].parentElement;
+
+            $this.each(function() {
+                parent.insertBefore(this, destination[0].nextSibling);
+            }, true);
+        }
+
+        /* If destination is string and not HTML Formatted string */
+        else if (isString(destination) && !isHTMLString(destination)) {
+            destination = $dom(destination);
+
+            /* If destination exist */
+            if (destination.length > 0) {
+                var parent = destination[0].parentElement;
+
+                $this.each(function() {
+                    parent.insertBefore(this, destination[0].nextSibling);
+                }, true);
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Inject
+     *
+     * @api {text} DOMList.text(value); .text()
+     * @apiName Text
+     * @apiDescription Get the first selected elements innerText or set all selected elements innerText.
+     *
+     * @apiParam {Any} value Inner text value.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').text(); // Get first selected span innerText
+     * $dom('span').text('foo'); // Set all span innerText to foo.
+     */
+    $dom.module.text = function(value) {
+        if (this.length <= 0) return this;
+
+        if (isDefined(value)) {
+            this.each(function() {
+                try {
+                    this.innerText = value;
+                } catch (err) {
+
+                }
+            });
+        } else {
+            return this[0].innerText;
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Inject
+     *
+     * @api {Texts} DOMList.texts(); .texts()
+     * @apiName Texts
+     * @apiDescription Get selected elements innerText.
+     *
+     * @apiExample {js} Sample #1
+     * $('span').texts();
+     */
+    $dom.module.texts = function() {
+        var result = [];
+
+        this.each(function() {
+            result.push(this.innerText);
+        });
+
+        return result;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Inject
+     *
+     * @api {html} DOMList.html(value); .html()
+     * @apiName HTML
+     * @apiDescription Get the first selected elements innerHTML or set all selected elements innerHTML.
+     *
+     * @apiParam {Any} value Inner html value.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').html(); // Get first selected span innerHTML
+     * $dom('span').html('foo'); // Set all span innerHTML to foo.
+     */
+    $dom.module.html = function(value) {
+        if (this.length <= 0) return this;
+
+        if (isDefined(value)) {
+            this.each(function() {
+                try {
+                    this.innerHTML = value;
+                } catch (err) {
+
+                }
+            });
+        } else {
+            return this[0].innerHTML;
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Inject
+     *
+     * @api {HTMLs} DOMList.htmls(); .htmls()
+     * @apiName HTMLs
+     * @apiDescription Get selected elements innerHTML
+     *
+     * @apiExample {js} Sample #1
+     * $('span').htmls();
+     */
+    $dom.module.htmls = function() {
+        var result = [];
+
+        this.each(function() {
+            result.push(this.innerHTML);
+        });
+
+        return result;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Inject
+     *
+     * @api {clone} DOMList.clone(); .clone()
+     * @apiName Clone
+     * @apiDescription Clone selected elements.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').clone();
+     */
+    $dom.module.clone = function() {
+        var cloned = [];
+
+        this.each(function() {
+            var clone = this.cloneNode(true);
+            cloned.push(clone);
+        });
+
+        return $dom(cloned);
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Inject
+     *
+     * @api {empty} DOMList.empty(); .empty()
+     * @apiName Empty
+     * @apiDescription Empty all selected elements.
+     *
+     * @apiExample {js} Sample #1
+     * $dom('span').empty();
+     */
+    $dom.module.empty = function() {
+        this.each(function() {
+            try {
+                this.innerHTML = '';
+                this.innerText = '';
+            } catch (err) {
+
+            }
+        });
+
+        this.val('');
+
+        return this;
+    };
+})(window, DOMList);
+
 /**
  * Modules That's Returns Boolean.
  */
