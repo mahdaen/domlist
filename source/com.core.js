@@ -177,7 +177,7 @@
     /**
      * @apiVersion 2.0.0
      * @apiGroup DOMList
-     * @api $dom.exnted(name,handler); $dom.extend()
+     * @api {extend} $dom.exnted(name,handler); $dom.extend()
      * @apiName Extend
      * @apiDescription Register DOMList Modules.
      *
