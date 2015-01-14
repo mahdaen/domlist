@@ -82,7 +82,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-apidoc');
 
     /* Registering Tasks */
-    grunt.registerTask('devel', ['concat', 'apidoc', 'watch']);
+    grunt.registerTask('devel', ['concat', 'apidoc','uglify:build', 'watch']);
     grunt.registerTask('alpha', ['concat', 'apidoc']);
     grunt.registerTask('build', ['concat', 'apidoc', 'uglify:build']);
 
