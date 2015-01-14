@@ -173,8 +173,8 @@
         return this;
     }
 
-    /* Registering to Window */
-    $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) }
+    /* Registering DOMList to Window */
+    $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) };
 
     /* Creating Modules */
     $root.$dom.module = DOMList.prototype = {
@@ -906,7 +906,9 @@
          * @apiParam {String} name String class name to add. If you want, you can use array to add multiple class.
          *
          * @apiExample {js} Sample #1
-         * $dom('.foo').addClas('clearfix');
+         * $dom('.foo').addClas('clearfix'); // Add single class.
+         * $dom('.foo').addClass('clearfix fit relative'); // Add multiple class.
+         * $dom('.foo').addClass(['clearfix', 'fit', 'relative']); // Add multiple class.
          */
         addClass: function(name) {
             var $this = this;

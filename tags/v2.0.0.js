@@ -909,8 +909,25 @@ window.circle = function(obj, reversed) {
         return this;
     }
 
-    /* Registering to Window */
-    $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) }
+    var DOMData = function(name, value, context) {
+        if (isString(name)) {
+            if (name.match(/\s+/)) {
+                var sname = name.split(/\s+/);
+
+                foreach(sname, function (attr) {
+                    name = name.replace(attr, '[' + attr + ']');
+                });
+
+                console.log(name);
+            }
+        }
+    };
+
+    /* Registering DOMList to Window */
+    $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) };
+
+    /* Registering DOMData to window */
+    $root.$data = $root.DOMdata = function(name, value, context) { return new DOMData(name, value, context) };
 
     /* Creating Modules */
     $root.$dom.module = DOMList.prototype = {
@@ -1642,7 +1659,9 @@ window.circle = function(obj, reversed) {
          * @apiParam {String} name String class name to add. If you want, you can use array to add multiple class.
          *
          * @apiExample {js} Sample #1
-         * $dom('.foo').addClas('clearfix');
+         * $dom('.foo').addClas('clearfix'); // Add single class.
+         * $dom('.foo').addClass('clearfix fit relative'); // Add multiple class.
+         * $dom('.foo').addClass(['clearfix', 'fit', 'relative']); // Add multiple class.
          */
         addClass: function(name) {
             var $this = this;

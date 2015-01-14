@@ -23,6 +23,7 @@ module.exports = function(grunt) {
 
                         // DOMList files.
                         'source/domlist.js',
+                        'source/com.data.js',
                         'source/mod.bool.js',
                     ]
                 }
