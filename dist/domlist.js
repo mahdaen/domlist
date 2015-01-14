@@ -913,7 +913,7 @@ window.circle = function(obj, reversed) {
     /**
      * @apiVersion 2.0.0
      * @apiGroup DOMList
-     * @api $dom.exnted(name,handler); $dom.extend()
+     * @api {extend} $dom.exnted(name,handler); $dom.extend()
      * @apiName Extend
      * @apiDescription Register DOMList Modules.
      *
@@ -997,7 +997,7 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList
      *
-     * @api $dom.data(name,value,context); $dom.data()
+     * @api {domdata} $dom.data(name,value,context); $dom.data()
      * @apiName DOMData
      * @apiDescription Select elements that has data-attribute name or has data-attribute name with equal value. Using without arguments will select all elements that has data-attribute.
      *
@@ -1226,6 +1226,42 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
+     * @api {push} DOMList.push(element); .push()
+     * @apiName Push
+     * @apiDescription Push single element or multiple element (DOMList or Array) to current DOMList. Using CSS selector string as element also accepted.
+     *
+     * @apiParam {Multi} element HTML Element, DOMList, Array Element List, or CSS Selector String.
+     *
+     * @apiExample Sample
+     * var foo = $dom('.foo');
+     * var bar = $dom('.bar')[0];
+     *
+     * foo.push(bar); // Push bar to foo.
+     * foo.push([bar]); // Push bar to foo.
+     * foo.push('.bar'); // Push bar to foo.
+     */
+    $dom.module.push = function(elem) {
+        var $this = this;
+
+        if (isHTML(elem)) {
+            $this[$this.length] = elem;
+            $this.length++;
+        } else if (isDOMList(elem) || isArray(elem)) {
+            foreach(elem, function (elem) {
+                $this[$this.length] = elem;
+                $this.length++;
+            });
+        } else if (isString(elem)) {
+            $this.push($dom(elem));
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
      * @api {first} DOMList.first(); .first()
      * @apiName First
      * @apiDescription Get the first child of selected elements. Return DOMList object.
@@ -1390,7 +1426,7 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
-     * @api DOMList.filter(query); .filter()
+     * @api {filter} DOMList.filter(query); .filter()
      * @apiName Filter
      * @apiDescription Filter the selected elements with specific CSS Selector.
      *
@@ -1717,7 +1753,7 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
-     * @api DOMList.remData(name); .remData()
+     * @api {remdata} DOMList.remData(name); .remData()
      * @apiName RemData
      * @apiDescription Remove data-attribute from selected elements.
      *
@@ -1934,7 +1970,7 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
-     * @api DOMList.toArray(); .toArray()
+     * @api {toarray} DOMList.toArray(); .toArray()
      * @apiName ToArray
      * @apiDescription Convert DOMList to array.
      *
@@ -2103,7 +2139,7 @@ window.circle = function(obj, reversed) {
         }
 
         /* If childs is Array or DOMList */
-        else if (isArray(childs) || is$dom(childs)) {
+        else if (isArray(childs) || isDOMList(childs)) {
             foreach(childs, function (node) {
                 $this[0].appendChild(node);
             });
@@ -2176,7 +2212,7 @@ window.circle = function(obj, reversed) {
         }
 
         /* If childs is DOMList or Array */
-        else if (is$dom(childs) || isArray(childs)) {
+        else if (isDOMList(childs) || isArray(childs)) {
             /* If no childrens, use append */
             if ($this[0].children.length <= 0) {
                 foreach(childs, function (node) {
@@ -2253,7 +2289,7 @@ window.circle = function(obj, reversed) {
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             destination = destination[0];
 
             $this.each(function() {
@@ -2315,7 +2351,7 @@ window.circle = function(obj, reversed) {
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             destination = destination[0];
 
             /* Use insertBefore if has childrens */
@@ -2394,7 +2430,7 @@ window.circle = function(obj, reversed) {
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             var parent = destination[0].parentElement;
 
             $this.each(function() {
@@ -2448,7 +2484,7 @@ window.circle = function(obj, reversed) {
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             var parent = destination[0].parentElement;
 
             $this.each(function() {
@@ -2686,7 +2722,7 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
-     * @api DOMList.hasData(name); .hasData()
+     * @api {hasdata} DOMList.hasData(name); .hasData()
      * @apiName HasData
      * @apiDescription Check does first selected element has specific data attribute.
      *
@@ -2723,7 +2759,7 @@ window.circle = function(obj, reversed) {
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
-     * @api DOMList.hasClass(name); .hasClass()
+     * @api {hasclass} DOMList.hasClass(name); .hasClass()
      * @apiName HasClass
      * @apiDescription Check does first selected element has specific class.
      *

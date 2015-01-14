@@ -56,7 +56,7 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
-     * @api DOMList.hasData(name); .hasData()
+     * @api {hasdata} DOMList.hasData(name); .hasData()
      * @apiName HasData
      * @apiDescription Check does first selected element has specific data attribute.
      *
@@ -93,7 +93,7 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Boolean
      *
-     * @api DOMList.hasClass(name); .hasClass()
+     * @api {hasclass} DOMList.hasClass(name); .hasClass()
      * @apiName HasClass
      * @apiDescription Check does first selected element has specific class.
      *

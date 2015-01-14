@@ -3,7 +3,7 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList
      *
-     * @api $dom.data(name,value,context); $dom.data()
+     * @api {domdata} $dom.data(name,value,context); $dom.data()
      * @apiName DOMData
      * @apiDescription Select elements that has data-attribute name or has data-attribute name with equal value. Using without arguments will select all elements that has data-attribute.
      *

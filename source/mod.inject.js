@@ -41,7 +41,7 @@
         }
 
         /* If childs is Array or DOMList */
-        else if (isArray(childs) || is$dom(childs)) {
+        else if (isArray(childs) || isDOMList(childs)) {
             foreach(childs, function (node) {
                 $this[0].appendChild(node);
             });
@@ -114,7 +114,7 @@
         }
 
         /* If childs is DOMList or Array */
-        else if (is$dom(childs) || isArray(childs)) {
+        else if (isDOMList(childs) || isArray(childs)) {
             /* If no childrens, use append */
             if ($this[0].children.length <= 0) {
                 foreach(childs, function (node) {
@@ -191,7 +191,7 @@
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             destination = destination[0];
 
             $this.each(function() {
@@ -253,7 +253,7 @@
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             destination = destination[0];
 
             /* Use insertBefore if has childrens */
@@ -332,7 +332,7 @@
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             var parent = destination[0].parentElement;
 
             $this.each(function() {
@@ -386,7 +386,7 @@
         }
 
         /* If destination is DOMList or Array */
-        else if (is$dom(destination) || isArray(destination) && destination.length > 0) {
+        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
             var parent = destination[0].parentElement;
 
             $this.each(function() {

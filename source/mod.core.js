@@ -5,6 +5,42 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
+     * @api {push} DOMList.push(element); .push()
+     * @apiName Push
+     * @apiDescription Push single element or multiple element (DOMList or Array) to current DOMList. Using CSS selector string as element also accepted.
+     *
+     * @apiParam {Multi} element HTML Element, DOMList, Array Element List, or CSS Selector String.
+     *
+     * @apiExample Sample
+     * var foo = $dom('.foo');
+     * var bar = $dom('.bar')[0];
+     *
+     * foo.push(bar); // Push bar to foo.
+     * foo.push([bar]); // Push bar to foo.
+     * foo.push('.bar'); // Push bar to foo.
+     */
+    $dom.module.push = function(elem) {
+        var $this = this;
+
+        if (isHTML(elem)) {
+            $this[$this.length] = elem;
+            $this.length++;
+        } else if (isDOMList(elem) || isArray(elem)) {
+            foreach(elem, function (elem) {
+                $this[$this.length] = elem;
+                $this.length++;
+            });
+        } else if (isString(elem)) {
+            $this.push($dom(elem));
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup DOMList Module Core
+     *
      * @api {first} DOMList.first(); .first()
      * @apiName First
      * @apiDescription Get the first child of selected elements. Return DOMList object.
@@ -169,7 +205,7 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
-     * @api DOMList.filter(query); .filter()
+     * @api {filter} DOMList.filter(query); .filter()
      * @apiName Filter
      * @apiDescription Filter the selected elements with specific CSS Selector.
      *
@@ -496,7 +532,7 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
-     * @api DOMList.remData(name); .remData()
+     * @api {remdata} DOMList.remData(name); .remData()
      * @apiName RemData
      * @apiDescription Remove data-attribute from selected elements.
      *
@@ -713,7 +749,7 @@
      * @apiVersion 2.0.0
      * @apiGroup DOMList Module Core
      *
-     * @api DOMList.toArray(); .toArray()
+     * @api {toarray} DOMList.toArray(); .toArray()
      * @apiName ToArray
      * @apiDescription Convert DOMList to array.
      *
