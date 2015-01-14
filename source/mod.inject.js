@@ -472,7 +472,7 @@
      * @apiName HTML
      * @apiDescription Get the first selected elements innerHTML or set all selected elements innerHTML.
      *
-     * @apiParam {Any} value Inner html value.
+     * @apiParam {Any} value Inner html value. Using DOMList or Array Element List will append them to the first selected element.
      *
      * @apiExample {js} Sample #1
      * $dom('span').html(); // Get first selected span innerHTML
@@ -481,7 +481,9 @@
     $dom.module.html = function(value) {
         if (this.length <= 0) return this;
 
-        if (isDefined(value)) {
+        if (isDOMList(value) || isArray(value)) {
+            this.append(value);
+        } else if (isDefined(value)) {
             this.each(function() {
                 try {
                     this.innerHTML = value;
