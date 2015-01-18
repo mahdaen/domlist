@@ -2604,6 +2604,19 @@ window.circle = function(obj, reversed) {
         return res;
     };
 
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     * @api {prev} DOMList.prev(query); .prev()
+     * @apiName Prev
+     * @apiDescription Get the prev element after first selected element inside parent element.
+     *
+     * @apiParam {String} [query] CSS Selector to match the prev element or Function to handle each prev element and return true if match.
+     *
+     * @apiExample {js} Sample
+     * $dom('span.foo').prev(); // Get the prev element after span.foo inside parent element.
+     * $dom('span.foo').prev('.bar'); // Get the prev element after span.foo and the first match with .bar inside parent element.
+     */
     $dom.module.prev = function(query) {
         if (this.length <= 0) return this;
 
@@ -2636,6 +2649,20 @@ window.circle = function(obj, reversed) {
         return res;
     };
 
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {prevall} DOMList.prevAll(query); .prevAll()
+     * @apiName PrevAll
+     * @apiDescription Get all element before first selected element.
+     *
+     * @apiParam {String} [query] CSS Selector to match the prev element or Function to handle each prev element and return true if match.
+     *
+     * @apiExample {js} Sample
+     * $dom('.foo').prevAll(); // Get all elements before .foo inside parent element.
+     * $dom('.foo').prevAll('.bar'); // Get all .bar elements before .foo inside parent element.
+     */
     $dom.module.prevAll = function(query) {
         if (this.length <= 0) return this;
 
@@ -2662,6 +2689,43 @@ window.circle = function(obj, reversed) {
         else {
             for (var i = (idx - 1); i >= 0; --i) {
                 res.push(all.get(i));
+            }
+        }
+
+        return res;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {prevuntil} DOMList.prevUntil(query); .prevUntil()
+     * @apiName prevuntil
+     * @apiDescription Get all element before first selected element until found matched query.
+     *
+     * @apiParam {String} query CSS Selector to match the prev element or Function to handle each prev element and return true if match.
+     *
+     * @apiExample {js} Sample
+     * $dom('.foo').prevUntil('.bar'); // Get all elements before .foo until found .bar inside parent element.
+     */
+    $dom.module.prevUntil = function(query) {
+        if (this.length <= 0) return this;
+
+        var all = this.first().parent().children();
+        var idx = all.indexOf(this.get(0));
+        var res = $dom();
+
+        if (isString(query)) {
+            for (var i = (idx - 1); i >= 0; --i) {
+                res.push(all.get(i));
+
+                if (all.nth(i).filter(query).length > 0) break;
+            }
+        } else if (isFunction(query)) {
+            for (var i = (idx - 1); i >= 0; --i) {
+                res.push(all.get(i));
+
+                if (query.call(all.get(i))) break;
             }
         }
 
