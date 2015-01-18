@@ -38,7 +38,7 @@ module.exports = function(grunt) {
             },
             tags: {
                 files: {
-                    'tags/v2.0.0.js': [
+                    'tags/v2.1.0.js': [
                         'dist/domlist.js'
                     ]
                 }

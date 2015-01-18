@@ -322,11 +322,11 @@ function() {
             candidate.indexOf(this.outerHTML) > -1 && $result.push(this);
         }), $result;
     }, $dom.module.each = function(handler, reversed) {
-        return isFunction(handler) && (reversed ? reveach(this, function(node, i) {
+        return this.length <= 0 ? this : (isFunction(handler) && (reversed ? reveach(this, function(node, i) {
             handler.call(node, i, node);
         }) : foreach(this, function(node, i) {
             handler.call(node, i, node);
-        })), this;
+        })), this);
     }, $dom.module.attr = function(name, value) {
         var $this = this;
         if (!(this.length <= 0)) {
@@ -451,6 +451,8 @@ function() {
             $result.push(first.parentElement);
         }
         return $result;
+    }, $dom.module.parentUntil = function(query) {
+        return this.parent().get() === $dom("body").get() ? $dom() : isString(query) ? this.parent().filter(query).length > 0 ? this.parent() : this.parent().parentUntil(query) : isFunction(query) ? query.call(this.parent().get()) ? this.parent() : this.parent().parentUntil(query) : this;
     }, $dom.module.parents = function() {
         var result = $dom();
         return this.each(function() {
@@ -512,6 +514,74 @@ function() {
         }) : isArray(index) && this.each(function(i) {
             index.indexOf(i) < 0 && result.push(this);
         }), result;
+    }, $dom.module.remProp = function(prop) {
+        return isString(prop) ? this.each(function() {
+            this[prop] && (delete this[prop], this.hasAttribute(prop) && this.removeAttribute(prop));
+        }) : isArray(prop) && foreach(prop, function(prop) {
+            this.remProp(prop);
+        }), this;
+    }, $dom.module.replace = function(trg, src) {
+        return isString(trg) ? this.filter(trg).replaceWith(src) : isHTML(trg) ? $dom(trg).replaceWith(src) : this;
+    }, $dom.module.replaceWith = function(elem) {
+        return this.length <= 0 ? this : (isHTML(elem) ? ($dom(elem).insertBefore(this.get(0)), 
+        this.first().remove()) : isHTMLString(elem) && this.each(function() {
+            this.outerHTML = elem;
+        }), this);
+    }, $dom.module.next = function(query) {
+        if (this.length <= 0) return this;
+        var all = this.first().parent().children(), idx = all.indexOf(this.get(0)), res = $dom();
+        if (isString(query)) {
+            for (var i = idx + 1; i < all.length; ++i) if (all.nth(i).filter(query).length > 0) {
+                res.push(all.get(i));
+                break;
+            }
+        } else {
+            if (!isFunction(query)) return all.nth(idx + 1);
+            for (var i = idx + 1; i < all.length; ++i) if (query.call(all.get(i))) {
+                res.push(all.get(i));
+                break;
+            }
+        }
+        return res;
+    }, $dom.module.nextAll = function(query) {
+        if (this.length <= 0) return this;
+        var all = this.first().parent().children(), idx = all.indexOf(this.get(0)), res = $dom();
+        if (isString(query)) for (var i = idx + 1; i < all.length; ++i) all.nth(i).filter(query).length > 0 && res.push(all.get(i)); else if (isFunction(query)) for (var i = idx + 1; i < all.length; ++i) query.call(all.get(i)) && res.push(all.get(i)); else for (var i = idx + 1; i < all.length; ++i) res.push(all.get(i));
+        return res;
+    }, $dom.module.nextUntil = function(query) {
+        if (this.length <= 0) return this;
+        var all = this.first().parent().children(), idx = all.indexOf(this.get(0)), res = $dom();
+        if (isString(query)) for (var i = idx + 1; i < all.length && (res.push(all.get(i)), 
+        !(all.nth(i).filter(query).length > 0)); ++i) ; else if (isFunction(query)) for (var i = idx + 1; i < all.length && (res.push(all.get(i)), 
+        !query.call(all.get(i))); ++i) ;
+        return res;
+    }, $dom.module.prev = function(query) {
+        if (this.length <= 0) return this;
+        var all = this.first().parent().children(), idx = all.indexOf(this.get(0)), res = $dom();
+        if (isString(query)) {
+            for (var i = idx - 1; i >= 0; --i) if (all.nth(i).filter(query).length > 0) {
+                res.push(all.get(i));
+                break;
+            }
+        } else {
+            if (!isFunction(query)) return all.nth(idx - 1);
+            for (var i = idx - 1; i >= 0; --i) if (query.call(all.get(i))) {
+                res.push(all.get(i));
+                break;
+            }
+        }
+        return res;
+    }, $dom.module.prevAll = function(query) {
+        if (this.length <= 0) return this;
+        var all = this.first().parent().children(), idx = all.indexOf(this.get(0)), res = $dom();
+        if (isString(query)) for (var i = idx - 1; i >= 0; --i) all.nth(i).filter(query).length > 0 && res.push(all.get(i)); else if (isFunction(query)) for (var i = idx - 1; i >= 0; --i) query.call(all.get(i)) && res.push(all.get(i)); else for (var i = idx - 1; i >= 0; --i) res.push(all.get(i));
+        return res;
+    }, $dom.module.prevUntil = function(query) {
+        if (this.length <= 0) return this;
+        var all = this.first().parent().children(), idx = all.indexOf(this.get(0)), res = $dom();
+        if (isString(query)) for (var i = idx - 1; i >= 0 && (res.push(all.get(i)), !(all.nth(i).filter(query).length > 0)); --i) ; else if (isFunction(query)) for (var i = idx - 1; i >= 0 && (res.push(all.get(i)), 
+        !query.call(all.get(i))); --i) ;
+        return res;
     };
 }(DOMList), function($dom) {
     "use strict";
@@ -737,6 +807,10 @@ function() {
             cls.indexOf(clas) > -1 && (has = !0);
         });
         return has;
+    }, $dom.module.is = function(query) {
+        return this.length <= 0 ? !1 : isString(query) ? this.first().filter(query).length > 0 ? !0 : !1 : isHTML(query) && this.get(0) === query ? !0 : !1;
+    }, $dom.module.not = function(query) {
+        return this.is(query) ? !1 : !0;
     };
 }(DOMList), function($root, $dom) {
     "use strict";
@@ -870,12 +944,12 @@ function() {
         $dom(this).listen("HoverEvent", {
             mouseenter: function() {
                 EventProvider.dispatch("hover", this, {
-                    direction: "enter"
+                    status: "enter"
                 });
             },
             mouseleave: function() {
                 EventProvider.dispatch("hover", this, {
-                    direction: "leave"
+                    status: "leave"
                 });
             }
         });
