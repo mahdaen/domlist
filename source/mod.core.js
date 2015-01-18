@@ -812,7 +812,6 @@
      * @api {comment} DOMList.comment() .comment()
      * @apiName Comment
      * @apiDescription Comment out a block of selected elements.
-     * @returns {$dom.module}
      */
     $dom.module.comment = function() {
         this.each(function() {
@@ -821,5 +820,35 @@
         });
 
         return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {match} DOMList.mathch(handler); .match()
+     * @apiName Match
+     * @apiDescription Filter selected elements using function.
+     * Hanlder should return true or false to tell matcher should current element should included or not.
+     * Hanlder will become an HTML Element.
+     * Matcher will return new DOMList object or null if no element matched.
+     *
+     * @apiParam {Function} handler Function to handler HTML Element to return true or false.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').match(function() {
+     *     return this.hasAttribute('href') ? true : false;
+     * });
+     */
+    $dom.module.match = function(handler) {
+        if (!isFunction(handler) || this.length <= 0) return this;
+
+        var result = $dom();
+
+        this.each(function() {
+            if (handler.call(this) === true) result.push(this);
+        });
+
+        return result.length > 0 ? result : null;
     };
 })(DOMList);
