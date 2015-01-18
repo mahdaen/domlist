@@ -302,11 +302,12 @@ function() {
         var fisrt = this[0], child = fisrt.children;
         return child.length > 0 && child.hasOwnProperty(i) ? $dom(child[i]) : $dom();
     }, $dom.module.children = function() {
-        if (this.first().length > 0) {
-            var childs = this.first()[0].children;
-            return childs.constructor.prototype.name = "DOMList", $dom(childs);
-        }
-        return $dom();
+        var result = $dom();
+        if (this.length <= 0) return this;
+        var childs = this[0].children;
+        return childs.name = "DOMList", childs.length > 0 && foreach(childs, function(node) {
+            result.push(node);
+        }), result;
     }, $dom.module.find = function(query) {
         return isString(query) ? $dom(query, this) : void 0;
     }, $dom.module.filter = function(query) {
@@ -490,13 +491,27 @@ function() {
         if (isHTMLString(htmlstring)) {
             var result = $dom();
             return this.each(function() {
-                if (this.childElementCount > 0) {
-                    var elem = $dom(htmlstring).append($dom(this).children());
-                    console.log(elem), result.push($dom(htmlstring).append($dom(this).children()).prependTo(this.children));
+                var elem, child = $dom(this).children();
+                if (child.length > 0) elem = $dom(htmlstring).prependTo(this).append(child), result.push(elem); else {
+                    var text = this.innerHTML;
+                    $dom(this).empty(), elem = $dom(htmlstring).html(text).appendTo(this), result.push(elem);
                 }
             }), result;
         }
         return this;
+    }, $dom.module.siblings = function() {
+        if (this.length <= 0) return this;
+        var result = $dom(), first = this.first();
+        return first.parent().children().each(function() {
+            this !== first.get() && result.push(this);
+        }), result;
+    }, $dom.module.slice = function(index) {
+        var result = $dom();
+        return isNumber(index) ? this.each(function(i) {
+            i !== index && result.push(this);
+        }) : isArray(index) && this.each(function(i) {
+            index.indexOf(i) < 0 && result.push(this);
+        }), result;
     };
 }(DOMList), function($dom) {
     "use strict";
