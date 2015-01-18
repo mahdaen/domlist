@@ -2223,6 +2223,34 @@ window.circle = function(obj, reversed) {
 
         return -1;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {tostring} DOMList.toString(); .toString()
+     * @apiName ToString
+     * @apiDescription Convert first selected element to HTML String. Use 'true` as argument to convert all selected elements and return array.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').toString(); // Convert first selected element and return HTML String.
+     * $dom('span').toString(true); // Convert all elements and return array contains each HTML String.
+     */
+    $dom.module.toString = function(isall) {
+        if (this.length <= 0) return undefined;
+
+        if (isall) {
+            var elmStrings = [];
+
+            this.each(function() {
+                elmStrings.push(this.outerHTML);
+            });
+
+            return elmStrings;
+        } else {
+            return this.first().get().outerHTML;
+        }
+    }
 })(DOMList);
 
 (function($dom) {
