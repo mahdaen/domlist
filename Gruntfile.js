@@ -22,6 +22,7 @@ module.exports = function(grunt) {
                         'node_modules/native-js/dist/nativejs.js',
 
                         /* Cores */
+                        'source/com.polyfill.js',
                         'source/com.core.js',
                         'source/com.data.js',
 
@@ -30,6 +31,8 @@ module.exports = function(grunt) {
                         'source/mod.class.js',
                         'source/mod.inject.js',
                         'source/mod.bool.js',
+                        'source/mod.event.js',
+                        'source/mod.event.alias.js',
                     ]
                 }
             },
@@ -44,12 +47,23 @@ module.exports = function(grunt) {
 
         /* Uglifying Scripts */
         uglify: {
-            options: {
-                mangle: true,
-            },
             build: {
+                options: {
+                    mangle: true,
+                    sourceMap: true,
+                    sourceMapName: 'dist/domlist.min.map'
+                },
                 files: {
                     'dist/domlist.min.js': 'dist/domlist.js'
+                }
+            },
+            lites: {
+                options: {
+                    mangle: false,
+                    beautify: true
+                },
+                files: {
+                    'dist/domlist.lite.js': 'dist/domlist.js'
                 }
             }
         },
@@ -82,9 +96,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-apidoc');
 
     /* Registering Tasks */
-    grunt.registerTask('devel', ['concat', 'apidoc','uglify:build', 'watch']);
+    grunt.registerTask('devel', ['concat', 'apidoc', 'watch']);
     grunt.registerTask('alpha', ['concat', 'apidoc']);
-    grunt.registerTask('build', ['concat', 'apidoc', 'uglify:build']);
+    grunt.registerTask('build', ['concat', 'apidoc', 'uglify']);
 
     grunt.registerTask('docs', ['apidoc']);
 }

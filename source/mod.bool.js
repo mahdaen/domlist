@@ -5,7 +5,7 @@
 (function($dom) {
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Boolean
+     * @apiGroup Checker
      *
      * @api {hasattr} DOMList.hasAttr(name); .hasAttr()
      * @apiName HasAttr
@@ -54,7 +54,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Boolean
+     * @apiGroup Checker
      *
      * @api {hasdata} DOMList.hasData(name); .hasData()
      * @apiName HasData
@@ -91,7 +91,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Boolean
+     * @apiGroup Checker
      *
      * @api {hasclass} DOMList.hasClass(name); .hasClass()
      * @apiName HasClass

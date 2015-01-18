@@ -734,6 +734,90 @@ window.circle = function(obj, reversed) {
         return narr;
     }
 };
+(function ($root) {
+    /* Array.isArray Polyfill */
+    if (!Array.isArray) {
+        Array.prototype.isArray = function () {
+            return Object.prototype.toString.call(this) === '[object Array]';
+        }
+    }
+
+    /* Array.indexOf Polyfill */
+    if (!Array.indexOf) {
+        Array.prototype.indexOf = function (searchElement, fromIndex) {
+
+            var k;
+
+            if (this == null) {
+                throw new TypeError('"this" is null or not defined');
+            }
+
+            var O = Object(this);
+
+            var len = O.length >>> 0;
+
+            if (len === 0) {
+                return -1;
+            }
+
+            var n = +fromIndex || 0;
+
+            if (Math.abs(n) === Infinity) {
+                n = 0;
+            }
+
+            if (n >= len) {
+                return -1;
+            }
+
+            k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+            while (k < len) {
+                var kValue;
+                if (k in O && O[k] === searchElement) {
+                    return k;
+                }
+                k++;
+            }
+            return -1;
+        };
+    }
+
+    /* Object.keys Polyfill */
+    if (!Object.keys) {
+        Object.prototype.keys = function () {
+            var arr = [];
+
+            for (var key in this) {
+                if (this.hasOwnProperty(key)) {
+                    arr.push(key);
+                }
+            }
+
+            return arr;
+        }
+    }
+
+    /* CustomEvent Polyfill */
+    var CustomEvent = function (name, options) {
+        var event;
+
+        if (isString(name)) {
+            options = options || {bubbles: false, cancelable: false, detail: undefined};
+
+            event = document.createEvent('CustomEvent');
+            event.initCustomEvent(name, options.bubbles, options.cancelable, options.detail);
+        }
+
+        return event;
+    };
+
+    /* CustomEvent Prototype */
+    CustomEvent.prototype = $root.Event.prototype;
+
+    /* Register to window if no default CustomEvent */
+    if (!$root.CustomEvent) $root.CustomEvent = CustomEvent;
+})(window);
 /**
  * DOMList
  * HTML Query Selector Helper.
@@ -1224,7 +1308,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {push} DOMList.push(element); .push()
      * @apiName Push
@@ -1260,7 +1344,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {first} DOMList.first(); .first()
      * @apiName First
@@ -1275,7 +1359,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {firstchild} DOMList.firstChild(); .firstChild()
      * @apiName FirstChild
@@ -1299,7 +1383,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {last} DOMList.last(); .last()
      * @apiName Last
@@ -1314,7 +1398,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {lastchild} DOMList.lastChild(); .lastChild()
      * @apiName LastChild
@@ -1338,7 +1422,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {nth} DOMList.nth(index); .nth()
      * @apiName NTH
@@ -1355,7 +1439,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {nthChild} DOMList.nthChild(index); .nthChild()
      * @apiName NthChild
@@ -1381,7 +1465,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {children} DOMList.children(); .children()
      * @apiName Children
@@ -1404,7 +1488,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {finder} DOMList.find(query); .find()
      * @apiName Find
@@ -1424,7 +1508,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {filter} DOMList.filter(query); .filter()
      * @apiName Filter
@@ -1464,7 +1548,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {iterator} DOMList.each(handler); .each()
      * @apiName Iterator
@@ -1497,7 +1581,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {attr} DOMList.attr(name,value); .attr()
      * @apiName Attr
@@ -1638,7 +1722,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {remattr} DOMList.remAttr(name); .remAttr()
      * @apiName RemAttr
@@ -1682,7 +1766,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {data} DOMList.data(name,value); .data()
      * @apiName Data
@@ -1751,7 +1835,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {remdata} DOMList.remData(name); .remData()
      * @apiName RemData
@@ -1783,7 +1867,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {prop} DOMList.prop(name,value); .prop()
      * @apiName Prop
@@ -1824,7 +1908,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {val} DOMList.val(value); .val()
      * @apiName Val
@@ -1846,7 +1930,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {remove} DOMList.remove(); .remove()
      * @apiName Remove
@@ -1865,7 +1949,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {sort} DOMList.sortBy(attr,options); .sortBy()
      * @apiName Sort
@@ -1968,7 +2052,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {toarray} DOMList.toArray(); .toArray()
      * @apiName ToArray
@@ -1989,7 +2073,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {parent} DOMList.parent() .parent()
      * @apiName Parent
@@ -2008,7 +2092,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      * @api {parents} DOMList.parents(); .parents()
      * @apiName Parents
      * @apiDescription Get all parent element of all selected elements as DOMList object.
@@ -2025,6 +2109,24 @@ window.circle = function(obj, reversed) {
 
         return result;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {comment} DOMList.comment() .comment()
+     * @apiName Comment
+     * @apiDescription Comment out a block of selected elements.
+     * @returns {$dom.module}
+     */
+    $dom.module.comment = function() {
+        this.each(function() {
+            this.orgHTML = this.outerHTML;
+            this.outerHTML = '<!-- ' + this.outerHTML + ' -->';
+        });
+
+        return this;
+    };
 })(DOMList);
 
 (function($dom) {
@@ -2032,7 +2134,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Class
+     * @apiGroup Class
      *
      * @api {addclass} DOMList.addClass(name); .addClass()
      * @apiName AddClass
@@ -2070,7 +2172,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Class
+     * @apiGroup Class
      *
      * @api {remclass} DOMList.remClass(name); .remClass()
      * @apiName RemClass
@@ -2107,7 +2209,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Class
+     * @apiGroup Class
      *
      * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
      * @apiName ToggleClass
@@ -2140,7 +2242,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {append} DOMList.append(childs); .append()
      * @apiName Append
@@ -2205,7 +2307,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {prepend} DOMList.prepend(childs) .prepend()
      * @apiName Prepend
@@ -2303,7 +2405,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {appendto} DOMList.appendTo(destination) .appendTo()
      * @apiName AppendTo
@@ -2352,7 +2454,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {perependto} DOMList.prependTo(destination) .prependTo()
      * @apiName PrependTo
@@ -2442,7 +2544,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
      * @apiName insertBefore
@@ -2496,7 +2598,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
      * @apiName insertAfter
@@ -2550,7 +2652,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {text} DOMList.text(value); .text()
      * @apiName Text
@@ -2582,7 +2684,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {Texts} DOMList.texts(); .texts()
      * @apiName Texts
@@ -2603,7 +2705,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {html} DOMList.html(value); .html()
      * @apiName HTML
@@ -2637,7 +2739,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {HTMLs} DOMList.htmls(); .htmls()
      * @apiName HTMLs
@@ -2658,7 +2760,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {clone} DOMList.clone(); .clone()
      * @apiName Clone
@@ -2680,7 +2782,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {empty} DOMList.empty(); .empty()
      * @apiName Empty
@@ -2712,7 +2814,7 @@ window.circle = function(obj, reversed) {
 (function($dom) {
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Boolean
+     * @apiGroup Checker
      *
      * @api {hasattr} DOMList.hasAttr(name); .hasAttr()
      * @apiName HasAttr
@@ -2761,7 +2863,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Boolean
+     * @apiGroup Checker
      *
      * @api {hasdata} DOMList.hasData(name); .hasData()
      * @apiName HasData
@@ -2798,7 +2900,7 @@ window.circle = function(obj, reversed) {
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Boolean
+     * @apiGroup Checker
      *
      * @api {hasclass} DOMList.hasClass(name); .hasClass()
      * @apiName HasClass
@@ -2845,3 +2947,878 @@ window.circle = function(obj, reversed) {
         return has;
     };
 })(DOMList);
+
+(function($root, $dom) {
+    'use strict';
+
+    /* Event Provider */
+    var EventProvider = function() {
+        this.events = {};
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup EventProvider
+     *
+     * @api {eventprovider} EventProvider .about
+     * @apiName EventProvider
+     * @apiDescription Create or trigger custom event to element.
+     */
+    EventProvider.prototype = {
+        /**
+         * @apiVersion 2.1.0
+         * @apiGroup EventProvider
+         *
+         * @api EventProvider.search(name); .search()
+         * @apiName evSearch
+         * @apiDescription Search custom event.
+         *
+         * @apiParam {String} name String event name.
+         *
+         * @apiExample {js} Sample
+         * EventProvider.search('swipe'); // Return swipe event provider object.
+         */
+        search: function(name) {
+            if (isString(name)) {
+                return isObject(this.events[name]) ? this.events[name] : undefined;
+            }
+
+            return undefined;
+        },
+
+        /**
+         * @apiVersion 2.1.0
+         * @apiGroup EventProvider
+         * @api {register} EventProvider.register(name,maker,options); .register()
+         * @apiName evRegister
+         * @apiDescription Register custom event.
+         *
+         * @apiParam {String} name String custom event name.
+         * @apiParam {Function} maker Function that handle event initialization. This function will be called by element if element listen to that event. You must manually trigger that event under this function.
+         * @apiParam {Object} options Custom event options. E.g { bubbles: false, cancelable: false, detail: undefind }
+         *
+         * @apiExample {js} Sample
+         * // Registering custom event.
+         * EventProvider.register('maxclick', function() {
+         *     // Listen click to the element.
+         *     $dom(this).click(function() {
+         *         if (!this.maxclick) this.maxclick = 1;
+         *
+         *         if (this.maxclick === 5) {
+         *             // Trigger the event to target and add maxclick property to event object.
+         *             EventProvider.dispatch('maxclick', this, { maxclick: this.maxclick });
+         *         } else {
+         *             this.maxclick++;
+         *         }
+         *     });
+         * });
+         *
+         * // Listening event.
+         * $dom('span').handle('maxclick', function(e) {
+         *     console.log('Your reached max click: ' + e.maxclick);
+         * });
+         */
+        register: function(name, provider, options) {
+            if (isString(name) && isFunction(provider)) {
+                this.events[name] = {
+                    maker: provider,
+                    event: new $root.CustomEvent(name, options)
+                };
+            }
+
+            return this.events[name].event;
+        },
+
+        /**
+         * @apiVersion 2.1.0
+         * @apiGroup EventProvider
+         *
+         * @api {dispatch} EventProvider.dispatch(name,targetElement,properties); .dispatch()
+         * @apiName evDispatch
+         * @apiDescription Trigger custom event to element.
+         *
+         * @apiParam {String} Custom event name.
+         * @apiParam {HTMLElement} HTML Element to trigger custom event on.
+         * @apiParam {Object} [properties] Properties that will be added to event object. E.g { a: 1, b: 2 }. Then when event listener will get 'event.a' and 'event.b'.
+         *
+         * @apiExample {js} Sample
+         * $dom('span')
+         *     // Create listener.
+         *     .handle('foo', function(e) {
+         *         console.log(e.a, e.b);
+         *     })
+         *
+         *     // Triggering event.
+         *     .each(function() {
+         *         EventProvider.dispatch('foo', this, { a: 1, b: 2 });
+         *     });
+         */
+        dispatch: function(name, elem, props) {
+            if (isString(name) && isHTML(elem) && this.events[name]) {
+                var event = this.events[name].event;
+
+                if (isObject(props)) {
+                    foreach(props, function (key, value) {
+                        event[key] = value;
+                    });
+                }
+
+                elem.dispatchEvent(event);
+            }
+        }
+    };
+
+    /* Register EventProvider to window */
+    $root.EventProvider = new EventProvider();
+
+    /* Function to add listener to document DOMContentLoaded and Loaded */
+    document.onreadystatechange = function() {
+        if (document.readyState === 'interactive') {
+            document.isready = true;
+        }
+        else if (document.readyState === 'complete') {
+            document.isloaded = true;
+        }
+    }
+
+    var DocLoadListener = function(type, handler) {
+        var $this = document;
+
+        /* Creating handler list if not defined */
+        if (!$this._evcol) {
+            $this._evcol = { _init: true, ready: [], loaded: [] };
+        }
+
+        /* Push handler to handler list */
+        if (isString(type) && isFunction(handler)) {
+            $this._evcol[type].push(handler);
+        }
+
+        /* Trigger the handler directly if already in target state */
+        if ($this.isready && type === 'ready') {
+            handler.call($this);
+        }
+        if ($this.isloaded && type === 'loaded') {
+            handler.call($this);
+        }
+
+        /* Creating main hanlder on first use */
+        if ($this._evcol._init) {
+            $this._evcol._init = false;
+
+            /* Listen document onreadystatechange */
+            $this.onreadystatechange = function() {
+                /* Hanling ready event */
+                if ($this.readyState === 'interactive') {
+                    setTimeout(function() {
+                        foreach($this._evcol.ready, function (handler) {
+                            handler.call($this);
+
+                            $this.isready = true;
+                        });
+                    }, 300);
+                }
+
+                /* Handling loaded event */
+                else if ($this.readyState === 'complete') {
+                    setTimeout(function() {
+                        foreach($this._evcol.loaded, function (handler) {
+                            handler.call($this);
+
+                            $this.isloaded = true;
+                        });
+                    }, 300);
+                }
+            }
+        }
+
+        return $this;
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     * @api {ready} DOMList.ready(handler); $dom.ready()
+     * @apiName Ready
+     * @apiDescription Add handler to handle when document is ready to manipulate.
+     *
+     * @apiParam {Function} handler Function that handle when document is ready to manipulate.
+     *
+     * @apiExample {js} Sample
+     * $dom.ready(function() { console.log('document ready'); });
+     */
+    $dom.ready = function(handler) {
+        return new DocLoadListener('ready', handler);
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     * @api {loaded} DOMList.loaded(handler); $dom.loaded()
+     * @apiName Loaded
+     * @apiDescription Add handler to handle when document is fully loaded.
+     *
+     * @apiParam {Function} handler Function that handle when document is loaded to manipulate.
+     *
+     * @apiExample {js} Sample
+     * $dom.loaded(function() { console.log('document loaded'); });
+     */
+    $dom.loaded = function(handler) {
+        return new DocLoadListener('loaded', handler);
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {listen} DOMList.listen(name,type,handler); .listen()
+     * @apiName Listen
+     * @apiDescription Add named event handler to selected elements.
+     * Named event handler give possibility to remove event handler only that has specific name, not remove all event handler.
+     *
+     * @apiParam {Multi} name String handler name, or object contains names, types and handlers.
+     * @apiParam {Multi} type String event type, or object contains types.
+     * @apiParam {Function} handler Function to handle event.
+     *
+     * @apiExample {js} Sample #1
+     * // Handle click on spans with name fooclick.
+     * $dom('span').listen('fooclick', 'click', function() {});
+     *
+     * // Handle multiple event with name foo.
+     * $dom('span').listen('foo', {
+     *     click: function() {},
+     *     mouseenter: function() {}
+     * );
+     *
+     * // Handle mutiple name and events.
+     * $dom('span').listen({
+     *     foo: {
+     *         click: function() {}
+     *     },
+     *     bar: {
+     *         click: function() {}
+     *     }
+     * });
+     */
+    $dom.module.listen = function(name, type, handler) {
+        this.each(function() {
+            var elem = this;
+
+            /* Add prefix to event type */
+            if (isString(type) && elem.hasOwnProperty('on' + type))  type = 'on' + type;
+
+            /* Using single name registration */
+            if (isString(name)) {
+                /* Using single event type registration */
+                if (isString(type) && isFunction(handler)) {
+                    /* Add event collection if not exist */
+                    if (!elem._evcol) elem._evcol = {};
+
+                    /* Add event type collection if not exist */
+                    if (!elem._evcol[type]) elem._evcol[type] = { _init: true };
+
+                    /* Add event type handler collection if not exist */
+                    if (!elem._evcol[type][name]) elem._evcol[type][name] = [];
+
+                    /* Pushing event handler to collections */
+                    elem._evcol[type][name].push(handler);
+                }
+
+                /* Using multiple event type registration */
+                else if (isObject(type)) {
+                    foreach(type, function(type, handler) {
+                        if (isFunction(handler)) {
+                            $dom(elem).listen(name, type, handler);
+                        }
+                    });
+                }
+            }
+
+            /* Using multiple name registration */
+            else if (isObject(name)) {
+                /* Iterate type list */
+                foreach(name, function (name, types) {
+                    if (isObject(types)) {
+                        /* Iterate names list */
+                        foreach(types, function (type, handler) {
+                            if (isFunction(handler)) {
+                                $dom(elem).listen(type, name, handler);
+                            }
+                        });
+                    }
+                });
+            }
+
+            /* Create DOMList Event Handler if not already defined */
+            if (elem._evcol) {
+                if (elem._evcol[type] && elem._evcol[type]._init) {
+                    elem._evcol[type]._init = false;
+
+                    /* Tell Event Provider (if available) to provide custom event to this element */
+                    var cev = $root.EventProvider.search(type);
+                    if (cev) cev.maker.call(elem);
+
+                    /* Creating Default Handler */
+                    var defHandler = function(e) {
+                        var $self = this;
+
+                        if ($self._evcol[type]) {
+                            foreach($self._evcol[type], function (name, handlers) {
+                                if (name !== '_init') {
+                                    foreach(handlers, function (handler) {
+                                        if (isFunction(handler)) {
+                                            handler.call($self, e);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+
+                    /* Simply use 'onevent' or addEventListener */
+                    if (elem.hasOwnProperty(type)) {
+                        elem[type] = defHandler;
+                    } else {
+                        elem.addEventListener(type, defHandler);
+                    }
+                }
+            }
+        });
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {unlisten} DOMList.unlisten(name,type); .unlisten()
+     * @apiName Unlisten
+     * @apiDescription Remove named event handler from selected elements.
+     *
+     * @apiParam {Multi} name handler name or array handler names.
+     * @apiParam {Multi} [type] String event type or array event types. Leave blank to remove all event from that name.
+     *
+     * @apiExample {js} Sample
+     * // Remove fooclick handler.
+     * $dom('span').unlisten('fooclick');
+     *
+     * // Remove click event from foo.
+     * $dom('span').unlisten('foo', 'click');
+     *
+     * // Remove click event from foo and bar.
+     * $dom('span').unlisten(['foo', 'bar'], 'click');
+     *
+     * // Remove click and mouseenter event from foo.
+     * $dom('span').unlisten('foo', ['click', 'mouseenter']);
+     *
+     * // Remove click and mouseenter event from foo and bar.
+     * $dom('span').unlisten(['foo', 'bar'], ['click', 'moueseenter']);
+     */
+    $dom.module.unlisten = function(name, type) {
+        var self = this;
+        if (isString(name)) {
+            if (isString(type)) {
+                this.each(function() {
+                    if (this.hasOwnProperty('on' + type)) type = 'on' + type;
+
+                    if (this._evcol[type] && this._evcol[type][name]) {
+                        delete this._evcol[type][name];
+                    }
+                });
+            } else if (isArray(type)) {
+                foreach(type, function (type) {
+                    self.unlisten(name, type);
+                });
+            } else {
+                this.each(function() {
+                    var $this = this;
+
+                    foreach($this._evcol, function (type, names) {
+                        if (isObject(names) && names.hasOwnProperty(name)) {
+                            delete $this._evcol[type][name];
+                        }
+                    });
+                });
+            }
+        } else if (isArray(name)) {
+            if (isString(type)) {
+                foreach(name, function(name) {
+                    self.unlisten(name, type);
+                });
+            } else if (isArray(type)) {
+                foreach(name, function(name) {
+                    foreach(type, function (type) {
+                        self.unlisten(name, type);
+                    });
+                });
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {handle} DOMList.handle(type,handler); .handle()
+     * @apiName Handle
+     * @apiDescription Add event handler to selected elements.
+     *
+     * @apiParam {Multi} type String event type or object contains events.
+     * @apiParam {Function} [handler] Function to handle event.
+     *
+     * @apiExample {js} Sample
+     * // Hanlde single event.
+     * $dom('span').handle('click', function() {});
+     *
+     * // Handle multiple events.
+     * $dom('span').handle({
+     *     click: function() {},
+     *     mouseenter: function() {}
+     * });
+     */
+    $dom.module.handle = function(type, handler) {
+        if (isString(type) && isFunction(handler)) {
+            this.listen('default', type, handler);
+        } else if (isObject(type)) {
+            this.listen('default', type);
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {unhandle} DOMList.unhandle(type); .unhandle()
+     * @apiName Unhandle
+     * @apiDescription Remove event handler from selected elements.
+     *
+     * @apiParam {Multi} type String event type or array type list.
+     *
+     * @apiExample {js} Sample
+     * // Remove single event.
+     * $dom('span').unhandle('click');
+     *
+     * // Remove multiple event.
+     * $dom('span').unhandle(['click', 'mouseenter']);
+     */
+    $dom.module.unhanlde = function(type) {
+        if (isString(type) || isArray(type)) {
+            this.unlisten('default', type);
+        }
+
+        return this;
+    }
+
+    /* Creating Specific Event Group */
+    var eventGroup = {
+        MouseEvents: 'click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave contextmenu'.split(/\s+/),
+        KeyboardEvents: 'keydown keypress keyup'.split(/\s+/),
+        FocusEvent: 'blur focus focusin focusout'.split(/\s+/)
+    };
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {trigger} DOMList.trigger(type,properties); .trigger()
+     * @apiName Trigger
+     * @apiDescription Dispatch an event to selected elements. You can also use alias .dispatch().
+     *
+     * @apiParam {String} type String event type. You can use array to dispatch multiple event.
+     * @apiParam {Object} properties Object contains additional properties to added to event object.
+     *
+     * @apiExample {js} Sample
+     * // Dispatch click event to button.
+     * $dom('button').trigger('click');
+     *
+     * // Dispatch multiple event.
+     * $dom('button').trigger(['focus', 'click']);
+     *
+     * // Dispatch click event with additional properties.
+     * // Create listener.
+     * $dom('button').click(function(e) {
+     *     console.log(e.sender);
+     * };
+     *
+     * // Trigger
+     * $dom('button').trigger('click', { sender: 'document' });
+     */
+    $dom.module.trigger = $dom.module.dispatch = function(type, props) {
+        /* Event type should be string or array */
+        if (isString(type)) {
+            /* Iterate each element */
+            this.each(function() {
+                var elem = this, event, group = 'Event';
+
+                /* Lookup on Event Group to change default group if found */
+                foreach(eventGroup, function (grp, types) {
+                    if (types.indexOf(type) > -1) {
+                        group = grp;
+                    }
+                });
+
+                /* Look at Custom Event first */
+                if ($root.EventProvider.search(type)) {
+                    EventProvider.dispatch(type, elem, props);
+                }
+
+                /* If not found, use standard event */
+                else {
+                    /* Non IE Browsers */
+                    if (document.createEvent) {
+                        /* Creating event object */
+                        event = document.createEvent(group);
+                        event.initEvent(type);
+
+                        /* Inserting additional properties if defined */
+                        if (isObject(props)) {
+                            foreach(props, function (key, value) {
+                                event[key] = value;
+                            });
+                        }
+
+                        /* Fire event */
+                        elem.dispatchEvent(event);
+                    }
+
+                    /* IE Browsers */
+                    else if (document.createEventObject) {
+                        /* Creating event object */
+                        event.createEventObject();
+
+                        /* Inserting additional properties if defined */
+                        if (isObject(props)) {
+                            foreach(props, function (key, value) {
+                                event[key] = value;
+                            });
+                        }
+
+                        /* Fire event */
+                        elem.fireEvent(type, event);
+                    }
+                }
+            });
+        }
+
+        return this;
+    }
+})(window, DOMList);
+(function($root, $dom) {
+    'use strict';
+
+    /* EVENT ALIASES */
+    /* ------------------------------------- */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {alias} DOMList.$alias(handler); $alias
+     * @apiName Alias
+     * @apiDescription Bind event or trigger event to selected elements. Alias is shortcut to bind event quickly. E.g DOMList.click(handler);
+     *
+     * @apiParam {Function} handler Function to handle event.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').click(function() {}); // Bind click event.
+     * $dom('span').focus(); // Trigger focus event.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {blur} DOMList.blur(handler);  .blur()
+     * @apiName blur
+     * @apiDescription Handle blur event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {focus} DOMList.focus(handler);  .focus()
+     * @apiName focus
+     * @apiDescription Handle focus event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {focusin} DOMList.focusin(handler);  .focusin()
+     * @apiName focusin
+     * @apiDescription Handle focusin event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {focusout} DOMList.focusout(handler);  .focusout()
+     * @apiName focusout
+     * @apiDescription Handle focusout event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {load} DOMList.load(handler);  .load()
+     * @apiName load
+     * @apiDescription Handle load event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {resize} DOMList.resize(handler);  .resize()
+     * @apiName resize
+     * @apiDescription Handle resize event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {scroll} DOMList.scroll(handler);  .scroll()
+     * @apiName scroll
+     * @apiDescription Handle scroll event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {unload} DOMList.unload(handler);  .unload()
+     * @apiName unload
+     * @apiDescription Handle unload event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {click} DOMList.click(handler);  .click()
+     * @apiName click
+     * @apiDescription Handle click event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {dblclick} DOMList.dblclick(handler);  .dblclick()
+     * @apiName dblclick
+     * @apiDescription Handle dblclick event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {switch} DOMList.switch(handler);  .switch()
+     * @apiName switch
+     * @apiDescription Handle load event or trigger if no argument defined. Switch is toggle between on and off. 'state' property provided on event object.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {hover} DOMList.hover(handler);  .hover()
+     * @apiName hover
+     * @apiDescription Handle hover event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mousedown} DOMList.mousedown(handler);  .mousedown()
+     * @apiName mousedown
+     * @apiDescription Handle mousedown event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mouseup} DOMList.mouseup(handler);  .mouseup()
+     * @apiName mouseup
+     * @apiDescription Handle mouseup event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mousemove} DOMList.mousemove(handler);  .mousemove()
+     * @apiName mousemove
+     * @apiDescription Handle mousemove event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mouseover} DOMList.mouseover(handler);  .mouseover()
+     * @apiName mouseover
+     * @apiDescription Handle mouseover event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mouseout} DOMList.mouseout(handler);  .mouseout()
+     * @apiName mouseout
+     * @apiDescription Handle mouseout event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mouseenter} DOMList.mouseenter(handler);  .mouseenter()
+     * @apiName mouseenter
+     * @apiDescription Handle mouseenter event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {mouseleave} DOMList.mouseleave(handler);  .mouseleave()
+     * @apiName mouseleave
+     * @apiDescription Handle mouseleave event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {change} DOMList.change(handler);  .change()
+     * @apiName change
+     * @apiDescription Handle change event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {select} DOMList.select(handler);  .select()
+     * @apiName select
+     * @apiDescription Handle select event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {submit} DOMList.submit(handler);  .submit()
+     * @apiName submit
+     * @apiDescription Handle submit event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {keydown} DOMList.keydown(handler);  .keydown()
+     * @apiName keydown
+     * @apiDescription Handle keydown event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {keyup} DOMList.keyup(handler);  .keyup()
+     * @apiName keyup
+     * @apiDescription Handle keyup event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {keypress} DOMList.keypress(handler);  .keypress()
+     * @apiName keypress
+     * @apiDescription Handle keypress event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {error} DOMList.error(handler);  .error()
+     * @apiName error
+     * @apiDescription Handle error event or trigger if no argument defined.
+     */
+
+    /**
+     * @apiVersion 2.1.0
+     * @apiGroup Events
+     *
+     * @api {contet} DOMList.contextmenu(handler);  .contextmenu()
+     * @apiName contextmenu
+     * @apiDescription Handle contextmenu event or trigger if no argument defined.
+     */
+
+    /* Global Shortcut */
+    var alias = 'blur focus focusin focusout load resize scroll unload click dblclick switch hover mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu'.split(/\s+/);
+
+    foreach(alias, function (name) {
+        $dom.module[name] = function(handler) {
+            if (isFunction(handler)) {
+                return this.handle(name, handler);
+            } else {
+                return this.trigger(name);
+            }
+        };
+    });
+
+    /* Creating Hover Event */
+    EventProvider.register('hover', function() {
+        $dom(this).listen('HoverEvent', {
+            'mouseenter': function() {
+                EventProvider.dispatch('hover', this, { direction: 'enter' });
+            },
+            'mouseleave': function() {
+                EventProvider.dispatch('hover', this, { direction: 'leave' });
+            }
+        });
+    });
+
+    /* Creating Switch Event */
+    EventProvider.register('switch', function() {
+        var $this = $dom(this);
+
+        if (!$this.hasAttr('off') && !$this.hasAttr('on')) {
+            $this.attr('off', '');
+        }
+
+        $this.listen('ClickToggle', 'click', function() {
+            if (!this.switch) this.switch = 'off';
+
+            if (this.switch === 'off') {
+                this.switch = 'on';
+
+                $this.attr('on', '').remAttr('off');
+            } else {
+                this.switch = 'off';
+
+                $this.attr('off', '').remAttr('on');
+            }
+
+            EventProvider.dispatch('switch', this, { state: this.togglestate });
+        });
+    });
+})(window, DOMList);
