@@ -1576,6 +1576,8 @@ window.circle = function(obj, reversed) {
          * });
      */
     $dom.module.each = function(handler, reversed) {
+        if (this.length <= 0) return this;
+
         if (isFunction(handler)) {
             if (reversed) {
                 reveach(this, function(node, i) {
@@ -2435,8 +2437,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').replace(foo, bar); // Replace using HTML Element.
      */
     $dom.module.replace = function(trg, src) {
-        if (this.length <= 0) return this;
-
         if (isString(trg)) {
             return this.filter(trg).replaceWith(src);
         } else if (isHTML(trg)) {
@@ -2453,6 +2453,7 @@ window.circle = function(obj, reversed) {
      * @api {replacewith} DOMList.replaceWith(source); .replaceWith()
      * @apiName ReplaceWith
      * @apiDescription Replace each selected elements with new element or existing element.
+     * Replacing with HTML Element will only replace the first selected element.
      *
      * @apiParam {String} source HTML String to create new element or existing HTML Element.
      *
@@ -2464,10 +2465,8 @@ window.circle = function(obj, reversed) {
         if (this.length <= 0) return this;
 
         if (isHTML(elem)) {
-            this.each(function() {
-                $dom(elem).insertBefore(this);
-                this.remove();
-            });
+            $dom(elem).insertBefore(this.get(0));
+            this.first().remove();
         } else if (isHTMLString(elem)) {
             this.each(function() {
                 this.outerHTML = elem;
@@ -2475,6 +2474,41 @@ window.circle = function(obj, reversed) {
         }
 
         return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     * @api {next} DOMList.next(); .next()
+     * @apiName Next
+     * @apiDescription Get the next element after first selected element inside parent element.
+     *
+     * @apiParam {String} [query] CSS Selector to match the next element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span.foo').next(); // Get the next element after span.foo.
+     * $dom('span.foo').next('.bar'); // Get the next element after span.foo and the first match with .bar.
+     */
+    $dom.module.next = function(query) {
+        if (this.length <= 0) return this;
+
+        var all = this.first().parent().children();
+        var idx = all.indexOf(this.get(0));
+
+        if (isString(query)) {
+            var res = $dom();
+
+            for (var i = idx; i < all.length; ++i) {
+                if (all.nth(i).filter(query).length > 0) {
+                    res.push(all.get(i));
+                    break;
+                }
+            }
+
+            return res;
+        } else {
+            return all.nth(idx + 1);
+        }
     };
 })(DOMList);
 
