@@ -27,7 +27,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Checker"
   },
   {
@@ -58,7 +58,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Checker"
   },
   {
@@ -89,7 +89,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Checker"
   },
   {
@@ -120,7 +120,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Class"
   },
   {
@@ -151,7 +151,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Class"
   },
   {
@@ -182,7 +182,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Class"
   },
   {
@@ -240,7 +240,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -258,7 +258,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -269,7 +269,7 @@ define({ "api": [
     "title": ".comment()",
     "name": "Comment",
     "description": "<p>Comment out a block of selected elements.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -307,7 +307,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -338,7 +338,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -369,7 +369,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -387,7 +387,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -405,7 +405,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -436,7 +436,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -467,7 +467,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -498,7 +498,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -536,7 +536,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -554,7 +554,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -572,7 +572,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -603,7 +603,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -634,7 +634,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -665,7 +665,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -696,7 +696,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -727,7 +727,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -758,7 +758,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -776,7 +776,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -807,7 +807,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -825,7 +825,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -856,7 +856,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -887,7 +887,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -925,7 +925,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -956,7 +956,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -987,7 +987,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1018,7 +1018,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1049,7 +1049,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1067,7 +1067,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1105,7 +1105,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1136,7 +1136,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1154,7 +1154,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1185,7 +1185,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1223,7 +1223,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1241,7 +1241,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1259,7 +1259,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1290,7 +1290,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1321,7 +1321,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1352,7 +1352,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1383,7 +1383,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1414,7 +1414,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Core"
   },
   {
@@ -1479,7 +1479,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "DOMList"
   },
   {
@@ -1532,7 +1532,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "DOMList"
   },
   {
@@ -1570,7 +1570,7 @@ define({ "api": [
         "type": "json"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "DOMList"
   },
   {
@@ -1601,7 +1601,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1632,7 +1632,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1663,7 +1663,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1694,7 +1694,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1725,7 +1725,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1756,7 +1756,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1787,7 +1787,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1818,7 +1818,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1849,7 +1849,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1880,7 +1880,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1911,7 +1911,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1942,7 +1942,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -1973,7 +1973,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -2004,7 +2004,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -2035,7 +2035,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Data_Type"
   },
   {
@@ -2046,7 +2046,7 @@ define({ "api": [
     "title": ".about",
     "name": "EventProvider",
     "description": "<p>Create or trigger custom event to element.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "EventProvider"
   },
   {
@@ -2091,7 +2091,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "EventProvider"
   },
   {
@@ -2136,7 +2136,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "EventProvider"
   },
   {
@@ -2167,7 +2167,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "EventProvider"
   },
   {
@@ -2198,7 +2198,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2236,7 +2236,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2281,7 +2281,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2312,7 +2312,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2343,7 +2343,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2381,7 +2381,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2412,7 +2412,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2450,7 +2450,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2461,7 +2461,7 @@ define({ "api": [
     "title": ".blur()",
     "name": "blur",
     "description": "<p>Handle blur event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2472,7 +2472,7 @@ define({ "api": [
     "title": ".change()",
     "name": "change",
     "description": "<p>Handle change event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2483,7 +2483,7 @@ define({ "api": [
     "title": ".click()",
     "name": "click",
     "description": "<p>Handle click event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2494,7 +2494,7 @@ define({ "api": [
     "title": ".contextmenu()",
     "name": "contextmenu",
     "description": "<p>Handle contextmenu event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2505,7 +2505,7 @@ define({ "api": [
     "title": ".dblclick()",
     "name": "dblclick",
     "description": "<p>Handle dblclick event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2516,7 +2516,7 @@ define({ "api": [
     "title": ".error()",
     "name": "error",
     "description": "<p>Handle error event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2527,7 +2527,7 @@ define({ "api": [
     "title": ".focus()",
     "name": "focus",
     "description": "<p>Handle focus event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2538,7 +2538,7 @@ define({ "api": [
     "title": ".focusin()",
     "name": "focusin",
     "description": "<p>Handle focusin event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2549,7 +2549,7 @@ define({ "api": [
     "title": ".focusout()",
     "name": "focusout",
     "description": "<p>Handle focusout event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2567,7 +2567,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2578,7 +2578,7 @@ define({ "api": [
     "title": ".keydown()",
     "name": "keydown",
     "description": "<p>Handle keydown event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2589,7 +2589,7 @@ define({ "api": [
     "title": ".keypress()",
     "name": "keypress",
     "description": "<p>Handle keypress event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2600,7 +2600,7 @@ define({ "api": [
     "title": ".keyup()",
     "name": "keyup",
     "description": "<p>Handle keyup event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2611,7 +2611,7 @@ define({ "api": [
     "title": ".load()",
     "name": "load",
     "description": "<p>Handle load event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2622,7 +2622,7 @@ define({ "api": [
     "title": ".mousedown()",
     "name": "mousedown",
     "description": "<p>Handle mousedown event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2633,7 +2633,7 @@ define({ "api": [
     "title": ".mouseenter()",
     "name": "mouseenter",
     "description": "<p>Handle mouseenter event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2644,7 +2644,7 @@ define({ "api": [
     "title": ".mouseleave()",
     "name": "mouseleave",
     "description": "<p>Handle mouseleave event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2655,7 +2655,7 @@ define({ "api": [
     "title": ".mousemove()",
     "name": "mousemove",
     "description": "<p>Handle mousemove event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2666,7 +2666,7 @@ define({ "api": [
     "title": ".mouseout()",
     "name": "mouseout",
     "description": "<p>Handle mouseout event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2677,7 +2677,7 @@ define({ "api": [
     "title": ".mouseover()",
     "name": "mouseover",
     "description": "<p>Handle mouseover event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2688,7 +2688,7 @@ define({ "api": [
     "title": ".mouseup()",
     "name": "mouseup",
     "description": "<p>Handle mouseup event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2699,7 +2699,7 @@ define({ "api": [
     "title": ".resize()",
     "name": "resize",
     "description": "<p>Handle resize event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2710,7 +2710,7 @@ define({ "api": [
     "title": ".scroll()",
     "name": "scroll",
     "description": "<p>Handle scroll event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2721,7 +2721,7 @@ define({ "api": [
     "title": ".select()",
     "name": "select",
     "description": "<p>Handle select event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2732,7 +2732,7 @@ define({ "api": [
     "title": ".submit()",
     "name": "submit",
     "description": "<p>Handle submit event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2750,7 +2750,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2761,7 +2761,7 @@ define({ "api": [
     "title": ".unload()",
     "name": "unload",
     "description": "<p>Handle unload event or trigger if no argument defined.</p> ",
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Events"
   },
   {
@@ -2807,7 +2807,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -2838,7 +2838,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -2856,7 +2856,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -2874,7 +2874,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -2905,7 +2905,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -2923,7 +2923,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -2969,7 +2969,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -3000,7 +3000,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -3031,7 +3031,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -3049,7 +3049,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -3080,7 +3080,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -3111,7 +3111,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Injects"
   },
   {
@@ -3164,7 +3164,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Iterator"
   },
   {
@@ -3217,7 +3217,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Iterator"
   },
   {
@@ -3255,7 +3255,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Private"
   },
   {
@@ -3293,7 +3293,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Private"
   },
   {
@@ -3331,7 +3331,7 @@ define({ "api": [
         "type": "js"
       }
     ],
-    "filename": "tags/v2.0.0.js",
+    "filename": "tags/v2.1.0.js",
     "groupTitle": "Private"
   }
 ] });
