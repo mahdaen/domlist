@@ -115,7 +115,16 @@
      *
      * @api {switch} DOMList.switch(handler);  .switch()
      * @apiName switch
-     * @apiDescription Handle load event or trigger if no argument defined. Switch is toggle between on and off. 'state' property provided on event object.
+     * @apiDescription Handle load event or trigger if no argument defined. Switch is toggle between on and off. 'state' property will be added to event object, state is 'on' or 'off'.
+     *
+     * @apiExample {js} Sample
+     * $dom('a').switch(function(e) {
+     *     if (e.state === 'on') {
+     *         console.log('turned on');
+     *     else if (e.state === 'off') {
+     *         console.log('turned off');
+     *     }
+     * });
      */
 
     /**
@@ -124,7 +133,16 @@
      *
      * @api {hover} DOMList.hover(handler);  .hover()
      * @apiName hover
-     * @apiDescription Handle hover event or trigger if no argument defined.
+     * @apiDescription Handle hover event or trigger if no argument defined. 'status' property will added to event object, status is 'enter' or 'leave'.
+     *
+     * @apiExample {js} Sample
+     * $dom('a').hover(function(e) {
+     *     if (e.status === 'enter') {
+     *         console.log('entered');
+     *     else if (e.status === 'leave') {
+     *         console.log('leaving');
+     *     }
+     * });
      */
 
     /**
@@ -279,10 +297,10 @@
     EventProvider.register('hover', function() {
         $dom(this).listen('HoverEvent', {
             'mouseenter': function() {
-                EventProvider.dispatch('hover', this, { direction: 'enter' });
+                EventProvider.dispatch('hover', this, { status: 'enter' });
             },
             'mouseleave': function() {
-                EventProvider.dispatch('hover', this, { direction: 'leave' });
+                EventProvider.dispatch('hover', this, { status: 'leave' });
             }
         });
     });
