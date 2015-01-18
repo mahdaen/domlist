@@ -1496,4 +1496,48 @@
 
         return res;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {is} DOMList.is(query); .is()
+     * @apiName Is
+     * @apiDescription Check does first selected element is match with query or not.
+     *
+     * @apiParam {String} query CSS Selector string or HTML Element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span.foo').is('.foo'); // true
+     * $dom('span.foo').is('.bar'); // false if span.foo don't have class bar.
+     */
+    $dom.module.is = function(query) {
+        if (this.length <= 0) return false;
+
+        if (isString(query)) {
+            return this.first().filter(query).length > 0 ? true : false;
+        } else if (isHTML(query)) {
+            return this.get(0) === query ? true : false;
+        }
+
+        return false;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {not} DOMList.not(query); .not()
+     * @apiName Not
+     * @apiDescription Check does first selected element is not match with query or not.
+     *
+     * @apiParam {String} query CSS Selector string or HTML Element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span.foo').not('.foo'); // false
+     * $dom('span.foo').not('.bar'); // true if span.foo don't have class bar.
+     */
+    $dom.module.not = function(query) {
+        return !this.is(query) ? true : false;
+    };
 })(DOMList);
