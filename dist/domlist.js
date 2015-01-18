@@ -2483,7 +2483,7 @@ window.circle = function(obj, reversed) {
      * @apiName Next
      * @apiDescription Get the next element after first selected element inside parent element.
      *
-     * @apiParam {String} [query] CSS Selector to match the next element.
+     * @apiParam {String} [query] CSS Selector to match the next element or Function to handle each next element and return true if match.
      *
      * @apiExample {js} Sample
      * $dom('span.foo').next(); // Get the next element after span.foo inside parent element.
@@ -2506,7 +2506,22 @@ window.circle = function(obj, reversed) {
             }
 
             return res;
-        } else {
+        }
+
+        else if (isFunction(query)) {
+            var res = $dom();
+
+            for (var i = (idx + 1); i < all.length; ++i) {
+                if (query.call(all.get(i))) {
+                    res.push(all.get(i));
+                    break;
+                }
+            }
+
+            return res;
+        }
+
+        else {
             return all.nth(idx + 1);
         }
     };
@@ -2519,7 +2534,7 @@ window.circle = function(obj, reversed) {
      * @apiName NextAll
      * @apiDescription Get all element after first selected element.
      *
-     * @apiParam {String} [query] CSS Selector to match the next element.
+     * @apiParam {String} [query] CSS Selector to match the next element or Function to handle each next element and return true if match.
      *
      * @apiExample {js} Sample
      * $dom('.foo').nextAll(); // Get all elements after .foo inside parent element.
@@ -2538,7 +2553,17 @@ window.circle = function(obj, reversed) {
                     res.push(all.get(i));
                 }
             }
-        } else {
+        }
+
+        else if (isFunction(query)) {
+            for (var i = (idx + 1); i < all.length; ++i) {
+                if (query.call(all.get(i))) {
+                    res.push(all.get(i));
+                }
+            }
+        }
+
+        else {
             for (var i = (idx + 1); i < all.length; ++i) {
                 res.push(all.get(i));
             }
@@ -2555,7 +2580,7 @@ window.circle = function(obj, reversed) {
      * @apiName nextuntil
      * @apiDescription Get all element after first selected element until found matched query.
      *
-     * @apiParam {String} query CSS Selector to match the next element.
+     * @apiParam {String} query CSS Selector to match the next element or Function to handle each next element and return true if match.
      *
      * @apiExample {js} Sample
      * $dom('.foo').nextUntil('.bar'); // Get all elements after .foo until found .bar inside parent element.
@@ -2572,6 +2597,12 @@ window.circle = function(obj, reversed) {
                 res.push(all.get(i));
 
                 if (all.nth(i).filter(query).length > 0) break;
+            }
+        } else if (isFunction(query)) {
+            for (var i = (idx + 1); i < all.length; ++i) {
+                res.push(all.get(i));
+
+                if (query.call(all.get(i))) break;
             }
         }
 
