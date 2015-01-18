@@ -851,4 +851,26 @@
 
         return result.length > 0 ? result : null;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {get} DOMList.get(index); .get()
+     * @apiName Get
+     * @apiDescription Get HTML Element from selected elements by specific index. If no index defined, return first element.
+     *
+     * @apiParam {Number} index Index position of element. Started from 0.
+     *
+     * @apiExample {js} Sample
+     * // Get second element from selected elements.
+     * $dom('span').get(1);
+     */
+    $dom.module.get = function(index) {
+        if (isNumber(index)) {
+            return this[index] ? this[index] : undefined;
+        } else {
+            return this.length > 0 ? this[0] : undefined;
+        }
+    };
 })(DOMList);
