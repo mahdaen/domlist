@@ -2250,7 +2250,34 @@ window.circle = function(obj, reversed) {
         } else {
             return this.first().get().outerHTML;
         }
-    }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {wrap} DOMList.wrap(htmlstring); .wrap()
+     * @apiName Wrap
+     * @apiDescription Wrap selected elements with new element.
+     *
+     * @apiParam {HTMLString} htmlstring HTML String to wrap element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').wrap('<div class="wrapper">');
+     */
+    $dom.module.wrap = function(htmlstring) {
+        if (isHTMLString(htmlstring)) {
+            var result = $dom();
+
+            this.each(function() {
+                result.push($dom(htmlstring).insertBefore(this).append(this));
+            });
+
+            return result;
+        }
+
+        return this;
+    };
 })(DOMList);
 
 (function($dom) {
