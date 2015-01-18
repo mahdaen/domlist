@@ -1074,5 +1074,39 @@
         }
 
         return result;
-    }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {remprop} DOMList.remProp(name); .remProp()
+     * @apiName RemProp
+     * @apiDescription Remove properties from selected elements. If properties also available in attributes, it's removed too.
+     *
+     * @apiParam {String} property String property name or array property name list.
+     * 
+     * @apiExample {js} Sample
+     * $dom('span').remProp('foo'); // Remove foo prop.
+     * $dom('span').remProp(['foo', 'bar']); // Remove foo and bar prop.
+     */
+    $dom.module.remProp = function(prop) {
+        if (isString(prop)) {
+            this.each(function() {
+                if (this[prop]) {
+                    delete this[prop];
+
+                    if (this.hasAttribute(prop)) {
+                        this.removeAttribute(prop);
+                    }
+                }
+            });
+        } else if (isArray(prop)) {
+            foreach(prop, function (prop) {
+                this.remProp(prop);
+            });
+        }
+
+        return this;
+    };
 })(DOMList);
