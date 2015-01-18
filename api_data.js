@@ -843,6 +843,37 @@ define({ "api": [
   {
     "version": "2.0.0",
     "group": "Core",
+    "type": "slice",
+    "url": "DOMList.slice(index);",
+    "title": ".slice()",
+    "name": "Slice",
+    "description": "<p>Remove element from the selected elements with specific index.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "index",
+            "description": "<p>Element index number. Use array to remove multiple element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span').slice(2); // Remove thrid element from selected elements.\n$dom('span').slice([0,3,2]); // Remove multiple element from selected elements.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
     "type": "sort",
     "url": "DOMList.sortBy(attr,options);",
     "title": ".sortBy()",
