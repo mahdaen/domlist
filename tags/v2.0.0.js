@@ -2494,36 +2494,31 @@ window.circle = function(obj, reversed) {
 
         var all = this.first().parent().children();
         var idx = all.indexOf(this.get(0));
+        var res = $dom();
 
         if (isString(query)) {
-            var res = $dom();
-
             for (var i = (idx + 1); i < all.length; ++i) {
                 if (all.nth(i).filter(query).length > 0) {
                     res.push(all.get(i));
                     break;
                 }
             }
-
-            return res;
         }
 
         else if (isFunction(query)) {
-            var res = $dom();
-
             for (var i = (idx + 1); i < all.length; ++i) {
                 if (query.call(all.get(i))) {
                     res.push(all.get(i));
                     break;
                 }
             }
-
-            return res;
         }
 
         else {
             return all.nth(idx + 1);
         }
+
+        return res;
     };
 
     /**
@@ -2604,6 +2599,38 @@ window.circle = function(obj, reversed) {
 
                 if (query.call(all.get(i))) break;
             }
+        }
+
+        return res;
+    };
+
+    $dom.module.prev = function(query) {
+        if (this.length <= 0) return this;
+
+        var all = this.first().parent().children();
+        var idx = all.indexOf(this.get(0));
+        var res = $dom();
+
+        if (isString(query)) {
+            for (var i = (idx - 1); i >= 0; --i) {
+                if (all.nth(i).filter(query).length > 0) {
+                    res.push(all.get(i));
+                    break;
+                }
+            }
+        }
+
+        else if (isFunction(query)) {
+            for (var i = (idx - 1); i >= 0; --i) {
+                if (query.call(all.get(i))) {
+                    res.push(all.get(i));
+                    break;
+                }
+            }
+        }
+
+        else {
+            return all.nth(idx - 1);
         }
 
         return res;
