@@ -1,36 +1,3 @@
-/**
- * Native JS.
- * Native Helper for Javascript.
- * Language: Javascript.
- * Created by mahdaen on 12/16/14.
- * License: GNU General Public License v2 or later.
- */
-
-/* Creating Container */
-if (!window) {
-    var window = {};
-}
-
-/* Module Wrapper */
-(function(native) {
-    if (typeof module !== 'undefined' && module.exports) {
-        /* NodeJS */
-        module.exports = native();
-    } else {
-        return native();
-    }
-})(function() {
-    return window;
-});
-
-/* Adding Configurations Space */
-window.__nconfig = {};
-/**
- * Data Type Getter Scripts.
- * Created by mahdaen on 12/16/14.
- */
-
-(function() {
     /**
      * @apiVersion 1.1.0
      * @apiGroup Data Type
@@ -48,10 +15,6 @@ window.__nconfig = {};
      *
      * isDefined(bar); // Error.
      */
-    var isDefined = function($object) {
-        return typeof $object !== 'undefined' ? true : false;
-    };
-    window.isDefined = function($object) { return isDefined($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -70,10 +33,6 @@ window.__nconfig = {};
      * isString(foo); // true
      * isString(bar); // false
      */
-    var isString = function($object) {
-        return typeof $object === 'string' ? true : false;
-    };
-    window.isString = function($object) { return isString($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -92,10 +51,6 @@ window.__nconfig = {};
      * isObject(foo); // true
      * isObject(bar); // false
      */
-    var isObject = function($object) {
-        return typeof $object === 'object' && !$object.length ? true : false;
-    };
-    window.isObject = function($object) { return isObject($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -114,10 +69,6 @@ window.__nconfig = {};
      * isArray(foo); // true
      * isArray(bar); // false
      */
-    var isArray = function($object) {
-        return typeof $object === 'object' && Array.isArray($object) ? true : false;
-    };
-    window.isArray = function($object) { return isArray($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -136,10 +87,6 @@ window.__nconfig = {};
      * isFunction(foo); // true
      * isFunction(bar); // false
      */
-    var isFunction = function($object) {
-        return typeof $object === 'function' ? true : false;
-    };
-    window.isFunction = function($object) { return isFunction($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -158,10 +105,6 @@ window.__nconfig = {};
      * isNumber(foo); // true
      * isNumber(bar); // false
      */
-    var isNumber = function($object) {
-        return typeof $object === 'number' ? true : false;
-    };
-    window.isNumber =  function($object) { return isNumber($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -180,10 +123,6 @@ window.__nconfig = {};
      * isBoolean(foo); // true
      * isBoolean(bar); // false
      */
-    var isBoolean = function($object) {
-        return typeof $object === 'boolean' ? true : false;
-    };
-    window.isBoolean = function($object) { return isBoolean($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -202,10 +141,6 @@ window.__nconfig = {};
      * isJQuery(foo); // true
      * isJQuery(bar); // false
      */
-    var isJQuery = function($object) {
-        return typeof $object === 'object' && $object.hasOwnProperty('length') && $object.jquery ? true : false;
-    };
-    window.isJQuery = function($object) { return isJQuery($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -224,10 +159,6 @@ window.__nconfig = {};
      * isHTML(foo); // true
      * isHTML(bar); // false
      */
-    var isHTML = function($object) {
-        return typeof $object === 'object' && $object.ELEMENT_NODE ? true : false;
-    };
-    window.isHTML = function($object) { return isHTML($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -246,10 +177,6 @@ window.__nconfig = {};
      * isDOMList(foo); // true
      * isDOMList(bar); // false
      */
-    var isDOMList = function($object) {
-        return typeof $object === 'object' && $object.name && $object.name === 'DOMList' ? true : false;
-    };
-    window.isDOMList = function($object) { return isDOMList($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -268,10 +195,6 @@ window.__nconfig = {};
      * isHTMLString(foo); // true
      * isHTMLString(bar); // false
      */
-    var isHTMLString = function($object) {
-        return typeof $object !== 'undefined' && $object.match(/<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/) ? true : false;
-    }
-    window.isHTMLString = function($object) { return isHTMLString($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -290,10 +213,6 @@ window.__nconfig = {};
      * isColor(foo); // true
      * isColor(bar); // false
      */
-    var isColor = function($object) {
-        return /^(#)?([0-9a-fA-F]{3})([0-9a-fA-F]{3})?$/.test($object) ? true : false;
-    };
-    window.isColor = function($object) { return isColor($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -312,10 +231,6 @@ window.__nconfig = {};
      * isURL(foo); // true
      * isURL(bar); // false
      */
-    var isURL = function($object) {
-        return /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i.test($object) ? true : false;
-    };
-    window.isURL = function($object) { return isURL($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -334,10 +249,6 @@ window.__nconfig = {};
      * isEmail(foo); // true
      * isEmail(bar); // false
      */
-    var isEmail = function($object) {
-        return /^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$/i.test($object) ? true : false;
-    };
-    window.isEmail = function($object) { return isEmail($object) };
 
     /**
      * @apiVersion 1.1.0
@@ -356,18 +267,7 @@ window.__nconfig = {};
      * isDate(foo); // true
      * isDate(bar); // false
      */
-    var isDate = function($object) {
-        return !isNaN(new Date($object).getDate()) ? true : false;
-    };
-    window.isDate = function($object) { return isDate($object) };
-})();
 
-/**
- * Object Iterator Scripts.
- * Created by mahdaen on 12/16/14.
- */
-
-(function() {
     /**
      * @apiVersion 1.1.0
      * @apiGroup Iterator
@@ -410,39 +310,6 @@ window.__nconfig = {};
      *     console.log(number); // 1 >> 2 >> 3 >> 4 >> 5
      * }
      */
-    var foreach = function(object, handler, thisArg) {
-        if (window.isFunction(handler)) {
-            if (window.isArray(object) && window.isFunction(handler)) {
-                for (var i = 0; i < object.length; ++i) {
-                    handler.call(thisArg, object[i], i);
-                }
-            } else if (window.isObject(object) && window.isFunction(handler)) {
-                for (var key in object) {
-                    if (object.hasOwnProperty(key)) {
-                        handler.call(thisArg, key, object[key]);
-                    }
-                }
-            } else if (window.isNumber(object) && window.isFunction(handler)) {
-                for (var i = 1; i <= object; ++i) {
-                    handler.call(thisArg, i);
-                }
-            } else if (window.isString(object) && window.isFunction(handler)) {
-                for (var i = 0; i < object.length; ++i) {
-                    handler.call(thisArg, object.charAt(i), (i + 1));
-                }
-            } else if (window.isDOMList(object) && window.isFunction(handler)) {
-                for (var i = 0; i < object.length; ++i) {
-                    handler.call(thisArg, object[i], i);
-                }
-            } else {
-                return console.warn('Euw! We can\'t iterate your object. So sorry!');
-            }
-        } else {
-            console.warn('Euw! Don\'t forget to give us a function to call!');
-        }
-
-        return object;
-    };
 
     /**
      * @apiVersion 1.1.0
@@ -486,55 +353,7 @@ window.__nconfig = {};
      *     console.log(number); // 5 >> 4 >> 3 >> 2 >> 1
      * }
      */
-    var reveach = function($object, $handler, $args) {
-        if (window.isFunction($handler)) {
-            if (window.isArray($object)) {
-                for (var i = ($object.length - 1); i >= 0; --i) {
-                    $handler.call($args, $object[i], i);
-                }
-            } else if (window.isObject($object)) {
-                var keys = Object.keys($object);
 
-                for (var i = (keys.length - 1); i >= 0; --i) {
-                    $handler.call($args, keys[i], $object[keys[i]]);
-                }
-            } else if (window.isNumber($object)) {
-                for (var i = $object; i >= 1; --i) {
-                    $handler.call($args, i);
-                }
-            } else if (window.isString($object)) {
-                for (var i = ($object.length - 1); i >= 0; --i) {
-                    $handler.call($args, $object.charAt(i), i);
-                }
-            } else if (window.isDOMList($object)) {
-                for (var i = ($object.length - 1); i >= 0; --i) {
-                    $handler.call($args, $object[i], i);
-                }
-            } else {
-                return console.warn('Euw! We can\'t iterate your object. So sorry!');
-            }
-        } else {
-            console.warn('Euw! Don\'t forget to give us a function to call!');
-        }
-
-        return $object;
-    };
-
-    window.foreach = function($object, $handlder, $args) { return foreach($object, $handlder, $args) };
-    window.reveach = function($object, $handlder, $args) { return reveach($object, $handlder, $args) };
-})();
-
-/**
- * Private Object Generator Scripts.
- * Created by mahdaen on 12/16/14.
- */
-
-/* Defining Object Holder */
-window.__variables = {};
-window.__constants = {};
-window.__functions = {};
-
-(function() {
     /**
      * @apiVersion 1.1.0
      * @apiGroup Private
@@ -556,25 +375,6 @@ window.__functions = {};
      *
      * x = foo; // Error.
      */
-    var vars = function(name, value) {
-        if (window.isString(name)) {
-            if (window.isDefined(value)) {
-                window.__variables[name] = value;
-
-                return value;
-            } else {
-                if (window.__variables.hasOwnProperty(name)) {
-                    return window.__variables[name];
-                } else {
-                    //return console.warn('Variable "' + name + '" is undefined!');
-                    return undefined;
-                }
-            }
-        } else {
-            return console.warn('Argument @name is required!');
-        }
-    };
-    window.vars = function($name, $value) { return new vars($name, $value) };
 
     /**
      * @apiVersion 1.1.0
@@ -599,28 +399,6 @@ window.__functions = {};
      *
      * x = foo; // Error.
      */
-    var cons = function(name, value) {
-        if (window.isString(name)) {
-            if (window.isDefined(value)) {
-                if (!window.__constants.hasOwnProperty(name)) {
-                    window.__constants[name] = value;
-
-                    return value;
-                } else {
-                    return console.warn('Constant "' + name + '" already defined!');
-                }
-            } else {
-                if (window.__constants.hasOwnProperty(name)) {
-                    return window.__constants[name];
-                } else {
-                    return console.warn('Constant "' + name + '" is undefined!');
-                }
-            }
-        } else {
-            return console.warn('Argument @name is required!');
-        }
-    };
-    window.cons = function($name, $value) { return new cons($name, $value) };
 
     /**
      * @apiVersion 1.1.0
@@ -652,183 +430,6 @@ window.__functions = {};
      *
      * foo(); // ERROR.
      */
-    var func = function(name, handler) {
-        if (window.isString(name)) {
-            if (window.isFunction(handler)) {
-                if (!window.__functions.hasOwnProperty(name)) {
-                    window.__functions[name] = handler;
-
-                    return handler;
-                } else {
-                    console.warn('Function "' + name + '" already defined!');
-                }
-            } else {
-                if (window.__functions.hasOwnProperty(name)) {
-                    return window.__functions[name];
-                } else {
-                    return console.warn('Function "' + name + '" is undefined!');
-                }
-            }
-        } else {
-            return console.warn('Argument @name is required!');
-        }
-    };
-    window.func = function($name, $handler) { return new func($name, $handler) };
-})();
-
-/**
- * Object Rotator Scripts.
- * Created by mahdaen on 12/16/14.
- */
-
-/**
- * Circle item in object, array, and string.
- * @param obj - Object ot circle.
- * @param reversed - Does the circle is reversed.
- * @returns {{}}
- */
-window.circle = function(obj, reversed) {
-    if (window.isObject(obj)) {
-        var nobj = {}, keys = Object.keys(obj), last = (keys.length - 1);
-
-        if (!reversed) {
-            window.foreach(obj, function (key, value) {
-                if (key !== keys[0]) {
-                    nobj[key] = value;
-                }
-            });
-
-            nobj[keys[0]] = obj[keys[0]];
-        } else {
-            nobj[keys[last]] = obj[keys[last]];
-
-            window.foreach(obj, function (key, value) {
-                if (key !== keys[last]) {
-                    nobj[key] = value;
-                }
-            });
-        }
-
-        return nobj;
-    } else if (window.isArray(obj)) {
-        var narr = [], last = (this.length - 1);
-
-        if (!reversed) {
-            window.foreach(obj, function(value, index) {
-                if (index !== 0) {
-                    narr.push(value);
-                }
-            });
-
-            narr.push(obj[0]);
-        } else {
-            narr.push(obj[last]);
-
-            window.foreach(obj, function(value, index) {
-                if (index !== last) {
-                    narr.push(value);
-                }
-            });
-        }
-
-        return narr;
-    }
-};
-(function ($root) {
-    /* Array.isArray Polyfill */
-    if (!Array.isArray) {
-        Array.prototype.isArray = function () {
-            return Object.prototype.toString.call(this) === '[object Array]';
-        }
-    }
-
-    /* Array.indexOf Polyfill */
-    if (!Array.indexOf) {
-        Array.prototype.indexOf = function (searchElement, fromIndex) {
-
-            var k;
-
-            if (this == null) {
-                throw new TypeError('"this" is null or not defined');
-            }
-
-            var O = Object(this);
-
-            var len = O.length >>> 0;
-
-            if (len === 0) {
-                return -1;
-            }
-
-            var n = +fromIndex || 0;
-
-            if (Math.abs(n) === Infinity) {
-                n = 0;
-            }
-
-            if (n >= len) {
-                return -1;
-            }
-
-            k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
-
-            while (k < len) {
-                var kValue;
-                if (k in O && O[k] === searchElement) {
-                    return k;
-                }
-                k++;
-            }
-            return -1;
-        };
-    }
-
-    /* Object.keys Polyfill */
-    if (!Object.keys) {
-        Object.prototype.keys = function () {
-            var arr = [];
-
-            for (var key in this) {
-                if (this.hasOwnProperty(key)) {
-                    arr.push(key);
-                }
-            }
-
-            return arr;
-        }
-    }
-
-    /* CustomEvent Polyfill */
-    var CustomEvent = function (name, options) {
-        var event;
-
-        if (isString(name)) {
-            options = options || {bubbles: false, cancelable: false, detail: undefined};
-
-            event = document.createEvent('CustomEvent');
-            event.initCustomEvent(name, options.bubbles, options.cancelable, options.detail);
-        }
-
-        return event;
-    };
-
-    /* CustomEvent Prototype */
-    CustomEvent.prototype = $root.Event.prototype;
-
-    /* Register to window if no default CustomEvent */
-    if (!$root.CustomEvent) $root.CustomEvent = CustomEvent;
-})(window);
-/**
- * DOMList
- * HTML Query Selector Helper.
- * Help extends the functionallity of 'querySelectorAll', just like jQuery, but smaller, have some difference and light.
- * Language: Javascript.
- * Created by mahdaen on 1/7/15.
- * License: GNU General Public License v2 or later.
- */
-
-(function($root) {
-    'use strict';
 
     /**
      * @apiVersion 2.0.0
@@ -865,134 +466,6 @@ window.circle = function(obj, reversed) {
      * // Find elements with tag-name 'button' from 'section' using CSS Selector string as context.
      * var bt = $dom('button', '.wrapper');
      */
-    var DOMList = function(query, context) {
-        var $this = this, modern;
-
-        /* Check does support native selector */
-        if (document.querySelectorAll) {
-            modern = false;
-        } else {
-            modern = false;
-        }
-
-        /* Adding length */
-        this.length = 0;
-
-        /* Proceed only if query is string */
-        if (typeof query === 'string') {
-            var result, $this = this;
-
-            /* Using HTMLElement as context */
-            if (isHTML(context)) {
-                if (modern) {
-                    result = context.querySelectorAll(query);
-                } else {
-                    if (window.Sizzle) {
-                        result = Sizzle(query, context);
-                    } else {
-                        result = [];
-                    }
-                }
-            }
-
-            /* Using NodeList as context */
-            else if (isDOMList(context)) {
-                var length = 0;
-
-                /* Iterate each item to search */
-                context.each(function() {
-                    if (modern) {
-                        var res = this.querySelectorAll(query);
-                    } else {
-                        if (window.Sizzle) {
-                            var res = Sizzle(query, this);
-                        } else {
-                            res = [];
-                        }
-                    }
-
-                    /* Adding result finder */
-                    if (modern) {
-                        foreach(res, function (i, node) {
-                            if (i !== 'length') {
-                                $this[length] = node;
-                                $this.length = (length + 1);
-                                length++;
-                            }
-                        });
-                    } else {
-                        foreach(res, function (node, i) {
-                            $this[length] = node;
-                            $this.length = (length + 1);
-                            length++;
-                        });
-                    }
-                });
-            }
-
-            /* Create new context if context is string */
-            else if (isString(context) && !isHTMLString(context)) {
-                context = new DOMList(context);
-
-                return new DOMList(query, context);
-            }
-
-            /* Using document as context */
-            else {
-                /* If string is HTML formatted string, then create new elements */
-                if (isHTMLString(query)) {
-                    var doc = document.createElement('div');
-                    doc.innerHTML = query;
-                    result = doc.children;
-                }
-                /* If string is CSS Selector */
-                else {
-                    if (modern) {
-                        result = document.querySelectorAll(query);
-                    } else {
-                        if (window.Sizzle) {
-                            result = Sizzle(query);
-                        } else {
-                            result = [];
-                        }
-                    }
-                }
-            }
-
-            /* Iterating result */
-            if (result && result.length > 0) {
-                for (var i = 0; i < result.length; ++i) {
-                    $this[i] = result[i];
-                    $this.length++;
-                }
-            }
-        }
-
-        /* Wrap single HTML Element as DOMList */
-        else if (isHTML(query)) {
-            $this[0] = query;
-            $this.length = 1;
-        }
-
-        /* Wrap Array element list as DOMList */
-        else if (isArray(query)) {
-            $this.length = query.length;
-
-            foreach(query, function (node, i) {
-                $this[i] = node;
-            });
-        }
-
-        /* Return DOMList itslef if query is DOMList */
-        else if (isDOMList(query)) {
-            return query;
-        }
-
-        return this;
-    }
-
-    /* Registering DOMList to Window */
-    $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) };
 
     /**
      * @apiVersion 2.0.0
@@ -1008,75 +481,7 @@ window.circle = function(obj, reversed) {
      * $dom.extend('foo', function() {}); // Add module 'foo' to DOMList.
      * $dom.extend({ foo: function() {}, bar: function() {} }); // Add multiple modules to DOMList.
      */
-    $root.DOMList.extend = function(name, handler) {
-        if (isString(name) && isFunction(handler)) {
-            $root.DOMList.module[name] = handler;
-        } else if (isObject(name)) {
-            foreach(name, function (name, handler) {
-                if (isFunction(handler)) {
-                    $root.DOMList.module[name] = handler;
-                }
-            });
-        }
 
-        return name;
-    };
-
-    /* Creating Modules */
-    $root.DOMList.module = DOMList.prototype = {
-        name: 'DOMList',
-
-        /* Copy splice from array */
-        splice: Array.prototype.splice,
-
-        /* EFFECT --------------------------------------------------- */
-        /**
-         * Animate elements. This module using Greensock (third party).
-         * @param props - {object} - CSS Properties List.
-         * @param options - {object} - Animation Options.
-         * @param callback - {function} - Handler when animation complete.
-         * @returns {DOMList}
-         */
-        animate: function(props, options, callback) {
-            var $this = this;
-
-            /* Wrap animation properties to array if it's an object */
-            if (isObject(props)) props = [props];
-
-            /* Ensure animation properties is array */
-            if (isArray(props)) {
-                /* If options is number, use it as duration */
-                if (isNumber(options)) {
-                    options = { duration: options };
-                }
-
-                /* Ensure options is object */
-                if (isObject(options)) {
-                    $this.each(function() {
-                        var self = this;
-
-                        if (isFunction(callback)) {
-                            var anim = self.animate(props, options);
-
-                            anim.onfinish = function() {
-                                callback.call(self, anim);
-                            }
-                        } else {
-                            self.animate(props, options);
-                        }
-                    });
-                }
-            }
-
-            return this;
-        }
-    };
-
-    /* Extending HTML Element Prototype to find elements from that */
-    HTMLElement.prototype.find = function(query) { return new DOMList(query, this) }
-})(window);
-
-(function($root, $dom) {
     /**
      * @apiVersion 2.0.0
      * @apiGroup DOMList
@@ -1117,194 +522,6 @@ window.circle = function(obj, reversed) {
      *
      * $dom.data({ 'foo': 'bar', 'data-bar': '' }); // Select elements that has 'data-foo' and 'data-bar' and 'data-foo' value is 'bar'.
      */
-    var DOMData = function(name, value, context) {
-        /* Converting Value to JSON if object or array */
-        if (isObject(value) || isArray(value)) {
-            value = JSON.stringify(value);
-        }
-
-        /* Parsing Data Attribute Names */
-        if (isString(name)) {
-            /* If name contains space, do multi query */
-            if (name.match(/\s+/)) {
-                var sname = name.split(/\s+/);
-
-                /* Creating Query String */
-                var query = '';
-
-                foreach(sname, function (cquery, i) {
-                    /* If value defined, use it in query */
-                    if (value && value !== '') {
-                        /* If current query is not last, add comma to current query. */
-                        if (i < sname.length) {
-                            query += '[data-' + cquery + '="' + value + '"], ';
-                        }
-
-                        /* Else query without without comma */
-                        else {
-                            query += '[data-' + cquery + '="' + value + '"]';
-                        }
-                    }
-
-                    /* Else query without value */
-                    else {
-                        /* If current query is not last, add comma to current query. */
-                        if (i < sname.length) {
-                            query += '[data-' + cquery + '], ';
-                        }
-
-                        /* Else query without without comma */
-                        else {
-                            query += '[data-' + cquery + ']';
-                        }
-                    }
-                });
-
-                /* Replacing name with query string */
-                name = query;
-            }
-
-            /* If string without space, do single query */
-            else {
-                /* If value defined, use it in query */
-                if (value && value !== '') {
-                    name = '[data-' + name + '="' + value + '"]';
-                }
-
-                /* Else query without value */
-                else {
-                    name = '[data-' + name + ']';
-                }
-            }
-        }
-
-        else if (isArray(name)) {
-            /* Creating query string */
-            var query = '';
-
-            foreach(name, function (cquery, i) {
-                /* If value defined, use it in query */
-                if (value && value !== '') {
-                    /* If current query is not last, add comma to current query. */
-                    if (i < name.length) {
-                        query += '[data-' + cquery + '="' + value + '"], ';
-                    }
-
-                    /* Else query without without comma */
-                    else {
-                        query += '[data-' + cquery + '="' + value + '"]';
-                    }
-                }
-
-                /* Else query without value */
-                else {
-                    /* If current query is not last, add comma to current query. */
-                    if (i < name.length) {
-                        query += '[data-' + cquery + '], ';
-                    }
-
-                    /* Else query without without comma */
-                    else {
-                        query += '[data-' + cquery + ']';
-                    }
-                }
-            });
-
-            /* Replacing name with query */
-            name = query;
-        }
-
-        else if (isObject(name)) {
-            /* Creating query string */
-            var query = '';
-
-            foreach(name, function (cquery, value) {
-                /* Convert value to JSON if is object or is array */
-                if (isObject(value) || isArray(value)) {
-                    value = JSON.stringify(value);
-                }
-
-                /* If value exist, then use it in query */
-                if (value && value !== '') {
-                    cquery = '[data-' + cquery + '="' + value + '"]';
-                }
-
-                /* Else query with without value */
-                else {
-                    cquery = '[data-' + cquery + ']';
-                }
-
-                /* Adding current query to main query */
-                query += cquery;
-            });
-
-            /* Replacing name with query */
-            name = query;
-
-            /* Use value as context if defined*/
-            if (isString(value) || isHTML(value) || isDOMList(value)) {
-                context = value;
-            }
-        }
-
-        /* If no arguments defined, select elements that has data-attribute */
-        else {
-            /* Select all elements inside html */
-            var alls = $dom('html *');
-
-            /* Creating Array Result */
-            var result = [];
-
-            /* Iterate each elements does has data attribute */
-            alls.each(function() {
-                /* Get all attributes */
-                var atr = $dom(this).attr();
-
-                /* Set has to false */
-                var has = false;
-
-                foreach(atr, function (key) {
-                    if (key.search(/data-/) > -1) {
-                        /* If has data-attribute, set has to true */
-                        has = true;
-                    }
-                });
-
-                /* If has data-attribute, push current element to result */
-                if (has) result.push(this);
-            });
-
-            /* Wrap result as DOMList and return it */
-            return $dom(result);
-        }
-
-        /* Creating Result */
-        var result;
-
-        /* If context is defined, use as context */
-        if (context) {
-            result = $dom(name, context);
-        }
-
-        // If value is HTML or DOMList, use as context.
-        else if (isHTML(value) || isDOMList(value)) {
-            result = $dom(name, value);
-        }
-
-        /* If no value or no context, query with query string only */
-        else {
-            result = $dom(name);
-        }
-
-        /* Returning result */
-        return result;
-    };
-
-    /* Registering DOMData to DOMList */
-    $dom.data = $root.DOMData = function(name, value, context) { return new DOMData(name, value, context) };
-})(window, DOMList);
-(function($dom) {
-    'use strict';
 
     /**
      * @apiVersion 2.0.0
@@ -1324,23 +541,6 @@ window.circle = function(obj, reversed) {
      * foo.push([bar]); // Push bar to foo.
      * foo.push('.bar'); // Push bar to foo.
      */
-    $dom.module.push = function(elem) {
-        var $this = this;
-
-        if (isHTML(elem)) {
-            $this[$this.length] = elem;
-            $this.length++;
-        } else if (isDOMList(elem) || isArray(elem)) {
-            foreach(elem, function (elem) {
-                $this[$this.length] = elem;
-                $this.length++;
-            });
-        } else if (isString(elem)) {
-            $this.push($dom(elem));
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1353,9 +553,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('span').first();
      */
-    $dom.module.first = function() {
-        return this.length > 0 ? $dom(this[0]) : this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1368,18 +565,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.container').firstChild();
      */
-    $dom.module.firstChild = function() {
-        if (this.length <= 0) return this;
-
-        var first = this[0];
-        var child = first.children;
-
-        if (child.length > 0) {
-            return $dom(child[0]);
-        } else {
-            return $dom();
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1392,9 +577,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('span').last();
      */
-    $dom.module.last = function() {
-        return this.length > 0 ? $dom(this[this.length - 1]) : this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1407,18 +589,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.container').lastChild();
      */
-    $dom.module.lastChild = function() {
-        if (this.length <= 0) return this;
-
-        var first = this[0];
-        var child = first.children;
-
-        if (child.length > 0) {
-            return $dom(child[child.length - 1]);
-        } else {
-            return $dom();
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1433,9 +603,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('span').nth(0);
      */
-    $dom.module.nth = function(i) {
-        return isNumber(i) && this.hasOwnProperty(i) ? $dom(this[i]) : $dom();
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1450,18 +617,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.container').nthChild(3);
      */
-    $dom.module.nthChild = function(i) {
-        if (this.length <= 0) return this;
-
-        var fisrt = this[0];
-        var child = fisrt.children;
-
-        if (child.length > 0) {
-            return child.hasOwnProperty(i) ? $dom(child[i]) : $dom();
-        } else {
-            return $dom();
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1474,22 +629,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.container').children();
      */
-    $dom.module.children = function() {
-        var result = $dom();
-
-        if (this.length <= 0) return this;
-
-        var childs = this[0].children;
-        childs.name = 'DOMList';
-
-        if (childs.length > 0) {
-            foreach(childs, function (node) {
-                result.push(node);
-            });
-        }
-
-        return result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1505,11 +644,6 @@ window.circle = function(obj, reversed) {
      * var wrap = $dom('.wrapper');
      * var span = wrap.find('span');
      */
-    $dom.module.find = function(query) {
-        if (isString(query)) {
-            return $dom(query, this);
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1524,39 +658,6 @@ window.circle = function(obj, reversed) {
      * @apiExample Sample #1
      * $dom('span').filter('.a'); // Get all span and filter that has class 'a'.
      */
-    $dom.module.filter = function(query) {
-        var $this = this, $result = $dom();
-
-        if (!isString(query)) return this;
-
-        /* Creating Wrapper, innerHTML String and candidate */
-        var wrapper = document.createElement('div'), elems = '', candidate = [];
-
-        /* Create element string from each element */
-        $this.each(function() {
-            elems += this.outerHTML;
-        });
-
-        /* Set wrapper innerHTML with element string */
-        wrapper.innerHTML = elems;
-
-        /* Find query inside wrapper */
-        wrapper = wrapper.find(query);
-
-        /* Create candidate html strings */
-        wrapper.each(function() {
-            candidate.push(this.outerHTML);
-        });
-
-        /* Pushing result to $result */
-        $this.each(function() {
-            if (candidate.indexOf(this.outerHTML) > -1) {
-                $result.push(this);
-            }
-        });
-
-        return $result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1575,23 +676,6 @@ window.circle = function(obj, reversed) {
          *     console.log(i, this);
          * });
      */
-    $dom.module.each = function(handler, reversed) {
-        if (this.length <= 0) return this;
-
-        if (isFunction(handler)) {
-            if (reversed) {
-                reveach(this, function(node, i) {
-                    handler.call(node, i, node);
-                });
-            } else {
-                foreach(this, function(node, i) {
-                    handler.call(node, i, node);
-                });
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1637,102 +721,6 @@ window.circle = function(obj, reversed) {
      * $dom('.foo').attr(['solved', 'required', 'async']);
      *
      */
-    $dom.module.attr = function(name, value) {
-        var $this = this;
-
-        /* Skip if no items */
-        if (this.length <= 0) return;
-
-        /* Single attribute setter */
-        if (isString(name)) {
-            /* Set attribute value to all items if value is defined. Else get the first item attribute */
-            if (isDefined(value)) {
-                /* Convert to JSON if value is object or array */
-                if (isObject(value) || isArray(value)) {
-                    value = JSON.stringify(value);
-                }
-
-                /* Iterate each element to assign attribute and value */
-                $this.each(function() {
-                    this.setAttribute(name, value);
-
-                    if (this.hasOwnProperty(name)) {
-                        this[name] = value;
-                    }
-                });
-
-                return this;
-            } else {
-                /* Getting attribute value */
-                var result = $this[0].getAttribute(name), parsed;
-
-                /* Try to convert result as object. If success, return it */
-                try { parsed = JSON.parse(result) } catch (err) {}
-                if (parsed) return parsed;
-
-                /* Convert result as data if possible and return it */
-
-                /* Boolean */
-                if (result === 'true') {
-                    return true;
-                } else if (result === 'false') {
-                    return false;
-                }
-
-                /* Convert to undefined */
-                else if (result === 'undefined') {
-                    return undefined;
-                }
-
-                /* Convert to null */
-                else if (result === 'null') {
-                    return null;
-                }
-
-                /* Convert to NaN */
-                else if (result === 'NaN') {
-                    return NaN;
-                }
-
-                /* Convert to number */
-                else if (Number(result)) {
-                    return Number(result);
-                }
-
-                /* Return as plain result */
-                return result;
-            }
-        }
-
-        /* Multiple attribute and value setter with object */
-        else if (isObject(name)) {
-            foreach(name, function (key, value) {
-                $this.attr(key, value);
-            });
-        }
-
-        /* Multiple attribute setter with array */
-        else if (isArray(name)) {
-            foreach(name, function (key) {
-                $this.attr(key, '');
-            });
-        }
-
-        /* Get all attributes and convert the value */
-        else {
-            var attributes = $this[0].attributes, result = {};
-
-            foreach(attributes, function (i, attr) {
-                if (i !== 'length') {
-                    result[attr.name] = $this.attr(attr.name);
-                }
-            });
-
-            return result;
-        }
-
-        return $this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1749,34 +737,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').remAttr(['foo', 'bar']); // Remove multiple attribute.
      * $dom('span').remAttr('foo bar'); // Remove multiple attribute.
      */
-    $dom.module.remAttr = function(name) {
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                name = name.split(/\s+/);
-                this.each(function() {
-                    var self = this;
-
-                    foreach(name, function (name) {
-                        self.removeAttribute(name);
-                    });
-                });
-            } else {
-                this.each(function() {
-                    this.removeAttribute(name);
-                });
-            }
-        } else if (isArray(name)) {
-            this.each(function() {
-                var self = this;
-
-                foreach(name, function (name) {
-                    self.removeAttribute(name);
-                });
-            });
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1798,54 +758,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').data('foo bar'); // Get data-foo and data-bar.
      * $dom('span').data('foo bar', [200, {a: 1, b: 2}]); // Set data-foo with 200, data-bar with object.
      */
-    $dom.module.data = function(name, value) {
-        var $this = this;
-
-        /* Return if no selected childs */
-        if ($this.length <= 0) $this;
-
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                name = name.split(/\s+/);
-
-                if (isDefined(value)) {
-                    foreach(name, function(attr, i) {
-                        if (isString(value)) {
-                            $this.attr('data-' + attr, value);
-                        } else if (isArray(value)) {
-                            $this.attr('data-' + attr, value[i]);
-                        }
-                    });
-                } else {
-                    var data = {};
-
-                    foreach(name, function (attr) {
-                        data[attr] = $this.attr('data-' + attr);
-                    });
-
-                    return data;
-                }
-            } else {
-                if (isDefined(value)) {
-                    $this.attr('data-' + name, value);
-                } else {
-                    return $this.first().attr('data-' + name);
-                }
-            }
-        } else {
-            var atrs = $this.attr(), data = {};
-
-            foreach(atrs, function (attr, i) {
-                if (attr.match(/data-/)) {
-                    data[attr.replace('data-', '')] = $this.attr(attr);
-                }
-            });
-
-            return data;
-        }
-
-        return $this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1861,23 +773,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').remData('foo'); // Remove data-foo.
      * $dom('span').remData('foo bar'); // Remove data-foo and data-bar.
      */
-    $dom.module.remData = function(name) {
-        var $this = this;
-
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                name = name.split(/\s+/);
-
-                foreach(name, function (attr) {
-                    $this.remAttr('data-' + attr);
-                });
-            } else {
-                $this.remAttr('data-' + name);
-            }
-        }
-
-        return $this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1894,31 +789,6 @@ window.circle = function(obj, reversed) {
      * $dom('input[type="text"]').prop('value'); // Get value.
      * $dom('input[type="text"]').prop('value', 'Foo'); // Set value to Foo.
      */
-    $dom.module.prop = function(name, value) {
-        var $this = this;
-
-        if ($this.length <= 0) return $this;
-
-        if (isString(name)) {
-            if (isDefined(value)) {
-                $this.each(function() {
-                    this[name] = value;
-
-                    if (this.getAttribute(name)) {
-                        this.setAttribute(name, value);
-                    }
-                })
-            } else {
-                var first = $this[0];
-
-                if (first.hasOwnProperty(name)) {
-                    return first[name];
-                }
-            }
-        }
-
-        return $this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1934,13 +804,6 @@ window.circle = function(obj, reversed) {
      * $dom('input[type="text"]').val(); // Get value.
      * $dom('input[type="text"]').val('Foo'); // Set value to Foo.
      */
-    $dom.module.val = function(value) {
-        if (isDefined(value)) {
-            this.prop('value', value);
-        } else {
-            return this.prop('value');
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1953,13 +816,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.foo').remove();
      */
-    $dom.module.remove = function() {
-        this.each(function() {
-            this.remove();
-        });
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -1986,83 +842,6 @@ window.circle = function(obj, reversed) {
      * // Sort by name descending.
      * $dom('span').sortBy('name', { direction: 'descending' });
      */
-    $dom.module.sortBy = function(attr, options) {
-        var $this = this;
-
-        /* Creating default option */
-        var option = { type: 'string', direction: 'ascending' };
-
-        /* Replace option using user defined if exist */
-        if (isObject(options)) {
-            foreach(options, function (key, value) {
-                option[key] = value;
-            });
-        }
-
-        /* Attribute name should be string */
-        if (isString(attr)) {
-            /* Creating array to sort value */
-            var list = [];
-
-            /* Iterate each element to get value and add pattern as index number. */
-            $this.each(function(i) {
-                var val = this.getAttribute(attr);
-
-                /* If have attribute or value, just add index pattern */
-                if (isString(val)) {
-                    list.push(val + '<>' + i);
-                }
-
-                /* If don't have attribute or value, use 'zabc' to ensure placed in bottom of list */
-                else {
-                    list.push('zabc<>' + i);
-                }
-            });
-
-            /* Use custom sort compare if type is number.*/
-            if (option.type === 'number') {
-                /* Sort values with custom compare */
-                list = list.sort(function(a, b) {
-                    var ap = Number(a.split('<>')[0]);
-                    var bp = Number(b.split('<>')[0]);
-
-                    if (!ap) ap = 999999999999999;
-                    if (!bp) bp = 999999999999999;
-
-                    if (ap > bp) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-
-                    return 0;
-                });
-            } else {
-                /* Simply sort it if not numeric values */
-                list = list.sort();
-            }
-
-            /* Reverse order if dirs is 'desc' */
-            if (option.direction === 'descending') {
-                list = list.reverse();
-            }
-
-            /* Create DOMList */
-            var newlist = $dom();
-            /* Assign DOMList length using values length */
-            newlist.length = list.length;
-
-            /* Iterating values to get index number and insert the element to DOMList */
-            foreach(list, function (s, i) {
-                s = s.split('<>')[1];
-                newlist[i] = $this[s];
-            });
-
-            return newlist;
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2075,15 +854,6 @@ window.circle = function(obj, reversed) {
      * @apiExample Sample
      * $dom('span').toArray(); // Convert DOMList contains span to array.
      */
-    $dom.module.toArray = function() {
-        var arr = [];
-
-        this.each(function() {
-            arr.push(this);
-        });
-
-        return arr;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2097,22 +867,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').parent(); // Get the parent element of first span.
      * $dom('span').parent(true); // Get parent element of all span.
      */
-    $dom.module.parent = function(isall) {
-        if (this.length <= 0) return this;
-
-        var $result = $dom();
-
-        if (isall) {
-            this.each(function() {
-                $result.push(this.parentElement);
-            });
-        } else {
-            var first = this[0];
-            $result.push(first.parentElement);
-        }
-
-        return $result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2132,27 +886,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('container') : true : false
      * });
      */
-    $dom.module.parentUntil = function(query) {
-        if (this.parent().get() === $dom('body').get()) return $dom();
-
-        if (isString(query)) {
-            if (this.parent().filter(query).length > 0) {
-                return this.parent();
-            } else {
-                return this.parent().parentUntil(query);
-            }
-        }
-
-        else if (isFunction(query)) {
-            if (query.call(this.parent().get())) {
-                return this.parent();
-            } else {
-                return this.parent().parentUntil(query);
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2164,15 +897,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('span').parents(); // Get the parent element of each span.
      */
-    $dom.module.parents = function() {
-        var result = $dom();
-
-        this.each(function() {
-            result.push(this.parentElement);
-        });
-
-        return result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2182,14 +906,6 @@ window.circle = function(obj, reversed) {
      * @apiName Comment
      * @apiDescription Comment out a block of selected elements.
      */
-    $dom.module.comment = function() {
-        this.each(function() {
-            this.orgHTML = this.outerHTML;
-            this.outerHTML = '<!-- ' + this.outerHTML + ' -->';
-        });
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2209,17 +925,6 @@ window.circle = function(obj, reversed) {
      *     return this.hasAttribute('href') ? true : false;
      * });
      */
-    $dom.module.match = function(handler) {
-        if (!isFunction(handler) || this.length <= 0) return this;
-
-        var result = $dom();
-
-        this.each(function() {
-            if (handler.call(this) === true) result.push(this);
-        });
-
-        return result.length > 0 ? result : null;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2235,13 +940,6 @@ window.circle = function(obj, reversed) {
      * // Get second element from selected elements.
      * $dom('span').get(1);
      */
-    $dom.module.get = function(index) {
-        if (isNumber(index)) {
-            return this[index] ? this[index] : undefined;
-        } else {
-            return this.length > 0 ? this[0] : undefined;
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2261,15 +959,6 @@ window.circle = function(obj, reversed) {
      * // Get index number using selector.
      * $dom('span').indexOf('.foo');
      */
-    $dom.module.indexOf = function(elem) {
-        if (isHTML(elem)) {
-            return this.toArray().indexOf(elem);
-        } else if (isString(elem)) {
-            return this.toArray().indexOf(this.filter(elem).get());
-        }
-
-        return -1;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2283,21 +972,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').toString(); // Convert first selected element and return HTML String.
      * $dom('span').toString(true); // Convert all elements and return array contains each HTML String.
      */
-    $dom.module.toString = function(isall) {
-        if (this.length <= 0) return undefined;
-
-        if (isall) {
-            var elmStrings = [];
-
-            this.each(function() {
-                elmStrings.push(this.outerHTML);
-            });
-
-            return elmStrings;
-        } else {
-            return this.first().get().outerHTML;
-        }
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2312,19 +986,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('span').wrap('<div class="wrapper">');
      */
-    $dom.module.wrap = function(htmlstring) {
-        if (isHTMLString(htmlstring)) {
-            var result = $dom();
-
-            this.each(function() {
-                result.push($dom(htmlstring).insertBefore(this).append(this));
-            });
-
-            return result;
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2339,33 +1000,6 @@ window.circle = function(obj, reversed) {
      * // Wrap the container childrens with new container.
      * $dom('.container').wrapChild('<div class="inner-container">');
      */
-    $dom.module.wrapChild = function(htmlstring) {
-        if (isHTMLString(htmlstring)) {
-            var result = $dom();
-
-            this.each(function() {
-                var child = $dom(this).children(), elem;
-
-                if (child.length > 0) {
-                    elem = $dom(htmlstring).prependTo(this).append(child);
-
-                    result.push(elem);
-                } else {
-                    var text = this.innerHTML;
-
-                    $dom(this).empty();
-
-                    elem = $dom(htmlstring).html(text).appendTo(this);
-
-                    result.push(elem);
-                }
-            });
-
-            return result;
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2378,20 +1012,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('body').siblings(); // Return DOMList with <head> element since head is sibling of body.
      */
-    $dom.module.siblings = function() {
-        if (this.length <= 0) return this;
-
-        var result = $dom();
-        var first = this.first();
-
-        first.parent().children().each(function() {
-            if (this !== first.get()) {
-                result.push(this);
-            }
-        });
-
-        return result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2407,21 +1027,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').slice(2); // Remove thrid element from selected elements.
      * $dom('span').slice([0,3,2]); // Remove multiple element from selected elements.
      */
-    $dom.module.slice = function(index) {
-        var result = $dom();
-
-        if (isNumber(index)) {
-            this.each(function(i) {
-                if (i !== index) result.push(this);
-            });
-        } else if (isArray(index)) {
-            this.each(function(i) {
-                if (index.indexOf(i) < 0) result.push(this);
-            });
-        }
-
-        return result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2437,25 +1042,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').remProp('foo'); // Remove foo prop.
      * $dom('span').remProp(['foo', 'bar']); // Remove foo and bar prop.
      */
-    $dom.module.remProp = function(prop) {
-        if (isString(prop)) {
-            this.each(function() {
-                if (this[prop]) {
-                    delete this[prop];
-
-                    if (this.hasAttribute(prop)) {
-                        this.removeAttribute(prop);
-                    }
-                }
-            });
-        } else if (isArray(prop)) {
-            foreach(prop, function (prop) {
-                this.remProp(prop);
-            });
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2476,15 +1062,6 @@ window.circle = function(obj, reversed) {
      *
      * $dom('span').replace(foo, bar); // Replace using HTML Element.
      */
-    $dom.module.replace = function(trg, src) {
-        if (isString(trg)) {
-            return this.filter(trg).replaceWith(src);
-        } else if (isHTML(trg)) {
-            return $dom(trg).replaceWith(src);
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2501,20 +1078,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').replaceWith('<a href="#">'); // Replace all span with new anchor element.
      * $dom('span').replaceWith(document.getElementById('foo')); // Replace with existing element.
      */
-    $dom.module.replaceWith = function(elem) {
-        if (this.length <= 0) return this;
-
-        if (isHTML(elem)) {
-            $dom(elem).insertBefore(this.get(0));
-            this.first().remove();
-        } else if (isHTMLString(elem)) {
-            this.each(function() {
-                this.outerHTML = elem;
-            });
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2534,37 +1097,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('bar') : true : false;
      * });
      */
-    $dom.module.next = function(query) {
-        if (this.length <= 0) return this;
-
-        var all = this.first().parent().children();
-        var idx = all.indexOf(this.get(0));
-        var res = $dom();
-
-        if (isString(query)) {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                if (all.nth(i).filter(query).length > 0) {
-                    res.push(all.get(i));
-                    break;
-                }
-            }
-        }
-
-        else if (isFunction(query)) {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                if (query.call(all.get(i))) {
-                    res.push(all.get(i));
-                    break;
-                }
-            }
-        }
-
-        else {
-            return all.nth(idx + 1);
-        }
-
-        return res;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2585,37 +1117,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('bar') : true : false;
      * });
      */
-    $dom.module.nextAll = function(query) {
-        if (this.length <= 0) return this;
-
-        var all = this.first().parent().children();
-        var idx = all.indexOf(this.get(0));
-        var res = $dom();
-
-        if (isString(query)) {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                if (all.nth(i).filter(query).length > 0) {
-                    res.push(all.get(i));
-                }
-            }
-        }
-
-        else if (isFunction(query)) {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                if (query.call(all.get(i))) {
-                    res.push(all.get(i));
-                }
-            }
-        }
-
-        else {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                res.push(all.get(i));
-            }
-        }
-
-        return res;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2635,29 +1136,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('bar') : true : false;
      * });
      */
-    $dom.module.nextUntil = function(query) {
-        if (this.length <= 0) return this;
-
-        var all = this.first().parent().children();
-        var idx = all.indexOf(this.get(0));
-        var res = $dom();
-
-        if (isString(query)) {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                res.push(all.get(i));
-
-                if (all.nth(i).filter(query).length > 0) break;
-            }
-        } else if (isFunction(query)) {
-            for (var i = (idx + 1); i < all.length; ++i) {
-                res.push(all.get(i));
-
-                if (query.call(all.get(i))) break;
-            }
-        }
-
-        return res;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2677,37 +1155,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('bar') : true : false;
      * });
      */
-    $dom.module.prev = function(query) {
-        if (this.length <= 0) return this;
-
-        var all = this.first().parent().children();
-        var idx = all.indexOf(this.get(0));
-        var res = $dom();
-
-        if (isString(query)) {
-            for (var i = (idx - 1); i >= 0; --i) {
-                if (all.nth(i).filter(query).length > 0) {
-                    res.push(all.get(i));
-                    break;
-                }
-            }
-        }
-
-        else if (isFunction(query)) {
-            for (var i = (idx - 1); i >= 0; --i) {
-                if (query.call(all.get(i))) {
-                    res.push(all.get(i));
-                    break;
-                }
-            }
-        }
-
-        else {
-            return all.nth(idx - 1);
-        }
-
-        return res;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2728,37 +1175,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('bar') : true : false;
      * });
      */
-    $dom.module.prevAll = function(query) {
-        if (this.length <= 0) return this;
-
-        var all = this.first().parent().children();
-        var idx = all.indexOf(this.get(0));
-        var res = $dom();
-
-        if (isString(query)) {
-            for (var i = (idx - 1); i >= 0; --i) {
-                if (all.nth(i).filter(query).length > 0) {
-                    res.push(all.get(i));
-                }
-            }
-        }
-
-        else if (isFunction(query)) {
-            for (var i = (idx - 1); i >= 0; --i) {
-                if (query.call(all.get(i))) {
-                    res.push(all.get(i));
-                }
-            }
-        }
-
-        else {
-            for (var i = (idx - 1); i >= 0; --i) {
-                res.push(all.get(i));
-            }
-        }
-
-        return res;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2778,33 +1194,6 @@ window.circle = function(obj, reversed) {
      *     return $dom(this).hasClass('bar') : true : false;
      * });
      */
-    $dom.module.prevUntil = function(query) {
-        if (this.length <= 0) return this;
-
-        var all = this.first().parent().children();
-        var idx = all.indexOf(this.get(0));
-        var res = $dom();
-
-        if (isString(query)) {
-            for (var i = (idx - 1); i >= 0; --i) {
-                res.push(all.get(i));
-
-                if (all.nth(i).filter(query).length > 0) break;
-            }
-        } else if (isFunction(query)) {
-            for (var i = (idx - 1); i >= 0; --i) {
-                res.push(all.get(i));
-
-                if (query.call(all.get(i))) break;
-            }
-        }
-
-        return res;
-    };
-})(DOMList);
-
-(function($dom) {
-    'use strict';
 
     /**
      * @apiVersion 2.0.0
@@ -2821,28 +1210,6 @@ window.circle = function(obj, reversed) {
      * $dom('.foo').addClass('clearfix fit relative'); // Add multiple class.
      * $dom('.foo').addClass(['clearfix', 'fit', 'relative']); // Add multiple class.
      */
-    $dom.module.addClass = function(name) {
-        var $this = this;
-
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                name = name.split(/\s+/);
-                foreach(name, function(attr) {
-                    $this.addClass(attr);
-                });
-            } else {
-                $this.each(function() {
-                    this.classList.add(name);
-                });
-            }
-        } else if (isArray(name)) {
-            foreach(name, function (attr) {
-                $this.addClass(attr);
-            });
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2858,28 +1225,6 @@ window.circle = function(obj, reversed) {
      * $dom('.foo').remClass('bar');
      * $dom('.foo').remClass(['bar', 'foo', 'foobar']);
      */
-    $dom.module.remClass = function(name) {
-        var $this = this;
-
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                name = name.split(/\s+/);
-                foreach(name, function(attr) {
-                    $this.remClass(attr);
-                });
-            } else {
-                $this.each(function() {
-                    this.classList.remove(name);
-                });
-            }
-        } else if (isArray(name)) {
-            foreach(name, function (attr) {
-                $this.remClass(attr);
-            });
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -2895,24 +1240,6 @@ window.circle = function(obj, reversed) {
      * $dom('.foo').toggleClass('bar');
      * $dom('.foo').toggleClass(['bar', 'foo', 'foobar']);
      */
-    $dom.module.toggleClass = function(name) {
-        var $this = this;
-
-        if (isString(name)) {
-            $this.each(function() {
-                this.classList.toggle(name);
-            });
-        } else if (isArray(name)) {
-            foreach(name, function (attr) {
-                $this.toggleClass(attr);
-            });
-        }
-
-        return this;
-    };
-})(DOMList);
-(function($root, $dom) {
-    'use strict';
 
     /**
      * @apiVersion 2.0.0
@@ -2942,42 +1269,6 @@ window.circle = function(obj, reversed) {
      * // Append with query.
      * $dom('.wrapper').append('.foo');
      */
-    $dom.module.append = function(childs) {
-        var $this = this;
-
-        /* Return if no selected elements */
-        if ($this.length <= 0) return $this;
-
-        /* If childs is HTML Element */
-        if (isHTML(childs)) {
-            $this[0].appendChild(childs);
-        }
-
-        /* If childs is Array or DOMList */
-        else if (isArray(childs) || isDOMList(childs)) {
-            foreach(childs, function (node) {
-                $this[0].appendChild(node);
-            });
-        }
-
-        /* If childs is String */
-        else if (isString(childs)) {
-            /* If string is HTML Formatted string */
-            if (isHTMLString(childs)) {
-                $this[0].insertAdjacentHTML('beforeend', childs);
-            }
-
-            /* If string is CSS Selector */
-            else {
-                var result = $dom(childs);
-                result.each(function() {
-                    $this[0].appendChild(this);
-                });
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3007,75 +1298,6 @@ window.circle = function(obj, reversed) {
      * // Prepend with query.
      * $dom('.wrapper').prepend('.foo');
      */
-    $dom.module.prepend = function(childs) {
-        var $this = this;
-
-        /* Return if no selected elements */
-        if ($this.length <= 0) return this;
-
-        /* If childs is single HTML Element */
-        if (isHTML(childs)) {
-            /* If no childrens, use append */
-            if ($this[0].children.length <= 0) {
-                $this[0].appendChild(childs);
-            }
-
-            /* Else, insert before first element */
-            else {
-                $this[0].insertBefore(childs, $this[0].children[0]);
-            }
-        }
-
-        /* If childs is DOMList or Array */
-        else if (isDOMList(childs) || isArray(childs)) {
-            /* If no childrens, use append */
-            if ($this[0].children.length <= 0) {
-                foreach(childs, function (node) {
-                    $this[0].appendChild(node);
-                });
-            }
-
-            /* Else, insert before first element */
-            else {
-                var first = $this[0].children[0];
-
-                foreach(childs, function(node) {
-                    $this[0].insertBefore(node, first);
-                });
-            }
-        }
-
-        /* If childs is string */
-        else if (isString(childs)) {
-            /* If string is HTML Formatted string */
-            if (isHTMLString(childs)) {
-                $this[0].insertAdjacentHTML('afterbegin', childs);
-            }
-
-            /* If string is CSS Selector */
-            else {
-                var result = $dom(childs);
-
-                /* If no childrens, use append */
-                if ($this[0].children.length <= 0) {
-                    result.each(function() {
-                        $this[0].appendChild(this);
-                    });
-                }
-
-                /* Else insert before first element */
-                else {
-                    var first = $this[0].children[0];
-
-                    result.each(function() {
-                        $this[0].insertBefore(this, first);
-                    });
-                }
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3090,41 +1312,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.foo').appendTo('.wrapper');
      */
-    $dom.module.appendTo = function(destination) {
-        var $this = this;
-
-        /* Return if no selected elements */
-        if ($this.length <= 0) return $this;
-
-        /* If destination is single HTML Element */
-        if (isHTML(destination)) {
-            $this.each(function() {
-                destination.appendChild(this);
-            });
-        }
-
-        /* If destination is DOMList or Array */
-        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-            destination = destination[0];
-
-            $this.each(function() {
-                destination.appendChild(this);
-            });
-        }
-
-        /* If destination is string and not HTML Formatted string */
-        else if (isString(destination) && !isHTMLString(destination)) {
-            var result = $dom(destination);
-
-            if (result.length > 0) {
-                $this.each(function() {
-                    result[0].appendChild(this);
-                });
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3139,82 +1326,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.foo').prependTo('.wrapper');
      */
-    $dom.module.prependTo = function(destination) {
-        var $this = this;
-
-        /* Return if no selected elements */
-        if ($this.length <= 0) return $this;
-
-        /* If destination is single HTML Element */
-        if (isHTML(destination)) {
-            /* Use insertBefore if has childrens */
-            if (destination.children.length > 0) {
-                var first = destination.children[0];
-                var parnt = first.parentElement;
-
-                $this.each(function() {
-                    parnt.insertBefore(this, first);
-                });
-            }
-
-            /* Else, use append */
-            else {
-                $this.each(function() {
-                    destination.appendChild(this);
-                });
-            }
-        }
-
-        /* If destination is DOMList or Array */
-        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-            destination = destination[0];
-
-            /* Use insertBefore if has childrens */
-            if (destination.children.length > 0) {
-                var first = destination.children[0];
-                var parnt = first.parentElement;
-
-                $this.each(function() {
-                    parnt.insertBefore(this, first);
-                })
-            }
-
-            /* Else, use append */
-            else {
-                $this.each(function() {
-                    destination.appendChild(this);
-                });
-            }
-        }
-
-        /* If destination is string and not HTML Formatted string */
-        else if (isString(destination) && !isHTMLString(destination)) {
-            var result = $dom(destination);
-
-            if (result.length > 0) {
-                destination = result[0];
-
-                /* Use insertBefore if has childrens */
-                if (destination.children.length >= 0) {
-                    var first = destination.children[0];
-                    var parnt = first.parentElement;
-
-                    $this.each(function() {
-                        parnt.insertBefore(this, first);
-                    })
-                }
-
-                /* Else, use append */
-                else {
-                    $this.each(function() {
-                        destination.appendChild(this);
-                    });
-                }
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3229,46 +1340,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.foo').insertBefore('.bar');
      */
-    $dom.module.insertBefore = function(destination) {
-        var $this = this;
-
-        /* Return if no selected elements */
-        if ($this.length <= 0) return $this;
-
-        /* If destination is single HTML Element */
-        if (isHTML(destination)) {
-            var parent = destination.parentElement;
-
-            $this.each(function() {
-                parent.insertBefore(this, destination);
-            });
-        }
-
-        /* If destination is DOMList or Array */
-        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-            var parent = destination[0].parentElement;
-
-            $this.each(function() {
-                parent.insertBefore(this, destination[0]);
-            });
-        }
-
-        /* If destination is string and not HTML Formatted string */
-        else if (isString(destination) && !isHTMLString(destination)) {
-            destination = $dom(destination);
-
-            /* If destination exist */
-            if (destination.length > 0) {
-                var parent = destination[0].parentElement;
-
-                $this.each(function() {
-                    parent.insertBefore(this, destination[0]);
-                });
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3283,46 +1354,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('.foo').insertAfter('.bar');
      */
-    $dom.module.insertAfter = function(destination) {
-        var $this = this;
-
-        /* Return if no selected elements */
-        if ($this.length <= 0) return $this;
-
-        /* If destination is single HTML Element */
-        if (isHTML(destination)) {
-            var parent = destination.parentElement;
-
-            $this.each(function() {
-                parent.insertBefore(this, destination.nextSibling);
-            }, true);
-        }
-
-        /* If destination is DOMList or Array */
-        else if (isDOMList(destination) || isArray(destination) && destination.length > 0) {
-            var parent = destination[0].parentElement;
-
-            $this.each(function() {
-                parent.insertBefore(this, destination[0].nextSibling);
-            }, true);
-        }
-
-        /* If destination is string and not HTML Formatted string */
-        else if (isString(destination) && !isHTMLString(destination)) {
-            destination = $dom(destination);
-
-            /* If destination exist */
-            if (destination.length > 0) {
-                var parent = destination[0].parentElement;
-
-                $this.each(function() {
-                    parent.insertBefore(this, destination[0].nextSibling);
-                }, true);
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3338,23 +1369,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').text(); // Get first selected span innerText
      * $dom('span').text('foo'); // Set all span innerText to foo.
      */
-    $dom.module.text = function(value) {
-        if (this.length <= 0) return this;
-
-        if (isDefined(value)) {
-            this.each(function() {
-                try {
-                    this.innerText = value;
-                } catch (err) {
-
-                }
-            });
-        } else {
-            return this[0].innerText;
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3367,15 +1381,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $('span').texts();
      */
-    $dom.module.texts = function() {
-        var result = [];
-
-        this.each(function() {
-            result.push(this.innerText);
-        });
-
-        return result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3391,25 +1396,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').html(); // Get first selected span innerHTML
      * $dom('span').html('foo'); // Set all span innerHTML to foo.
      */
-    $dom.module.html = function(value) {
-        if (this.length <= 0) return this;
-
-        if (isDOMList(value) || isArray(value)) {
-            this.append(value);
-        } else if (isDefined(value)) {
-            this.each(function() {
-                try {
-                    this.innerHTML = value;
-                } catch (err) {
-
-                }
-            });
-        } else {
-            return this[0].innerHTML;
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3422,15 +1408,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $('span').htmls();
      */
-    $dom.module.htmls = function() {
-        var result = [];
-
-        this.each(function() {
-            result.push(this.innerHTML);
-        });
-
-        return result;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3443,16 +1420,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('span').clone();
      */
-    $dom.module.clone = function() {
-        var cloned = [];
-
-        this.each(function() {
-            var clone = this.cloneNode(true);
-            cloned.push(clone);
-        });
-
-        return $dom(cloned);
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3465,27 +1432,7 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample #1
      * $dom('span').empty();
      */
-    $dom.module.empty = function() {
-        this.each(function() {
-            try {
-                this.innerHTML = '';
-                this.innerText = '';
-            } catch (err) {
 
-            }
-        });
-
-        this.val('');
-
-        return this;
-    };
-})(window, DOMList);
-
-/**
- * Modules That's Returns Boolean.
- */
-
-(function($dom) {
     /**
      * @apiVersion 2.0.0
      * @apiGroup Checker
@@ -3501,39 +1448,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').hasAttr(['foo', 'bar']); // Does has attribute foo or bar.
      * $dom('span').hasAttr('foo bar'); // Does has attribute foo and bar.
      */
-    $dom.module.hasAttr = function(name) {
-        var has = false, hasfalse = false;
-
-        var atrs = Object.keys(this.attr());
-
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                name = name.split(/\s+/);
-
-                foreach(name, function(key) {
-                    if (atrs.indexOf(key) > -1) {
-                        has = true;
-                    } else {
-                        hasfalse = true;
-                    }
-                });
-
-                return has === true && hasfalse === false ? true : false;
-            } else {
-                if (atrs.indexOf(name) > -1) {
-                    has = true;
-                }
-            }
-        } else if (isArray(name)) {
-            foreach(name, function(key) {
-                if (atrs.indexOf(key) > -1) {
-                    has = true;
-                }
-            });
-        }
-
-        return has;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3550,27 +1464,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').hasData(['foo', 'bar']); // Check does has data-attribute 'data-foo' or 'data-bar'.
      * $dom('span').hasData('foo bar'); // Check does has data-attribute 'data-foo' and 'data-bar'.
      */
-    $dom.module.hasData = function(name) {
-        var has = false, hasfalse = false;
-
-        if (isString(name)) {
-            if (name.match(/\s+/)) {
-                var ns = name.split(/\s+/);
-
-                foreach(ns, function (value, i) {
-                    name = name.replace(value, 'data-' + value);
-                });
-            } else {
-                name = 'data-' + name;
-            }
-        } else if (isArray(name)) {
-            foreach(name, function (value, i) {
-                name[i] = 'data-' + value;
-            });
-        }
-
-        return this.hasAttr(name);
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3587,39 +1480,6 @@ window.circle = function(obj, reversed) {
      * $dom('span').hasClass(['foo', 'bar']); // Check does has class foo or bar.
      * $dom('span').hasClass('foo bar'); // Check does has class foo and bar.
      */
-    $dom.module.hasClass = function(name) {
-        var has = false, hasfalse = false;
-
-        var cls = this.attr('class').split(/\s+/);
-
-        if (isString(name)) {
-            if (name.search(/\s+/)) {
-                name = name.split(/\s+/);
-
-                foreach(name, function (clas) {
-                    if (cls.indexOf(clas) > -1) {
-                        has = true;
-                    } else {
-                        hasfalse = true;
-                    }
-                });
-
-                return has === true && hasfalse === false ? true : false;
-            } else {
-                if (cls.indexOf(name) > -1) {
-                    has = true;
-                }
-            }
-        } else if (isArray(name)) {
-            foreach(name, function(clas) {
-                if (cls.indexOf(clas) > -1) {
-                    has = true;
-                }
-            });
-        }
-
-        return has;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3635,17 +1495,6 @@ window.circle = function(obj, reversed) {
      * $dom('span.foo').is('.foo'); // true
      * $dom('span.foo').is('.bar'); // false if span.foo don't have class bar.
      */
-    $dom.module.is = function(query) {
-        if (this.length <= 0) return false;
-
-        if (isString(query)) {
-            return this.first().filter(query).length > 0 ? true : false;
-        } else if (isHTML(query)) {
-            return this.get(0) === query ? true : false;
-        }
-
-        return false;
-    };
 
     /**
      * @apiVersion 2.0.0
@@ -3661,18 +1510,6 @@ window.circle = function(obj, reversed) {
      * $dom('span.foo').not('.foo'); // false
      * $dom('span.foo').not('.bar'); // true if span.foo don't have class bar.
      */
-    $dom.module.not = function(query) {
-        return !this.is(query) ? true : false;
-    };
-})(DOMList);
-
-(function($root, $dom) {
-    'use strict';
-
-    /* Event Provider */
-    var EventProvider = function() {
-        this.events = {};
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -3682,7 +1519,7 @@ window.circle = function(obj, reversed) {
      * @apiName EventProvider
      * @apiDescription Create or trigger custom event to element.
      */
-    EventProvider.prototype = {
+
         /**
          * @apiVersion 2.1.0
          * @apiGroup EventProvider
@@ -3696,13 +1533,6 @@ window.circle = function(obj, reversed) {
          * @apiExample {js} Sample
          * EventProvider.search('swipe'); // Return swipe event provider object.
          */
-        search: function(name) {
-            if (isString(name)) {
-                return isObject(this.events[name]) ? this.events[name] : undefined;
-            }
-
-            return undefined;
-        },
 
         /**
          * @apiVersion 2.1.0
@@ -3736,16 +1566,6 @@ window.circle = function(obj, reversed) {
          *     console.log('Your reached max click: ' + e.maxclick);
          * });
          */
-        register: function(name, provider, options) {
-            if (isString(name) && isFunction(provider)) {
-                this.events[name] = {
-                    maker: provider,
-                    event: new $root.CustomEvent(name, options)
-                };
-            }
-
-            return this.events[name].event;
-        },
 
         /**
          * @apiVersion 2.1.0
@@ -3771,87 +1591,6 @@ window.circle = function(obj, reversed) {
          *         EventProvider.dispatch('foo', this, { a: 1, b: 2 });
          *     });
          */
-        dispatch: function(name, elem, props) {
-            if (isString(name) && isHTML(elem) && this.events[name]) {
-                var event = this.events[name].event;
-
-                if (isObject(props)) {
-                    foreach(props, function (key, value) {
-                        event[key] = value;
-                    });
-                }
-
-                elem.dispatchEvent(event);
-            }
-        }
-    };
-
-    /* Register EventProvider to window */
-    $root.EventProvider = new EventProvider();
-
-    /* Function to add listener to document DOMContentLoaded and Loaded */
-    document.onreadystatechange = function() {
-        if (document.readyState === 'interactive') {
-            document.isready = true;
-        }
-        else if (document.readyState === 'complete') {
-            document.isloaded = true;
-        }
-    }
-
-    var DocLoadListener = function(type, handler) {
-        var $this = document;
-
-        /* Creating handler list if not defined */
-        if (!$this._evcol) {
-            $this._evcol = { _init: true, ready: [], loaded: [] };
-        }
-
-        /* Push handler to handler list */
-        if (isString(type) && isFunction(handler)) {
-            $this._evcol[type].push(handler);
-        }
-
-        /* Trigger the handler directly if already in target state */
-        if ($this.isready && type === 'ready') {
-            handler.call($this);
-        }
-        if ($this.isloaded && type === 'loaded') {
-            handler.call($this);
-        }
-
-        /* Creating main hanlder on first use */
-        if ($this._evcol._init) {
-            $this._evcol._init = false;
-
-            /* Listen document onreadystatechange */
-            $this.onreadystatechange = function() {
-                /* Hanling ready event */
-                if ($this.readyState === 'interactive') {
-                    setTimeout(function() {
-                        foreach($this._evcol.ready, function (handler) {
-                            handler.call($this);
-
-                            $this.isready = true;
-                        });
-                    }, 300);
-                }
-
-                /* Handling loaded event */
-                else if ($this.readyState === 'complete') {
-                    setTimeout(function() {
-                        foreach($this._evcol.loaded, function (handler) {
-                            handler.call($this);
-
-                            $this.isloaded = true;
-                        });
-                    }, 300);
-                }
-            }
-        }
-
-        return $this;
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -3865,9 +1604,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom.ready(function() { console.log('document ready'); });
      */
-    $dom.ready = function(handler) {
-        return new DocLoadListener('ready', handler);
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -3881,9 +1617,6 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom.loaded(function() { console.log('document loaded'); });
      */
-    $dom.loaded = function(handler) {
-        return new DocLoadListener('loaded', handler);
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -3918,93 +1651,6 @@ window.circle = function(obj, reversed) {
      *     }
      * });
      */
-    $dom.module.listen = function(name, type, handler) {
-        this.each(function() {
-            var elem = this;
-
-            /* Add prefix to event type */
-            if (isString(type) && elem.hasOwnProperty('on' + type))  type = 'on' + type;
-
-            /* Using single name registration */
-            if (isString(name)) {
-                /* Using single event type registration */
-                if (isString(type) && isFunction(handler)) {
-                    /* Add event collection if not exist */
-                    if (!elem._evcol) elem._evcol = {};
-
-                    /* Add event type collection if not exist */
-                    if (!elem._evcol[type]) elem._evcol[type] = { _init: true };
-
-                    /* Add event type handler collection if not exist */
-                    if (!elem._evcol[type][name]) elem._evcol[type][name] = [];
-
-                    /* Pushing event handler to collections */
-                    elem._evcol[type][name].push(handler);
-                }
-
-                /* Using multiple event type registration */
-                else if (isObject(type)) {
-                    foreach(type, function(type, handler) {
-                        if (isFunction(handler)) {
-                            $dom(elem).listen(name, type, handler);
-                        }
-                    });
-                }
-            }
-
-            /* Using multiple name registration */
-            else if (isObject(name)) {
-                /* Iterate type list */
-                foreach(name, function (name, types) {
-                    if (isObject(types)) {
-                        /* Iterate names list */
-                        foreach(types, function (type, handler) {
-                            if (isFunction(handler)) {
-                                $dom(elem).listen(type, name, handler);
-                            }
-                        });
-                    }
-                });
-            }
-
-            /* Create DOMList Event Handler if not already defined */
-            if (elem._evcol) {
-                if (elem._evcol[type] && elem._evcol[type]._init) {
-                    elem._evcol[type]._init = false;
-
-                    /* Tell Event Provider (if available) to provide custom event to this element */
-                    var cev = $root.EventProvider.search(type);
-                    if (cev) cev.maker.call(elem);
-
-                    /* Creating Default Handler */
-                    var defHandler = function(e) {
-                        var $self = this;
-
-                        if ($self._evcol[type]) {
-                            foreach($self._evcol[type], function (name, handlers) {
-                                if (name !== '_init') {
-                                    foreach(handlers, function (handler) {
-                                        if (isFunction(handler)) {
-                                            handler.call($self, e);
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    }
-
-                    /* Simply use 'onevent' or addEventListener */
-                    if (elem.hasOwnProperty(type)) {
-                        elem[type] = defHandler;
-                    } else {
-                        elem.addEventListener(type, defHandler);
-                    }
-                }
-            }
-        });
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -4033,48 +1679,6 @@ window.circle = function(obj, reversed) {
      * // Remove click and mouseenter event from foo and bar.
      * $dom('span').unlisten(['foo', 'bar'], ['click', 'moueseenter']);
      */
-    $dom.module.unlisten = function(name, type) {
-        var self = this;
-        if (isString(name)) {
-            if (isString(type)) {
-                this.each(function() {
-                    if (this.hasOwnProperty('on' + type)) type = 'on' + type;
-
-                    if (this._evcol[type] && this._evcol[type][name]) {
-                        delete this._evcol[type][name];
-                    }
-                });
-            } else if (isArray(type)) {
-                foreach(type, function (type) {
-                    self.unlisten(name, type);
-                });
-            } else {
-                this.each(function() {
-                    var $this = this;
-
-                    foreach($this._evcol, function (type, names) {
-                        if (isObject(names) && names.hasOwnProperty(name)) {
-                            delete $this._evcol[type][name];
-                        }
-                    });
-                });
-            }
-        } else if (isArray(name)) {
-            if (isString(type)) {
-                foreach(name, function(name) {
-                    self.unlisten(name, type);
-                });
-            } else if (isArray(type)) {
-                foreach(name, function(name) {
-                    foreach(type, function (type) {
-                        self.unlisten(name, type);
-                    });
-                });
-            }
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -4097,15 +1701,6 @@ window.circle = function(obj, reversed) {
      *     mouseenter: function() {}
      * });
      */
-    $dom.module.handle = function(type, handler) {
-        if (isString(type) && isFunction(handler)) {
-            this.listen('default', type, handler);
-        } else if (isObject(type)) {
-            this.listen('default', type);
-        }
-
-        return this;
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -4124,20 +1719,6 @@ window.circle = function(obj, reversed) {
      * // Remove multiple event.
      * $dom('span').unhandle(['click', 'mouseenter']);
      */
-    $dom.module.unhanlde = function(type) {
-        if (isString(type) || isArray(type)) {
-            this.unlisten('default', type);
-        }
-
-        return this;
-    }
-
-    /* Creating Specific Event Group */
-    var eventGroup = {
-        MouseEvents: 'click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave contextmenu'.split(/\s+/),
-        KeyboardEvents: 'keydown keypress keyup'.split(/\s+/),
-        FocusEvent: 'blur focus focusin focusout'.split(/\s+/)
-    };
 
     /**
      * @apiVersion 2.1.0
@@ -4166,68 +1747,6 @@ window.circle = function(obj, reversed) {
      * // Trigger
      * $dom('button').trigger('click', { sender: 'document' });
      */
-    $dom.module.trigger = $dom.module.dispatch = function(type, props) {
-        /* Event type should be string or array */
-        if (isString(type)) {
-            /* Iterate each element */
-            this.each(function() {
-                var elem = this, event, group = 'Event';
-
-                /* Lookup on Event Group to change default group if found */
-                foreach(eventGroup, function (grp, types) {
-                    if (types.indexOf(type) > -1) {
-                        group = grp;
-                    }
-                });
-
-                /* Look at Custom Event first */
-                if ($root.EventProvider.search(type)) {
-                    EventProvider.dispatch(type, elem, props);
-                }
-
-                /* If not found, use standard event */
-                else {
-                    /* Non IE Browsers */
-                    if (document.createEvent) {
-                        /* Creating event object */
-                        event = document.createEvent(group);
-                        event.initEvent(type);
-
-                        /* Inserting additional properties if defined */
-                        if (isObject(props)) {
-                            foreach(props, function (key, value) {
-                                event[key] = value;
-                            });
-                        }
-
-                        /* Fire event */
-                        elem.dispatchEvent(event);
-                    }
-
-                    /* IE Browsers */
-                    else if (document.createEventObject) {
-                        /* Creating event object */
-                        event.createEventObject();
-
-                        /* Inserting additional properties if defined */
-                        if (isObject(props)) {
-                            foreach(props, function (key, value) {
-                                event[key] = value;
-                            });
-                        }
-
-                        /* Fire event */
-                        elem.fireEvent(type, event);
-                    }
-                }
-            });
-        }
-
-        return this;
-    }
-})(window, DOMList);
-(function($root, $dom) {
-    'use strict';
 
     /* EVENT ALIASES */
     /* ------------------------------------- */
@@ -4508,53 +2027,3 @@ window.circle = function(obj, reversed) {
      * @apiDescription Handle contextmenu event or trigger if no argument defined.
      */
 
-    /* Global Shortcut */
-    var alias = 'blur focus focusin focusout load resize scroll unload click dblclick switch hover mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu'.split(/\s+/);
-
-    foreach(alias, function (name) {
-        $dom.module[name] = function(handler) {
-            if (isFunction(handler)) {
-                return this.handle(name, handler);
-            } else {
-                return this.trigger(name);
-            }
-        };
-    });
-
-    /* Creating Hover Event */
-    EventProvider.register('hover', function() {
-        $dom(this).listen('HoverEvent', {
-            'mouseenter': function() {
-                EventProvider.dispatch('hover', this, { status: 'enter' });
-            },
-            'mouseleave': function() {
-                EventProvider.dispatch('hover', this, { status: 'leave' });
-            }
-        });
-    });
-
-    /* Creating Switch Event */
-    EventProvider.register('switch', function() {
-        var $this = $dom(this);
-
-        if (!$this.hasAttr('off') && !$this.hasAttr('on')) {
-            $this.attr('off', '');
-        }
-
-        $this.listen('ClickToggle', 'click', function() {
-            if (!this.switch) this.switch = 'off';
-
-            if (this.switch === 'off') {
-                this.switch = 'on';
-
-                $this.attr('on', '').remAttr('off');
-            } else {
-                this.switch = 'off';
-
-                $this.attr('off', '').remAttr('on');
-            }
-
-            EventProvider.dispatch('switch', this, { state: this.togglestate });
-        });
-    });
-})(window, DOMList);
