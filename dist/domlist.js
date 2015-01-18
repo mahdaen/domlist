@@ -2390,7 +2390,7 @@ window.circle = function(obj, reversed) {
      * @apiDescription Remove properties from selected elements. If properties also available in attributes, it's removed too.
      *
      * @apiParam {String} property String property name or array property name list.
-     * 
+     *
      * @apiExample {js} Sample
      * $dom('span').remProp('foo'); // Remove foo prop.
      * $dom('span').remProp(['foo', 'bar']); // Remove foo and bar prop.
@@ -2409,6 +2409,68 @@ window.circle = function(obj, reversed) {
         } else if (isArray(prop)) {
             foreach(prop, function (prop) {
                 this.remProp(prop);
+            });
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {replace} DOMList.replace(target,source); .replace()
+     * @apiName Replace
+     * @apiDescription Replace matched target in selected elements with new element or existing element.
+     *
+     * @apiParam {String} CSS Selector or HTML Element.
+     * @apiParam {String} HTML String to create new element or existing HTML Element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').replace('.foo', '<span class="bar">'); // Replace using CSS Selector and HTML String.
+     *
+     * var foo = $dom('span').filter('.foo').get();
+     * var bar = $dom('span').filter('.bar').get();
+     *
+     * $dom('span').replace(foo, bar); // Replace using HTML Element.
+     */
+    $dom.module.replace = function(trg, src) {
+        if (this.length <= 0) return this;
+
+        if (isString(trg)) {
+            return this.filter(trg).replaceWith(src);
+        } else if (isHTML(trg)) {
+            return $dom(trg).replaceWith(src);
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {replacewith} DOMList.replaceWith(source); .replaceWith()
+     * @apiName ReplaceWith
+     * @apiDescription Replace each selected elements with new element or existing element.
+     *
+     * @apiParam {String} source HTML String to create new element or existing HTML Element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').replaceWith('<a href="#">'); // Replace all span with new anchor element.
+     * $dom('span').replaceWith(document.getElementById('foo')); // Replace with existing element.
+     */
+    $dom.module.replaceWith = function(elem) {
+        if (this.length <= 0) return this;
+
+        if (isHTML(elem)) {
+            this.each(function() {
+                $dom(elem).insertBefore(this);
+                this.remove();
+            });
+        } else if (isHTMLString(elem)) {
+            this.each(function() {
+                this.outerHTML = elem;
             });
         }
 
