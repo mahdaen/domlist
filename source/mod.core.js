@@ -3,7 +3,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {push} DOMList.push(element); .push()
      * @apiName Push
@@ -39,7 +39,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {first} DOMList.first(); .first()
      * @apiName First
@@ -54,7 +54,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {firstchild} DOMList.firstChild(); .firstChild()
      * @apiName FirstChild
@@ -78,7 +78,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {last} DOMList.last(); .last()
      * @apiName Last
@@ -93,7 +93,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {lastchild} DOMList.lastChild(); .lastChild()
      * @apiName LastChild
@@ -117,7 +117,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {nth} DOMList.nth(index); .nth()
      * @apiName NTH
@@ -134,7 +134,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {nthChild} DOMList.nthChild(index); .nthChild()
      * @apiName NthChild
@@ -160,7 +160,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {children} DOMList.children(); .children()
      * @apiName Children
@@ -183,7 +183,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {finder} DOMList.find(query); .find()
      * @apiName Find
@@ -203,7 +203,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {filter} DOMList.filter(query); .filter()
      * @apiName Filter
@@ -243,7 +243,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {iterator} DOMList.each(handler); .each()
      * @apiName Iterator
@@ -276,7 +276,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {attr} DOMList.attr(name,value); .attr()
      * @apiName Attr
@@ -417,7 +417,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {remattr} DOMList.remAttr(name); .remAttr()
      * @apiName RemAttr
@@ -461,7 +461,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {data} DOMList.data(name,value); .data()
      * @apiName Data
@@ -530,7 +530,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {remdata} DOMList.remData(name); .remData()
      * @apiName RemData
@@ -562,7 +562,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {prop} DOMList.prop(name,value); .prop()
      * @apiName Prop
@@ -603,7 +603,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {val} DOMList.val(value); .val()
      * @apiName Val
@@ -625,7 +625,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {remove} DOMList.remove(); .remove()
      * @apiName Remove
@@ -644,7 +644,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {sort} DOMList.sortBy(attr,options); .sortBy()
      * @apiName Sort
@@ -747,7 +747,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {toarray} DOMList.toArray(); .toArray()
      * @apiName ToArray
@@ -768,7 +768,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      *
      * @api {parent} DOMList.parent() .parent()
      * @apiName Parent
@@ -787,7 +787,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Core
+     * @apiGroup Core
      * @api {parents} DOMList.parents(); .parents()
      * @apiName Parents
      * @apiDescription Get all parent element of all selected elements as DOMList object.
@@ -803,5 +803,23 @@
         });
 
         return result;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {comment} DOMList.comment() .comment()
+     * @apiName Comment
+     * @apiDescription Comment out a block of selected elements.
+     * @returns {$dom.module}
+     */
+    $dom.module.comment = function() {
+        this.each(function() {
+            this.orgHTML = this.outerHTML;
+            this.outerHTML = '<!-- ' + this.outerHTML + ' -->';
+        });
+
+        return this;
     };
 })(DOMList);

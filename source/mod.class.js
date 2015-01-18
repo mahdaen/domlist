@@ -3,7 +3,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Class
+     * @apiGroup Class
      *
      * @api {addclass} DOMList.addClass(name); .addClass()
      * @apiName AddClass
@@ -41,7 +41,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Class
+     * @apiGroup Class
      *
      * @api {remclass} DOMList.remClass(name); .remClass()
      * @apiName RemClass
@@ -78,7 +78,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Class
+     * @apiGroup Class
      *
      * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
      * @apiName ToggleClass

@@ -3,7 +3,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {append} DOMList.append(childs); .append()
      * @apiName Append
@@ -68,7 +68,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {prepend} DOMList.prepend(childs) .prepend()
      * @apiName Prepend
@@ -166,7 +166,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {appendto} DOMList.appendTo(destination) .appendTo()
      * @apiName AppendTo
@@ -215,7 +215,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {perependto} DOMList.prependTo(destination) .prependTo()
      * @apiName PrependTo
@@ -305,7 +305,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
      * @apiName insertBefore
@@ -359,7 +359,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList.Module.Inject
+     * @apiGroup Injects
      *
      * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
      * @apiName insertAfter
@@ -413,7 +413,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {text} DOMList.text(value); .text()
      * @apiName Text
@@ -445,7 +445,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {Texts} DOMList.texts(); .texts()
      * @apiName Texts
@@ -466,7 +466,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {html} DOMList.html(value); .html()
      * @apiName HTML
@@ -500,7 +500,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {HTMLs} DOMList.htmls(); .htmls()
      * @apiName HTMLs
@@ -521,7 +521,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {clone} DOMList.clone(); .clone()
      * @apiName Clone
@@ -543,7 +543,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList Module Inject
+     * @apiGroup Injects
      *
      * @api {empty} DOMList.empty(); .empty()
      * @apiName Empty
