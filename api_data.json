@@ -94,6 +94,68 @@
   },
   {
     "version": "2.0.0",
+    "group": "Checker",
+    "type": "is",
+    "url": "DOMList.is(query);",
+    "title": ".is()",
+    "name": "Is",
+    "description": "<p>Check does first selected element is match with query or not.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector string or HTML Element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span.foo').is('.foo'); // true\n$dom('span.foo').is('.bar'); // false if span.foo don't have class bar.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.1.0.js",
+    "groupTitle": "Checker"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Checker",
+    "type": "not",
+    "url": "DOMList.not(query);",
+    "title": ".not()",
+    "name": "Not",
+    "description": "<p>Check does first selected element is not match with query or not.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector string or HTML Element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span.foo').not('.foo'); // false\n$dom('span.foo').not('.bar'); // true if span.foo don't have class bar.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.1.0.js",
+    "groupTitle": "Checker"
+  },
+  {
+    "version": "2.0.0",
     "group": "Class",
     "type": "addclass",
     "url": "DOMList.addClass(name);",
@@ -473,37 +535,6 @@
   {
     "version": "2.0.0",
     "group": "Core",
-    "type": "is",
-    "url": "DOMList.is(query);",
-    "title": ".is()",
-    "name": "Is",
-    "description": "<p>Check does first selected element is match with query or not.</p> ",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "query",
-            "description": "<p>CSS Selector string or HTML Element.</p> "
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Sample",
-        "content": "$dom('span.foo').is('.foo'); // true\n$dom('span.foo').is('.bar'); // false if span.foo don't have class bar.",
-        "type": "js"
-      }
-    ],
-    "filename": "tags/v2.1.0.js",
-    "groupTitle": "Core"
-  },
-  {
-    "version": "2.0.0",
-    "group": "Core",
     "type": "iterator",
     "url": "DOMList.each(handler);",
     "title": ".each()",
@@ -693,37 +724,6 @@
       {
         "title": "Sample",
         "content": "$dom('.foo').nextAll(); // Get all elements after .foo inside parent element.\n$dom('.foo').nextAll('.bar'); // Get all .bar elements after .foo inside parent element.\n\n// Using function as query.\n$dom('.foo').nextAll(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
-        "type": "js"
-      }
-    ],
-    "filename": "tags/v2.1.0.js",
-    "groupTitle": "Core"
-  },
-  {
-    "version": "2.0.0",
-    "group": "Core",
-    "type": "not",
-    "url": "DOMList.not(query);",
-    "title": ".not()",
-    "name": "Not",
-    "description": "<p>Check does first selected element is not match with query or not.</p> ",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "query",
-            "description": "<p>CSS Selector string or HTML Element.</p> "
-          }
-        ]
-      }
-    },
-    "examples": [
-      {
-        "title": "Sample",
-        "content": "$dom('span.foo').not('.foo'); // false\n$dom('span.foo').not('.bar'); // true if span.foo don't have class bar.",
         "type": "js"
       }
     ],
