@@ -1174,7 +1174,7 @@
     /**
      * @apiVersion 2.0.0
      * @apiGroup Core
-     * @api {next} DOMList.next(); .next()
+     * @api {next} DOMList.next(query); .next()
      * @apiName Next
      * @apiDescription Get the next element after first selected element inside parent element.
      *
@@ -1204,5 +1204,41 @@
         } else {
             return all.nth(idx + 1);
         }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {nextall} DOMList.nextAll(query); .nextAll()
+     * @apiName NextAll
+     * @apiDescription Get all element after first selected element.
+     *
+     * @apiParam {String} CSS Selector to match the next element.
+     *
+     * @apiExample {js} Sample
+     * $dom('.foo').nextAll(); // Get all elements after .foo inside parent element.
+     * $dom('.foo').nextAll('.bar'); // Get all .bar elements after .foo inside parent element.
+     */
+    $dom.module.nextAll = function(query) {
+        if (this.length <= 0) return this;
+
+        var all = this.first().parent().children();
+        var idx = all.indexOf(this.get(0));
+        var res = $dom();
+
+        if (isString(query)) {
+            for (var i = idx; i < all.length; ++i) {
+                if (all.nth(i).filter(query).length > 0) {
+                    res.push(all.get(i));
+                }
+            }
+        } else {
+            for (var i = (idx + 1); i < all.length; ++i) {
+                res.push(all.get(i));
+            }
+        }
+
+        return res;
     };
 })(DOMList);
