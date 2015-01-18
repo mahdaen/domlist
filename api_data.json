@@ -473,6 +473,37 @@
   {
     "version": "2.0.0",
     "group": "Core",
+    "type": "is",
+    "url": "DOMList.is(query);",
+    "title": ".is()",
+    "name": "Is",
+    "description": "<p>Check does first selected element is match with query or not.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector string or HTML Element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span.foo').is('.foo'); // true\n$dom('span.foo').is('.bar'); // false if span.foo don't have class bar.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
     "type": "iterator",
     "url": "DOMList.each(handler);",
     "title": ".each()",
@@ -609,6 +640,99 @@
   {
     "version": "2.0.0",
     "group": "Core",
+    "type": "next",
+    "url": "DOMList.next(query);",
+    "title": ".next()",
+    "name": "Next",
+    "description": "<p>Get the next element after first selected element inside parent element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "query",
+            "description": "<p>CSS Selector to match the next element or Function to handle each next element and return true if match.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span.foo').next(); // Get the next element after span.foo inside parent element.\n$dom('span.foo').next('.bar'); // Get the next element after span.foo and the first match with .bar inside parent element.\n\n// Using function as query.\n$dom('.foo').next(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "nextall",
+    "url": "DOMList.nextAll(query);",
+    "title": ".nextAll()",
+    "name": "NextAll",
+    "description": "<p>Get all element after first selected element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "query",
+            "description": "<p>CSS Selector to match the next element or Function to handle each next element and return true if match.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('.foo').nextAll(); // Get all elements after .foo inside parent element.\n$dom('.foo').nextAll('.bar'); // Get all .bar elements after .foo inside parent element.\n\n// Using function as query.\n$dom('.foo').nextAll(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "not",
+    "url": "DOMList.not(query);",
+    "title": ".not()",
+    "name": "Not",
+    "description": "<p>Check does first selected element is not match with query or not.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector string or HTML Element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span.foo').not('.foo'); // false\n$dom('span.foo').not('.bar'); // true if span.foo don't have class bar.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
     "type": "nthChild",
     "url": "DOMList.nthChild(index);",
     "title": ".nthChild()",
@@ -658,6 +782,37 @@
   {
     "version": "2.0.0",
     "group": "Core",
+    "type": "parentuntil",
+    "url": "DOMList.parentUntil(query);",
+    "title": ".parentUntil()",
+    "name": "ParentUntil",
+    "description": "<p>Get recrusive parent element of first selected element until match with query.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector to match parent element or Function to handle each parent element to return true or false.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('.foo').parentUntil('.container'); // Get the container of .foo.\n\n// Using function as query.\n$dom('.foo').parentUntil(function() {\n    return $dom(this).hasClass('container') : true : false\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
     "type": "parents",
     "url": "DOMList.parents();",
     "title": ".parents()",
@@ -667,6 +822,68 @@
       {
         "title": "Sample",
         "content": "$dom('span').parents(); // Get the parent element of each span.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "prev",
+    "url": "DOMList.prev(query);",
+    "title": ".prev()",
+    "name": "Prev",
+    "description": "<p>Get the prev element after first selected element inside parent element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "query",
+            "description": "<p>CSS Selector to match the prev element or Function to handle each prev element and return true if match.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span.foo').prev(); // Get the prev element after span.foo inside parent element.\n$dom('span.foo').prev('.bar'); // Get the prev element after span.foo and the first match with .bar inside parent element.\n\n// Using function as query.\n$dom('.foo').prev(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "prevall",
+    "url": "DOMList.prevAll(query);",
+    "title": ".prevAll()",
+    "name": "PrevAll",
+    "description": "<p>Get all element before first selected element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "query",
+            "description": "<p>CSS Selector to match the prev element or Function to handle each prev element and return true if match.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('.foo').prevAll(); // Get all elements before .foo inside parent element.\n$dom('.foo').prevAll('.bar'); // Get all .bar elements before .foo inside parent element.\n\n// Using function as query.\n$dom('.foo').prevAll(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
         "type": "js"
       }
     ],
@@ -807,6 +1024,37 @@
   {
     "version": "2.0.0",
     "group": "Core",
+    "type": "remprop",
+    "url": "DOMList.remProp(name);",
+    "title": ".remProp()",
+    "name": "RemProp",
+    "description": "<p>Remove properties from selected elements. If properties also available in attributes, it&#39;s removed too.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "property",
+            "description": "<p>String property name or array property name list.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span').remProp('foo'); // Remove foo prop.\n$dom('span').remProp(['foo', 'bar']); // Remove foo and bar prop.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
     "type": "remove",
     "url": "DOMList.remove();",
     "title": ".remove()",
@@ -816,6 +1064,75 @@
       {
         "title": "Sample #1",
         "content": "$dom('.foo').remove();",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "replace",
+    "url": "DOMList.replace(target,source);",
+    "title": ".replace()",
+    "name": "Replace",
+    "description": "<p>Replace matched target in selected elements with new element or existing element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "CSS",
+            "description": "<p>Selector or HTML Element.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "HTML",
+            "description": "<p>String to create new element or existing HTML Element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span').replace('.foo', '<span class=\"bar\">'); // Replace using CSS Selector and HTML String.\n\nvar foo = $dom('span').filter('.foo').get();\nvar bar = $dom('span').filter('.bar').get();\n\n$dom('span').replace(foo, bar); // Replace using HTML Element.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "replacewith",
+    "url": "DOMList.replaceWith(source);",
+    "title": ".replaceWith()",
+    "name": "ReplaceWith",
+    "description": "<p>Replace each selected elements with new element or existing element. Replacing with HTML Element will only replace the first selected element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>HTML String to create new element or existing HTML Element.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span').replaceWith('<a href=\"#\">'); // Replace all span with new anchor element.\n$dom('span').replaceWith(document.getElementById('foo')); // Replace with existing element.",
         "type": "js"
       }
     ],
@@ -1032,6 +1349,68 @@
       {
         "title": "Sample",
         "content": "// Wrap the container childrens with new container.\n$dom('.container').wrapChild('<div class=\"inner-container\">');",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "nextuntil",
+    "url": "DOMList.nextUntil(query);",
+    "title": ".nextUntil()",
+    "name": "nextuntil",
+    "description": "<p>Get all element after first selected element until found matched query.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector to match the next element or Function to handle each next element and return true if match.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('.foo').nextUntil('.bar'); // Get all elements after .foo until found .bar inside parent element.\n\n// Using function as query.\n$dom('.foo').nextUntil(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.0.0.js",
+    "groupTitle": "Core"
+  },
+  {
+    "version": "2.0.0",
+    "group": "Core",
+    "type": "prevuntil",
+    "url": "DOMList.prevUntil(query);",
+    "title": ".prevUntil()",
+    "name": "prevuntil",
+    "description": "<p>Get all element before first selected element until found matched query.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "query",
+            "description": "<p>CSS Selector to match the prev element or Function to handle each prev element and return true if match.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('.foo').prevUntil('.bar'); // Get all elements before .foo until found .bar inside parent element.\n\n// Using function as query.\n$dom('.foo').prevUntil(function() {\n    return $dom(this).hasClass('bar') : true : false;\n});",
         "type": "js"
       }
     ],
@@ -2180,7 +2559,14 @@
     "url": "DOMList.hover(handler);",
     "title": ".hover()",
     "name": "hover",
-    "description": "<p>Handle hover event or trigger if no argument defined.</p> ",
+    "description": "<p>Handle hover event or trigger if no argument defined. &#39;status&#39; property will added to event object, status is &#39;enter&#39; or &#39;leave&#39;.</p> ",
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('a').hover(function(e) {\n    if (e.status === 'enter') {\n        console.log('entered');\n    else if (e.status === 'leave') {\n        console.log('leaving');\n    }\n});",
+        "type": "js"
+      }
+    ],
     "filename": "tags/v2.0.0.js",
     "groupTitle": "Events"
   },
@@ -2356,7 +2742,14 @@
     "url": "DOMList.switch(handler);",
     "title": ".switch()",
     "name": "switch",
-    "description": "<p>Handle load event or trigger if no argument defined. Switch is toggle between on and off. &#39;state&#39; property provided on event object.</p> ",
+    "description": "<p>Handle load event or trigger if no argument defined. Switch is toggle between on and off. &#39;state&#39; property will be added to event object, state is &#39;on&#39; or &#39;off&#39;.</p> ",
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('a').switch(function(e) {\n    if (e.state === 'on') {\n        console.log('turned on');\n    else if (e.state === 'off') {\n        console.log('turned off');\n    }\n});",
+        "type": "js"
+      }
+    ],
     "filename": "tags/v2.0.0.js",
     "groupTitle": "Events"
   },
