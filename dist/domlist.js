@@ -2635,6 +2635,38 @@ window.circle = function(obj, reversed) {
 
         return res;
     };
+
+    $dom.module.prevAll = function(query) {
+        if (this.length <= 0) return this;
+
+        var all = this.first().parent().children();
+        var idx = all.indexOf(this.get(0));
+        var res = $dom();
+
+        if (isString(query)) {
+            for (var i = (idx - 1); i >= 0; --i) {
+                if (all.nth(i).filter(query).length > 0) {
+                    res.push(all.get(i));
+                }
+            }
+        }
+
+        else if (isFunction(query)) {
+            for (var i = (idx - 1); i >= 0; --i) {
+                if (query.call(all.get(i))) {
+                    res.push(all.get(i));
+                }
+            }
+        }
+
+        else {
+            for (var i = (idx - 1); i >= 0; --i) {
+                res.push(all.get(i));
+            }
+        }
+
+        return res;
+    };
 })(DOMList);
 
 (function($dom) {
