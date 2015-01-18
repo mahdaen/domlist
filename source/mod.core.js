@@ -779,17 +779,27 @@
      *
      * @api {parent} DOMList.parent() .parent()
      * @apiName Parent
-     * @apiDescription Get the parent element of first selected element as DOMList object.
+     * @apiDescription Get the parent element of first selected element as DOMList object. Use 'true' as argument to get all parent elements.
      *
      * @apiExample {js} Sample
      * $dom('span').parent(); // Get the parent element of first span.
+     * $dom('span').parent(true); // Get parent element of all span.
      */
-    $dom.module.parent = function() {
+    $dom.module.parent = function(isall) {
         if (this.length <= 0) return this;
 
-        var first = this[0];
+        var $result = $dom();
 
-        return $dom(first.parentElement);
+        if (isall) {
+            this.each(function() {
+                $result.push(this.parentElement);
+            });
+        } else {
+            var first = this[0];
+            $result.push(first.parentElement);
+        }
+
+        return $result;
     };
 
     /**
