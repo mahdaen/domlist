@@ -215,30 +215,37 @@
      * $dom('span').filter('.a'); // Get all span and filter that has class 'a'.
      */
     $dom.module.filter = function(query) {
-        var $this = this;
+        var $this = this, $result = $dom();
 
         if (!isString(query)) return this;
 
-        var wrap = document.createElement('div'), elems = '', result, src = [], cand = [];
+        /* Creating Wrapper, innerHTML String and candidate */
+        var wrapper = document.createElement('div'), elems = '', candidate = [];
 
-        this.each(function() {
+        /* Create element string from each element */
+        $this.each(function() {
             elems += this.outerHTML;
-            src.push(this.outerHTML);
         });
 
-        wrap.innerHTML = elems;
+        /* Set wrapper innerHTML with element string */
+        wrapper.innerHTML = elems;
 
-        result = wrap.find(query);
+        /* Find query inside wrapper */
+        wrapper = wrapper.find(query);
 
-        result.each(function() {
-            var self = this.outerHTML;
+        /* Create candidate html strings */
+        wrapper.each(function() {
+            candidate.push(this.outerHTML);
+        });
 
-            if (src.indexOf(self) > -1) {
-                cand.push(this);
+        /* Pushing result to $result */
+        $this.each(function() {
+            if (candidate.indexOf(this.outerHTML) > -1) {
+                $result.push(this);
             }
         });
 
-        return $dom(cand);
+        return $result;
     };
 
     /**
@@ -872,5 +879,33 @@
         } else {
             return this.length > 0 ? this[0] : undefined;
         }
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {indexof} DOMList.indexOf(element); .indexOf()
+     * @apiName IndexOf
+     * @apiDescription Get index of element from selected elements.
+     *
+     * @apiParam {HTMLElement} element HTML ELement or string CSS Selector. Return -1 if not found.
+     *
+     * @apiExample {js} Sample
+     * // Get index number using HTML Element.
+     * var span = $dom('span').get(2);
+     * $dom('span').indexOf(span); // Return 2
+     *
+     * // Get index number using selector.
+     * $dom('span').indexOf('.foo');
+     */
+    $dom.module.indexOf = function(elem) {
+        if (isHTML(elem)) {
+            return this.toArray().indexOf(elem);
+        } else if (isString(elem)) {
+            return this.toArray().indexOf(this.filter(elem).get());
+        }
+
+        return -1;
     };
 })(DOMList);
