@@ -1019,4 +1019,30 @@
 
         return this;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     *
+     * @api {siblings} DOMList.siblings(); .siblings()
+     * @apiName Siblings
+     * @apiDescription Get sibling elements of first selected elements.
+     *
+     * @apiExample {js} Sample
+     * $dom('body').siblings(); // Return DOMList with <head> element since head is sibling of body.
+     */
+    $dom.module.siblings = function() {
+        if (this.length <= 0) return this;
+
+        var result = $dom();
+        var first = this.first();
+
+        first.parent().children().each(function() {
+            if (this !== first.get()) {
+                result.push(this);
+            }
+        });
+
+        return result;
+    };
 })(DOMList);
