@@ -140,7 +140,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup Checker
      *
      * @api {is} DOMList.is(query); .is()
      * @apiName Is
@@ -166,7 +166,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup Checker
      *
      * @api {not} DOMList.not(query); .not()
      * @apiName Not
