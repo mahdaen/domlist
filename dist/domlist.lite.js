@@ -18,7 +18,7 @@ if (!window) var window = {};
         return isString($object);
     };
     var isObject = function($object) {
-        return "object" == typeof $object && void 0 === $object.indexOf && void 0 === $object.splice ? !0 : !1;
+        return "object" != typeof $object || $object.length ? !1 : !0;
     };
     window.isObject = function($object) {
         return isObject($object);
@@ -310,14 +310,16 @@ function() {
     }, $dom.module.find = function(query) {
         return isString(query) ? $dom(query, this) : void 0;
     }, $dom.module.filter = function(query) {
+        var $this = this, $result = $dom();
         if (!isString(query)) return this;
-        var result, wrap = document.createElement("div"), elems = "", src = [], cand = [];
-        return this.each(function() {
-            elems += this.outerHTML, src.push(this.outerHTML);
-        }), wrap.innerHTML = elems, result = wrap.find(query), result.each(function() {
-            var self = this.outerHTML;
-            src.indexOf(self) > -1 && cand.push(this);
-        }), $dom(cand);
+        var wrapper = document.createElement("div"), elems = "", candidate = [];
+        return $this.each(function() {
+            elems += this.outerHTML;
+        }), wrapper.innerHTML = elems, wrapper = wrapper.find(query), wrapper.each(function() {
+            candidate.push(this.outerHTML);
+        }), $this.each(function() {
+            candidate.indexOf(this.outerHTML) > -1 && $result.push(this);
+        }), $result;
     }, $dom.module.each = function(handler, reversed) {
         return isFunction(handler) && (reversed ? reveach(this, function(node, i) {
             handler.call(node, i, node);
@@ -438,10 +440,16 @@ function() {
         return this.each(function() {
             arr.push(this);
         }), arr;
-    }, $dom.module.parent = function() {
+    }, $dom.module.parent = function(isall) {
         if (this.length <= 0) return this;
-        var first = this[0];
-        return $dom(first.parentElement);
+        var $result = $dom();
+        if (isall) this.each(function() {
+            $result.push(this.parentElement);
+        }); else {
+            var first = this[0];
+            $result.push(first.parentElement);
+        }
+        return $result;
     }, $dom.module.parents = function() {
         var result = $dom();
         return this.each(function() {
@@ -451,6 +459,44 @@ function() {
         return this.each(function() {
             this.orgHTML = this.outerHTML, this.outerHTML = "<!-- " + this.outerHTML + " -->";
         }), this;
+    }, $dom.module.match = function(handler) {
+        if (!isFunction(handler) || this.length <= 0) return this;
+        var result = $dom();
+        return this.each(function() {
+            handler.call(this) === !0 && result.push(this);
+        }), result.length > 0 ? result : null;
+    }, $dom.module.get = function(index) {
+        return isNumber(index) ? this[index] ? this[index] : void 0 : this.length > 0 ? this[0] : void 0;
+    }, $dom.module.indexOf = function(elem) {
+        return isHTML(elem) ? this.toArray().indexOf(elem) : isString(elem) ? this.toArray().indexOf(this.filter(elem).get()) : -1;
+    }, $dom.module.toString = function(isall) {
+        if (this.length <= 0) return void 0;
+        if (isall) {
+            var elmStrings = [];
+            return this.each(function() {
+                elmStrings.push(this.outerHTML);
+            }), elmStrings;
+        }
+        return this.first().get().outerHTML;
+    }, $dom.module.wrap = function(htmlstring) {
+        if (isHTMLString(htmlstring)) {
+            var result = $dom();
+            return this.each(function() {
+                result.push($dom(htmlstring).insertBefore(this).append(this));
+            }), result;
+        }
+        return this;
+    }, $dom.module.wrapChild = function(htmlstring) {
+        if (isHTMLString(htmlstring)) {
+            var result = $dom();
+            return this.each(function() {
+                if (this.childElementCount > 0) {
+                    var elem = $dom(htmlstring).append($dom(this).children());
+                    console.log(elem), result.push($dom(htmlstring).append($dom(this).children()).prependTo(this.children));
+                }
+            }), result;
+        }
+        return this;
     };
 }(DOMList), function($dom) {
     "use strict";
@@ -778,12 +824,29 @@ function() {
         this;
     }, $dom.module.unhanlde = function(type) {
         return (isString(type) || isArray(type)) && this.unlisten("default", type), this;
-    }, $dom.module.trigger = function() {
-        return this;
+    };
+    var eventGroup = {
+        MouseEvents: "click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave contextmenu".split(/\s+/),
+        KeyboardEvents: "keydown keypress keyup".split(/\s+/),
+        FocusEvent: "blur focus focusin focusout".split(/\s+/)
+    };
+    $dom.module.trigger = $dom.module.dispatch = function(type, props) {
+        return isString(type) && this.each(function() {
+            var event, elem = this, group = "Event";
+            foreach(eventGroup, function(grp, types) {
+                types.indexOf(type) > -1 && (group = grp);
+            }), $root.EventProvider.search(type) ? EventProvider.dispatch(type, elem, props) : document.createEvent ? (event = document.createEvent(group), 
+            event.initEvent(type), isObject(props) && foreach(props, function(key, value) {
+                event[key] = value;
+            }), elem.dispatchEvent(event)) : document.createEventObject && (event.createEventObject(), 
+            isObject(props) && foreach(props, function(key, value) {
+                event[key] = value;
+            }), elem.fireEvent(type, event));
+        }), this;
     };
 }(window, DOMList), function($root, $dom) {
     "use strict";
-    var alias = "blur focus focusin focusout load resize scroll unload click dblclick hover mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(/\s+/);
+    var alias = "blur focus focusin focusout load resize scroll unload click dblclick switch hover mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(/\s+/);
     foreach(alias, function(name) {
         $dom.module[name] = function(handler) {
             return isFunction(handler) ? this.handle(name, handler) : this.trigger(name);
@@ -800,6 +863,15 @@ function() {
                     direction: "leave"
                 });
             }
+        });
+    }), EventProvider.register("switch", function() {
+        var $this = $dom(this);
+        $this.hasAttr("off") || $this.hasAttr("on") || $this.attr("off", ""), $this.listen("ClickToggle", "click", function() {
+            this["switch"] || (this["switch"] = "off"), "off" === this["switch"] ? (this["switch"] = "on", 
+            $this.attr("on", "").remAttr("off")) : (this["switch"] = "off", $this.attr("off", "").remAttr("on")), 
+            EventProvider.dispatch("switch", this, {
+                state: this.togglestate
+            });
         });
     });
 }(window, DOMList);

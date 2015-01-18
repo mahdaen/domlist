@@ -93,7 +93,7 @@ window.__nconfig = {};
      * isObject(bar); // false
      */
     var isObject = function($object) {
-        return typeof $object === 'object' && $object.indexOf === undefined && $object.splice === undefined ? true : false;
+        return typeof $object === 'object' && !$object.length ? true : false;
     };
     window.isObject = function($object) { return isObject($object) };
 
@@ -1475,15 +1475,20 @@ window.circle = function(obj, reversed) {
      * $dom('.container').children();
      */
     $dom.module.children = function() {
-        if (this.first().length > 0) {
-            var childs = this.first()[0].children;
+        var result = $dom();
 
-            childs.constructor.prototype.name = 'DOMList';
+        if (this.length <= 0) return this;
 
-            return $dom(childs);
-        } else {
-            return $dom();
+        var childs = this[0].children;
+        childs.name = 'DOMList';
+
+        if (childs.length > 0) {
+            foreach(childs, function (node) {
+                result.push(node);
+            });
         }
+
+        return result;
     };
 
     /**
@@ -2271,6 +2276,47 @@ window.circle = function(obj, reversed) {
 
             this.each(function() {
                 result.push($dom(htmlstring).insertBefore(this).append(this));
+            });
+
+            return result;
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+     * @api {wrapchild} DOMList.wrapChild(htmlstring); .wrapChild()
+     * @apiName WrapChild
+     * @apiDescription Wrap child elements of selected elements with new element.
+     *
+     * @apiParam {HTMLString} htmlstring HTML String to wrap child element.
+     *
+     * @apiExample {js} Sample
+     * // Wrap the container childrens with new container.
+     * $dom('.container').wrapChild('<div class="inner-container">');
+     */
+    $dom.module.wrapChild = function(htmlstring) {
+        if (isHTMLString(htmlstring)) {
+            var result = $dom();
+
+            this.each(function() {
+                var child = $dom(this).children(), elem;
+
+                if (child.length > 0) {
+                    elem = $dom(htmlstring).prependTo(this).append(child);
+
+                    result.push(elem);
+                } else {
+                    var text = this.innerHTML;
+
+                    $dom(this).empty();
+
+                    elem = $dom(htmlstring).html(text).appendTo(this);
+
+                    result.push(elem);
+                }
             });
 
             return result;
