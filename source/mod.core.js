@@ -1045,4 +1045,34 @@
 
         return result;
     };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
+
+     * @api {slice} DOMList.slice(index); .slice()
+     * @apiName Slice
+     * @apiDescription Remove element from the selected elements with specific index.
+     *
+     * @apiParam {Number} index Element index number. Use array to remove multiple element.
+     *
+     * @apiExample {js} Sample
+     * $dom('span').slice(2); // Remove thrid element from selected elements.
+     * $dom('span').slice([0,3,2]); // Remove multiple element from selected elements.
+     */
+    $dom.module.slice = function(index) {
+        var result = $dom();
+
+        if (isNumber(index)) {
+            this.each(function(i) {
+                if (i !== index) result.push(this);
+            });
+        } else if (isArray(index)) {
+            this.each(function(i) {
+                if (index.indexOf(i) < 0) result.push(this);
+            });
+        }
+
+        return result;
+    }
 })(DOMList);
