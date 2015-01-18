@@ -2117,6 +2117,46 @@ window.circle = function(obj, reversed) {
     /**
      * @apiVersion 2.0.0
      * @apiGroup Core
+     *
+     * @api {parentuntil} DOMList.parentUntil(query); .parentUntil()
+     * @apiName ParentUntil
+     * @apiDescription Get recrusive parent element of first selected element until match with query.
+     *
+     * @apiParam {String} query CSS Selector to match parent element or Function to handle each parent element to return true or false.
+     *
+     * @apiExample {js} Sample
+     * $dom('.foo').parentUntil('.container'); // Get the container of .foo.
+     *
+     * // Using function as query.
+     * $dom('.foo').parentUntil(function() {
+     *     return $dom(this).hasClass('container') : true : false
+     * });
+     */
+    $dom.module.parentUntil = function(query) {
+        if (this.parent().get() === $dom('body').get()) return $dom();
+
+        if (isString(query)) {
+            if (this.parent().filter(query).length > 0) {
+                return this.parent();
+            } else {
+                return this.parent().parentUntil(query);
+            }
+        }
+
+        else if (isFunction(query)) {
+            if (query.call(this.parent().get())) {
+                return this.parent();
+            } else {
+                return this.parent().parentUntil(query);
+            }
+        }
+
+        return this;
+    };
+
+    /**
+     * @apiVersion 2.0.0
+     * @apiGroup Core
      * @api {parents} DOMList.parents(); .parents()
      * @apiName Parents
      * @apiDescription Get all parent element of all selected elements as DOMList object.
@@ -2488,6 +2528,11 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('span.foo').next(); // Get the next element after span.foo inside parent element.
      * $dom('span.foo').next('.bar'); // Get the next element after span.foo and the first match with .bar inside parent element.
+     *
+     * // Using function as query.
+     * $dom('.foo').next(function() {
+     *     return $dom(this).hasClass('bar') : true : false;
+     * });
      */
     $dom.module.next = function(query) {
         if (this.length <= 0) return this;
@@ -2534,6 +2579,11 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('.foo').nextAll(); // Get all elements after .foo inside parent element.
      * $dom('.foo').nextAll('.bar'); // Get all .bar elements after .foo inside parent element.
+     *
+     * // Using function as query.
+     * $dom('.foo').nextAll(function() {
+     *     return $dom(this).hasClass('bar') : true : false;
+     * });
      */
     $dom.module.nextAll = function(query) {
         if (this.length <= 0) return this;
@@ -2579,6 +2629,11 @@ window.circle = function(obj, reversed) {
      *
      * @apiExample {js} Sample
      * $dom('.foo').nextUntil('.bar'); // Get all elements after .foo until found .bar inside parent element.
+     *
+     * // Using function as query.
+     * $dom('.foo').nextUntil(function() {
+     *     return $dom(this).hasClass('bar') : true : false;
+     * });
      */
     $dom.module.nextUntil = function(query) {
         if (this.length <= 0) return this;
@@ -2616,6 +2671,11 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('span.foo').prev(); // Get the prev element after span.foo inside parent element.
      * $dom('span.foo').prev('.bar'); // Get the prev element after span.foo and the first match with .bar inside parent element.
+     *
+     * // Using function as query.
+     * $dom('.foo').prev(function() {
+     *     return $dom(this).hasClass('bar') : true : false;
+     * });
      */
     $dom.module.prev = function(query) {
         if (this.length <= 0) return this;
@@ -2662,6 +2722,11 @@ window.circle = function(obj, reversed) {
      * @apiExample {js} Sample
      * $dom('.foo').prevAll(); // Get all elements before .foo inside parent element.
      * $dom('.foo').prevAll('.bar'); // Get all .bar elements before .foo inside parent element.
+     *
+     * // Using function as query.
+     * $dom('.foo').prevAll(function() {
+     *     return $dom(this).hasClass('bar') : true : false;
+     * });
      */
     $dom.module.prevAll = function(query) {
         if (this.length <= 0) return this;
@@ -2707,6 +2772,11 @@ window.circle = function(obj, reversed) {
      *
      * @apiExample {js} Sample
      * $dom('.foo').prevUntil('.bar'); // Get all elements before .foo until found .bar inside parent element.
+     *
+     * // Using function as query.
+     * $dom('.foo').prevUntil(function() {
+     *     return $dom(this).hasClass('bar') : true : false;
+     * });
      */
     $dom.module.prevUntil = function(query) {
         if (this.length <= 0) return this;
