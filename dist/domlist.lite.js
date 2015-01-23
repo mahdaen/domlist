@@ -173,6 +173,13 @@ function() {
         var arr = [];
         for (var key in this) this.hasOwnProperty(key) && arr.push(key);
         return arr;
+    }), Object.prototype.merge = function() {
+        for (var nobj = {}, c = 0; c < arguments.length; ++c) isObject(arguments[c]) && foreach(arguments[c], function(key, value) {
+            nobj[key] = value;
+        });
+        return nobj;
+    }, Object.defineProperty(Object.prototype, "merge", {
+        enumerable: !1
     });
     var CustomEvent = function(name, options) {
         var event;
@@ -183,7 +190,83 @@ function() {
         }, event = document.createEvent("CustomEvent"), event.initCustomEvent(name, options.bubbles, options.cancelable, options.detail)), 
         event;
     };
-    CustomEvent.prototype = $root.Event.prototype, $root.CustomEvent || ($root.CustomEvent = CustomEvent);
+    CustomEvent.prototype = $root.Event.prototype, $root.CustomEvent || ($root.CustomEvent = CustomEvent), 
+    "document" in self && ("classList" in document.createElement("_") ? !function() {
+        "use strict";
+        var testElement = document.createElement("_");
+        if (testElement.classList.add("c1", "c2"), !testElement.classList.contains("c2")) {
+            var createMethod = function(method) {
+                var original = DOMTokenList.prototype[method];
+                DOMTokenList.prototype[method] = function(token) {
+                    var i, len = arguments.length;
+                    for (i = 0; len > i; i++) token = arguments[i], original.call(this, token);
+                };
+            };
+            createMethod("add"), createMethod("remove");
+        }
+        if (testElement.classList.toggle("c3", !1), testElement.classList.contains("c3")) {
+            var _toggle = DOMTokenList.prototype.toggle;
+            DOMTokenList.prototype.toggle = function(token, force) {
+                return 1 in arguments && !this.contains(token) == !force ? force : _toggle.call(this, token);
+            };
+        }
+        testElement = null;
+    }() : !function(view) {
+        "use strict";
+        if ("Element" in view) {
+            var classListProp = "classList", protoProp = "prototype", elemCtrProto = view.Element[protoProp], objCtr = Object, strTrim = String[protoProp].trim || function() {
+                return this.replace(/^\s+|\s+$/g, "");
+            }, arrIndexOf = Array[protoProp].indexOf || function(item) {
+                for (var i = 0, len = this.length; len > i; i++) if (i in this && this[i] === item) return i;
+                return -1;
+            }, DOMEx = function(type, message) {
+                this.name = type, this.code = DOMException[type], this.message = message;
+            }, checkTokenAndGetIndex = function(classList, token) {
+                if ("" === token) throw new DOMEx("SYNTAX_ERR", "An invalid or illegal string was specified");
+                if (/\s/.test(token)) throw new DOMEx("INVALID_CHARACTER_ERR", "String contains an invalid character");
+                return arrIndexOf.call(classList, token);
+            }, ClassList = function(elem) {
+                for (var trimmedClasses = strTrim.call(elem.getAttribute("class") || ""), classes = trimmedClasses ? trimmedClasses.split(/\s+/) : [], i = 0, len = classes.length; len > i; i++) this.push(classes[i]);
+                this._updateClassName = function() {
+                    elem.setAttribute("class", this.toString());
+                };
+            }, classListProto = ClassList[protoProp] = [], classListGetter = function() {
+                return new ClassList(this);
+            };
+            if (DOMEx[protoProp] = Error[protoProp], classListProto.item = function(i) {
+                return this[i] || null;
+            }, classListProto.contains = function(token) {
+                return token += "", -1 !== checkTokenAndGetIndex(this, token);
+            }, classListProto.add = function() {
+                var token, tokens = arguments, i = 0, l = tokens.length, updated = !1;
+                do token = tokens[i] + "", -1 === checkTokenAndGetIndex(this, token) && (this.push(token), 
+                updated = !0); while (++i < l);
+                updated && this._updateClassName();
+            }, classListProto.remove = function() {
+                var token, index, tokens = arguments, i = 0, l = tokens.length, updated = !1;
+                do for (token = tokens[i] + "", index = checkTokenAndGetIndex(this, token); -1 !== index; ) this.splice(index, 1), 
+                updated = !0, index = checkTokenAndGetIndex(this, token); while (++i < l);
+                updated && this._updateClassName();
+            }, classListProto.toggle = function(token, force) {
+                token += "";
+                var result = this.contains(token), method = result ? force !== !0 && "remove" : force !== !1 && "add";
+                return method && this[method](token), force === !0 || force === !1 ? force : !result;
+            }, classListProto.toString = function() {
+                return this.join(" ");
+            }, objCtr.defineProperty) {
+                var classListPropDesc = {
+                    get: classListGetter,
+                    enumerable: !0,
+                    configurable: !0
+                };
+                try {
+                    objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+                } catch (ex) {
+                    -2146823252 === ex.number && (classListPropDesc.enumerable = !1, objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc));
+                }
+            } else objCtr[protoProp].__defineGetter__ && elemCtrProto.__defineGetter__(classListProp, classListGetter);
+        }
+    }(self));
 }(window), function($root) {
     "use strict";
     var DOMList = function(query, context) {
@@ -224,21 +307,7 @@ function() {
         }), name;
     }, $root.DOMList.module = DOMList.prototype = {
         name: "DOMList",
-        splice: Array.prototype.splice,
-        animate: function(props, options, callback) {
-            var $this = this;
-            return isObject(props) && (props = [ props ]), isArray(props) && (isNumber(options) && (options = {
-                duration: options
-            }), isObject(options) && $this.each(function() {
-                var self = this;
-                if (isFunction(callback)) {
-                    var anim = self.animate(props, options);
-                    anim.onfinish = function() {
-                        callback.call(self, anim);
-                    };
-                } else self.animate(props, options);
-            })), this;
-        }
+        splice: Array.prototype.splice
     }, HTMLElement.prototype.find = function(query) {
         return new DOMList(query, this);
     };
@@ -405,7 +474,7 @@ function() {
             this[name] = value, this.getAttribute(name) && this.setAttribute(name, value);
         }); else {
             var first = $this[0];
-            if (first.hasOwnProperty(name)) return first[name];
+            if (first[name]) return first[name];
         }
         return $this;
     }, $dom.module.val = function(value) {
@@ -962,5 +1031,209 @@ function() {
                 state: this.togglestate
             });
         });
+    });
+}(window, DOMList), function($root, $dom) {
+    "use strict";
+    var pixelUnit = function(value) {
+        return isNumber(value) ? value + "px" : value;
+    }, nonpixel = [ "columncount", "fillopacity", "flexgrow", "flexshrink", "fontweight", "lineheight", "opacity", "order", "orphans", "widows", "zindex", "zoom" ], countRatio = function(width, height) {
+        var getDivisor, temp, divisor;
+        return getDivisor = function(a, b) {
+            return 0 === b ? a : getDivisor(b, a % b);
+        }, width === height ? "1:1" : (+height > +width && (temp = width, width = height, 
+        height = temp), divisor = getDivisor(+width, +height), "undefined" == typeof temp ? width / divisor + ":" + height / divisor : height / divisor + ":" + width / divisor);
+    }, propList = {
+        "default": [],
+        publics: [],
+        customs: [],
+        origins: [],
+        browser: ""
+    }, style = document.createElement("span").style, lists = [];
+    for (var key in style) lists.push(key);
+    lists.indexOf("webkitUserSelect") > -1 ? propList.browser = "webkit" : lists.indexOf("MozUserSelect") > -1 ? propList.browser = "Moz" : lists.indexOf("msUserSelect") > -1 && (propList.browser = "ms"), 
+    foreach(lists, function(prop) {
+        prop.search(propList.browser) > -1 ? (propList.origins.push(prop), propList.customs.push(prop.replace(propList.browser, "").toLowerCase())) : (propList["default"].push(prop.toLowerCase()), 
+        propList.publics.push(prop));
+    }), $dom.module.css = function(property, value) {
+        if (isString(property)) {
+            property.search("-") && (property = property.replace(/\-/g, "")), property = property.toLowerCase();
+            var skippx = !1;
+            nonpixel.indexOf(property) > -1 && (skippx = !0);
+            var propIndex = propList.customs.indexOf(property);
+            if (propIndex > -1) property = propList.origins[propIndex]; else {
+                if (propIndex = propList["default"].indexOf(property), !(propIndex > -1)) throw property + " is not valid CSS Property!";
+                property = propList.publics[propIndex];
+            }
+            return isString(value) || isNumber(value) || isBoolean(value) ? this.each(function() {
+                this.style[property] = skippx ? value : pixelUnit(value);
+            }) : this.length > 0 ? this.get().style[property] : void 0;
+        }
+        if (!isObject(property)) {
+            var style = this.first().prop("style"), props = {};
+            for (var property in style) isNaN(Number(property)) && "length" !== property && "" !== style[property] && !isFunction(style[property]) && null !== style[property] && (props[property] = style[property]);
+            return props;
+        }
+        var $this = this;
+        return foreach(property, function(prop, value) {
+            $this.css(prop, value);
+        }), this;
+    }, $dom.module.cstyle = function(name) {
+        if (this.length > 0 && isString(name)) return getComputedStyle(this.get())[name] ? getComputedStyle(this.get())[name] : null;
+        if (this.length > 0 && isArray(name)) {
+            var props = {}, $this = this;
+            return foreach(name, function(name) {
+                getComputedStyle($this.get())[name] && (props[name] = getComputedStyle($this.get())[name]);
+            }), props;
+        }
+        return null;
+    }, foreach([ "offsetWidth", "offsetHeight", "clientWidth", "clientHeight", "scrollWidth", "scrollHeight", "scrollLeft", "scrollTop" ], function(method) {
+        $dom.module[method] = function() {
+            return this.length > 0 ? this.get()[method] : 0;
+        };
+    }), foreach([ "Width", "Height" ], function(method) {
+        $dom.module[method.toLowerCase()] = function(value) {
+            return this.length <= 0 ? 0 : isDefined(value) ? this.css(method.toLowerCase(), value) : this.get()["offset" + method];
+        };
+    }), $dom.module.ratio = function(value) {
+        return this.length <= 0 ? this : isString(value) && value.match(/^\d+:\d+$/) ? (this.each(function() {
+            this.ratio = value;
+            var part = this.ratio.split(":"), height = Math.round($dom(this).width() / part[0] * part[1]);
+            $dom(this).height(height);
+        }), this) : this.get().ratio ? this.get().ratio : this.get().ratio = countRatio(this.width(), this.height());
+    }, $dom.module.offset = function() {
+        return this.length <= 0 ? this : {
+            width: this.width(),
+            height: this.height(),
+            left: this.get().offsetLeft,
+            top: this.get().offsetTop,
+            scrollTop: this.get().scrollTop,
+            scrollLeft: this.get().scrollLeft,
+            ratio: this.first().ratio()
+        };
+    }, $dom.module.orientation = function() {
+        return this.length <= 0 ? this : (this.each(function() {
+            var offset = $dom(this).offset();
+            offset.width > offset.height ? ($dom(this).attr("landscape", ""), this.orientation = "landscape") : ($dom(this).attr("portrait", ""), 
+            this.orientation = "portrait");
+        }), this.first().prop("orientation"));
+    };
+}(window, DOMList), function($root, $dom) {
+    $dom.module.animate = function(props, options, callback) {
+        if (!window.TweenMax) return this;
+        var duration;
+        return isObject(props) && (isNumber(options) ? duration = options : isObject(options) ? (foreach(options, function(key, value) {
+            "duration" !== key && isDefined(value) && (props[key] = value);
+        }), duration = options.duration ? options.duration : .5) : duration = .5, this.each(function() {
+            var $this = this;
+            isFunction(callback) && (props.onCompleteParams = [ $this ], props.onComplete = function(elem) {
+                callback.call(elem, $this.tweens);
+            }), $this.tweens = new TweenMax($this, duration, props);
+        })), this;
+    }, $dom.module.keyframes = function(frames, options, callback) {
+        if (isObject(frames)) {
+            var dur, $this = this, time = Object.keys(frames), all = time.length, start = 0, curnt = 0;
+            isNumber(options) ? dur = options : isObject(options) ? dur = options.duration ? options.duration : .5 : options = {
+                duration: .5
+            };
+            var repeat = function() {
+                if (all > 0) {
+                    var timei = Number(time[start]), frame = Object.merge(frames[timei]), durat = (timei - curnt) / 100 * dur, optio = Object.merge(options, {
+                        duration: durat
+                    });
+                    $this.animate(frame, optio), setTimeout(function() {
+                        repeat();
+                    }, 1e3 * durat), all -= 1, start += 1, curnt = timei;
+                } else isFunction(callback) && callback.call($this);
+            };
+            return repeat(), this;
+        }
+    }, $dom.module.ctrlAnimate = function(type, arg) {
+        return isString(type) && this.each(function() {
+            this.tweens && this.tweens[type] && this.tweens[type](arg);
+        }), this;
+    }, foreach([ "pause", "resume", "reverse", "seek", "timeScale", "kill" ], function(method) {
+        $dom.module[method] = function(arg) {
+            return this.ctrlAnimate(method, arg);
+        };
+    }), $dom.module.stop = function() {
+        return this.each(function() {
+            this.tweens && (this.tweens.kill(), $dom(this).css(this.tweens.vars.css));
+        });
+    }, $dom.module.slide = function(dir, options, callback) {
+        return isString(dir) ? this.each(function() {
+            if (this._slxstate = this.offsetWidth <= 0 ? "left" : "right", this._slystate = this.offsetHeight <= 0 ? "up" : "down", 
+            "Up" === dir) {
+                if ("up" !== this._slystate) {
+                    var display = getComputedStyle(this).display;
+                    "inline" === display && (display = "inline-block"), $dom(this).animate({
+                        height: 0,
+                        overflow: "hidden",
+                        width: this.offsetWidth,
+                        display: display
+                    }, options, callback);
+                }
+            } else if ("Down" === dir) {
+                if ("down" !== this._slystate) {
+                    var elemen = $dom(this), height = elemen.cstyle("height"), disply = elemen.cstyle("display");
+                    "none" === disply && (elemen.css("display", "inherit"), disply = elemen.cstyle("display")), 
+                    "inline" === disply && (disply = "inline-block"), height = "auto" === height || height.search("%") > -1 || "0px" === height ? elemen.css({
+                        display: disply,
+                        height: ""
+                    }).height() : elemen.height(), elemen.css({
+                        display: disply,
+                        height: 0
+                    }), elemen.animate({
+                        display: disply,
+                        height: height,
+                        overflow: "hidden",
+                        width: this.offsetWidth
+                    }, options, callback);
+                }
+            } else if ("Left" === dir) {
+                if ("left" !== this._slxstate) {
+                    var display = getComputedStyle(this).display;
+                    "inline" === display && (display = "inline-block"), $dom(this).animate({
+                        width: 0,
+                        overflow: "hidden",
+                        height: this.offsetHeight,
+                        display: display
+                    }, options, callback);
+                }
+            } else if ("Right" === dir) {
+                if ("right" !== this._slxstate) {
+                    var elemen = $dom(this), width = elemen.cstyle("width"), disply = elemen.cstyle("display");
+                    "none" === disply && (elemen.css("display", "inherit"), disply = elemen.cstyle("display")), 
+                    "inline" === disply && (disply = "inline-block"), width = "auto" === width || width.search("%") > -1 || "0px" === width ? elemen.css({
+                        display: disply,
+                        width: ""
+                    }).width() : elemen.width(), elemen.css({
+                        display: disply,
+                        width: 0
+                    }), elemen.animate({
+                        display: disply,
+                        width: width,
+                        overflow: "hidden",
+                        height: this.offsetHeight
+                    }, options, callback);
+                }
+            } else "ToggleY" === dir ? "down" === this._slystate ? $dom(this).slide("Up", options, callback) : "up" === this._slystate && $dom(this).slide("Down", options, callback) : "ToggleX" === dir && ("left" === this._slxstate ? $dom(this).slide("Right", options, callback) : "right" === this._slxstate && $dom(this).slide("Left", options, callback));
+        }) : void 0;
+    }, foreach([ "Left", "Right", "Up", "Down", "ToggleX", "ToggleY" ], function(dir) {
+        $dom.module["slide" + dir] = function(options, callback) {
+            return this.slide(dir, options, callback);
+        };
+    }), $dom.module.fade = function(dir, options, callback) {
+        return isString(dir) ? this.each(function() {
+            this._fdstate || (this._fdstate = "visible"), "In" === dir ? (this._fdstate = "visible", 
+            $dom(this).animate({
+                opacity: 1
+            }, options, callback)) : "Out" === dir ? (this._fdstate = "invisible", $dom(this).animate({
+                opacity: 0
+            }, options, callback)) : "Toggle" === dir && ("visible" === this._fdstate ? $dom(this).fade("Out", options, callback) : "invisible" === this._fdstate && $dom(this).fade("In", options, callback));
+        }) : void 0;
+    }, foreach([ "In", "Out", "Toggle" ], function(dir) {
+        $dom.module["fade" + dir] = function(options, callback) {
+            return this.fade(dir, options, callback);
+        };
     });
 }(window, DOMList);

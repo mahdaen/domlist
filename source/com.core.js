@@ -208,48 +208,6 @@
 
         /* Copy splice from array */
         splice: Array.prototype.splice,
-
-        /* EFFECT --------------------------------------------------- */
-        /**
-         * Animate elements. This module using Greensock (third party).
-         * @param props - {object} - CSS Properties List.
-         * @param options - {object} - Animation Options.
-         * @param callback - {function} - Handler when animation complete.
-         * @returns {DOMList}
-         */
-        animate: function(props, options, callback) {
-            var $this = this;
-
-            /* Wrap animation properties to array if it's an object */
-            if (isObject(props)) props = [props];
-
-            /* Ensure animation properties is array */
-            if (isArray(props)) {
-                /* If options is number, use it as duration */
-                if (isNumber(options)) {
-                    options = { duration: options };
-                }
-
-                /* Ensure options is object */
-                if (isObject(options)) {
-                    $this.each(function() {
-                        var self = this;
-
-                        if (isFunction(callback)) {
-                            var anim = self.animate(props, options);
-
-                            anim.onfinish = function() {
-                                callback.call(self, anim);
-                            }
-                        } else {
-                            self.animate(props, options);
-                        }
-                    });
-                }
-            }
-
-            return this;
-        }
     };
 
     /* Extending HTML Element Prototype to find elements from that */

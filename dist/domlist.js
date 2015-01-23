@@ -798,6 +798,25 @@ window.circle = function(obj, reversed) {
         }
     }
 
+    /* Object.merge prototype */
+    Object.prototype.merge = function() {
+        var nobj = {};
+
+        for (var c = 0; c < arguments.length; ++c) {
+            if (isObject(arguments[c])) {
+                foreach(arguments[c], function (key, value) {
+                    nobj[key] = value;
+                });
+            }
+        }
+
+        return nobj;
+    };
+
+    Object.defineProperty(Object.prototype, 'merge', {
+        enumerable: false
+    });
+
     /* CustomEvent Polyfill */
     var CustomEvent = function (name, options) {
         var event;
@@ -1234,48 +1253,6 @@ window.circle = function(obj, reversed) {
 
         /* Copy splice from array */
         splice: Array.prototype.splice,
-
-        /* EFFECT --------------------------------------------------- */
-        /**
-         * Animate elements. This module using Greensock (third party).
-         * @param props - {object} - CSS Properties List.
-         * @param options - {object} - Animation Options.
-         * @param callback - {function} - Handler when animation complete.
-         * @returns {DOMList}
-         */
-        animate: function(props, options, callback) {
-            var $this = this;
-
-            /* Wrap animation properties to array if it's an object */
-            if (isObject(props)) props = [props];
-
-            /* Ensure animation properties is array */
-            if (isArray(props)) {
-                /* If options is number, use it as duration */
-                if (isNumber(options)) {
-                    options = { duration: options };
-                }
-
-                /* Ensure options is object */
-                if (isObject(options)) {
-                    $this.each(function() {
-                        var self = this;
-
-                        if (isFunction(callback)) {
-                            var anim = self.animate(props, options);
-
-                            anim.onfinish = function() {
-                                callback.call(self, anim);
-                            }
-                        } else {
-                            self.animate(props, options);
-                        }
-                    });
-                }
-            }
-
-            return this;
-        }
     };
 
     /* Extending HTML Element Prototype to find elements from that */
@@ -2117,7 +2094,7 @@ window.circle = function(obj, reversed) {
             } else {
                 var first = $this[0];
 
-                if (first.hasOwnProperty(name)) {
+                if (first[name]) {
                     return first[name];
                 }
             }
@@ -4763,4 +4740,563 @@ window.circle = function(obj, reversed) {
             EventProvider.dispatch('switch', this, { state: this.togglestate });
         });
     });
+})(window, DOMList);
+(function($root, $dom) {
+    'use strict';
+
+    /* PixelUnit Converter */
+    var pixelUnit = function(value) {
+        if (isNumber(value)) {
+            return value + 'px';
+        } else {
+            return value;
+        }
+    }
+
+    /* NonPixel Properties */
+    var nonpixel = [
+        "columncount", "fillopacity", "flexgrow", "flexshrink", "fontweight", "lineheight", "opacity", "order", "orphans", "widows", "zindex", "zoom"
+    ];
+
+    /* Box Ratio Counter */
+    var countRatio = function (width, height) {
+        var getDivisor, temp, divisor;
+
+        getDivisor = function(a, b) {
+            if (b === 0) return a;
+            return getDivisor(b, a % b);
+        }
+
+        if (width === height) return '1:1';
+
+        if (+width < +height) {
+            temp = width;
+            width = height;
+            height = temp;
+        }
+
+        divisor = getDivisor(+width, +height);
+
+        return 'undefined' === typeof temp ? (width / divisor) + ':' + (height / divisor) : (height / divisor) + ':' + (width / divisor);
+    };
+
+    /* Browser CSS Property List */
+    var propList = {
+        default: [], // Default css in lowercase.
+        publics: [], // Default css in normal.
+
+        customs: [], // Browser specific in lowercase and without prefix.
+        origins: [], // Browser specific in normal.
+        browser: '', // Broser type.
+    };
+
+    /* Creating new element to get style */
+    var style = document.createElement('span').style;
+    var lists = [];
+
+    /* Collecting css properties */
+    for (var key in style) {
+        lists.push(key);
+    }
+
+    /* Checking browser */
+    if (lists.indexOf('webkitUserSelect') > -1) {
+        propList.browser = 'webkit';
+    }
+    else if (lists.indexOf('MozUserSelect') > -1) {
+        propList.browser = 'Moz';
+    }
+    else if (lists.indexOf('msUserSelect') > -1) {
+        propList.browser = 'ms';
+    }
+
+    /* Splitting default properties and vendor specific properties */
+    foreach(lists, function (prop) {
+        /* If property contains current browser pattern, add to custom list */
+        if (prop.search(propList.browser) > -1) {
+            propList.origins.push(prop);
+            propList.customs.push(prop.replace(propList.browser, '').toLowerCase());
+        }
+        /* Else add to default list */
+        else {
+            propList.default.push(prop.toLowerCase());
+            propList.publics.push(prop);
+        }
+    });
+
+    /* Module - CSS */
+    $dom.module.css = function(property, value) {
+        if (isString(property)) {
+            // Removing dashes.
+            if (property.search('-')) {
+                property = property.replace(/\-/g, '');
+            }
+
+            // Converting to lowercase to search index.
+            property = property.toLowerCase();
+
+            // Ignoring nonpixel properties from being added 'px' suffix.
+            var skippx = false;
+            if (nonpixel.indexOf(property) > -1) {
+                skippx = true;
+            }
+
+            // Searching in custom lists.
+            var propIndex = propList.customs.indexOf(property);
+
+            // If custom prop, get the original property from the list.
+            if (propIndex > -1) {
+                property = propList.origins[propIndex];
+            }
+
+            // If not custom prop, then try looking on default list.
+            else {
+                propIndex = propList.default.indexOf(property);
+
+                /* If default prop, then get the original property from default lists */
+                if (propIndex > -1) {
+                    property = propList.publics[propIndex];
+                }
+
+                /* Else tell the user that defined property is not valid css property */
+                else {
+                    throw property + ' is not valid CSS Property!'
+                }
+            }
+
+            /* Checking the value. If given, then set the css. Else, get the css. */
+            if (isString(value) || isNumber(value) || isBoolean(value)) {
+                return this.each(function() {
+                    // Use value directly if nonpixel property.
+                    if (skippx) {
+                        this.style[property] = value;
+                    }
+                    // Else, try to convert to 'px'.
+                    else {
+                        this.style[property] = pixelUnit(value);
+                    }
+                });
+            }
+
+            /* Get the css if no value given */
+            else {
+                return this.length > 0 ? this.get().style[property] : undefined;
+            }
+        }
+
+        /* If property is object property lists, iterate it one by one */
+        else if (isObject(property)) {
+            var $this = this;
+
+            foreach(property, function (prop, value) {
+                $this.css(prop, value);
+            });
+        }
+
+        /* If no arguments, get all available css */
+        else {
+            var style = this.first().prop('style'), props = {};
+
+            for (var property in style) {
+                if (isNaN(Number(property)) && property !== 'length' && style[property] !== '' && !isFunction(style[property]) && style[property] !== null) {
+                    props[property] = style[property];
+                }
+            }
+
+            return props;
+        }
+
+        return this;
+    };
+
+    /* Computed Style Getter */
+    $dom.module.cstyle = function(name) {
+        if (this.length > 0 && isString(name)) {
+            return getComputedStyle(this.get())[name] ? getComputedStyle(this.get())[name] : null;
+        }
+        else if (this.length > 0 && isArray(name)) {
+            var props = {}, $this = this;
+
+            foreach(name, function (name) {
+                if (getComputedStyle($this.get())[name]) props[name] = getComputedStyle($this.get())[name];
+            });
+
+            return props;
+        }
+
+        return null;
+    };
+
+    /* Creating offsetWidth, clientWidth, scrollWidth, offsetHeight, clientHeight, scrollHeight, scrollTop, scrollLeft modules */
+    foreach(['offsetWidth', 'offsetHeight', 'clientWidth', 'clientHeight', 'scrollWidth', 'scrollHeight', 'scrollLeft', 'scrollTop'], function(method) {
+        $dom.module[method] = function() {
+            return this.length > 0 ? this.get()[method] : 0;
+        };
+    });
+
+    /* Creating width and height modules */
+    foreach(['Width', 'Height'], function(method) {
+        $dom.module[method.toLowerCase()] = function(value) {
+            if (this.length <= 0) return 0;
+
+            if (isDefined(value)) {
+                return this.css(method.toLowerCase(), value);
+            } else {
+                return this.get()['offset' + method];
+            }
+        };
+    });
+
+    /* Box Ratio Getter and Setter */
+    $dom.module.ratio = function(value) {
+        if (this.length <= 0) return this;
+
+        /* If value is defined, then set it */
+        if (isString(value) && value.match(/^\d+:\d+$/)) {
+            this.each(function() {
+                this.ratio = value;
+
+                // Getting box ratio part.
+                var part = this.ratio.split(':');
+
+                // Getting the box height depend on ratio.
+                var height = Math.round($dom(this).width() / part[0] * part[1]);
+
+                // Setting the box height.
+                $dom(this).height(height);
+            });
+
+            return this;
+        }
+
+        /* If no value given, try to get the ratio value */
+        else {
+            /* Return if already exist */
+            if (this.get().ratio) {
+                return this.get().ratio;
+            }
+
+            /* Count if not exist */
+            else {
+                return this.get().ratio = countRatio(this.width(), this.height());
+            }
+        }
+    };
+
+    /* Creating offset getter module */
+    $dom.module.offset = function() {
+        if (this.length <= 0) return this;
+
+        return {
+            /* Dimensions */
+            width: this.width(),
+            height: this.height(),
+
+            /* Positions */
+            left: this.get().offsetLeft,
+            top: this.get().offsetTop,
+
+            /* Scrolls */
+            scrollTop: this.get().scrollTop,
+            scrollLeft: this.get().scrollLeft,
+
+            /* Box ratio */
+            ratio: this.first().ratio()
+        };
+    };
+
+    /* Creating Box Orientation Module */
+    $dom.module.orientation = function() {
+        if (this.length <= 0) return this;
+
+        this.each(function() {
+            var offset = $dom(this).offset();
+
+            if (offset.width > offset.height) {
+                $dom(this).attr('landscape', '');
+
+                this.orientation = 'landscape';
+            } else {
+                $dom(this).attr('portrait', '');
+
+                this.orientation = 'portrait';
+            }
+        });
+
+        return this.first().prop('orientation');
+    };
+})(window, DOMList);
+(function($root, $dom) {
+    /* Animation Module */
+    $dom.module.animate = function(props, options, callback) {
+        if (!window.TweenMax) return this;
+
+        var $this = this, duration;
+
+        if (isObject(props)) {
+            if (isNumber(options)) {
+                duration = options;
+            }
+            else if (isObject(options)) {
+                foreach(options, function (key, value) {
+                    if (key !== 'duration' && isDefined(value)) {
+                        props[key] = value;
+                    }
+                });
+
+                if (options.duration) {
+                    duration = options.duration;
+                } else {
+                    duration = 0.5;
+                }
+            }
+            else {
+                duration = 0.5;
+            }
+
+            this.each(function() {
+                var $this = this;
+
+                if (isFunction(callback)) {
+                    props.onCompleteParams = [$this];
+
+                    props.onComplete = function(elem) {
+                        callback.call(elem, $this.tweens);
+                    }
+                }
+
+                $this.tweens = new TweenMax($this, duration, props);
+            });
+        }
+
+        return this;
+    };
+
+    /* Animation Keyframes */
+    $dom.module.keyframes = function(frames, options, callback) {
+        if (isObject(frames)) {
+            var $this = this, dur, time = Object.keys(frames), all = time.length, start = 0, curnt = 0;
+
+            if (isNumber(options)) {
+                dur = options;
+            } else if (isObject(options)) {
+                if (options.duration) {
+                    dur = options.duration;
+                } else {
+                    dur = 0.5;
+                }
+            } else {
+                options = {
+                    duration: 0.5
+                };
+            }
+
+            var repeat = function() {
+                if (all > 0) {
+                    var timei = (Number(time[start]));
+                    var frame = Object.merge(frames[timei]);
+                    var durat = ((timei - curnt) / 100) * dur;
+                    var optio = Object.merge(options, { duration: durat });
+
+                    $this.animate(frame, optio);
+
+                    setTimeout(function() {
+                        repeat();
+                    }, (durat * 1000));
+
+                    all -= 1;
+                    start += 1;
+                    curnt = timei;
+                } else {
+                    if (isFunction(callback)) {
+                        callback.call($this);
+                    }
+                }
+            };
+
+            repeat();
+
+            return this;
+        }
+    };
+
+    /* Animation Controll Module */
+    $dom.module.ctrlAnimate = function(type, arg) {
+        if (isString(type)) {
+            this.each(function() {
+                if (this.tweens && this.tweens[type]) {
+                    this.tweens[type](arg);
+                }
+            });
+        }
+
+        return this;
+    };
+
+    /* Animation Controll Shorcut Modules */
+    foreach(['pause', 'resume', 'reverse', 'seek', 'timeScale', 'kill'], function (method) {
+        $dom.module[method] = function(arg) {
+            return this.ctrlAnimate(method, arg);
+        }
+    });
+
+    /* Animation Stopper */
+    $dom.module.stop = function() {
+        return this.each(function() {
+            if (this.tweens) {
+                this.tweens.kill();
+
+                $dom(this).css(this.tweens.vars.css);
+            }
+        });
+    };
+
+    /* Slide Effects */
+    $dom.module.slide = function(dir, options, callback) {
+        if (isString(dir)) {
+            return this.each(function() {
+                var prop = 'height';
+
+                if (this.offsetWidth <= 0) {
+                    this._slxstate = 'left';
+                } else {
+                    this._slxstate = 'right';
+                }
+
+                if (this.offsetHeight <= 0) {
+                    this._slystate = 'up';
+                } else {
+                    this._slystate = 'down';
+                }
+
+                if (dir === 'Up') {
+                    if (this._slystate !== 'up') {
+                        var display = getComputedStyle(this).display;
+
+                        if (display === 'inline') {
+                            display = 'inline-block';
+                        }
+
+                        $dom(this).animate({ height: 0, overflow: 'hidden', width: this.offsetWidth, display: display }, options, callback);
+                    }
+                }
+                else if (dir === 'Down') {
+                    if (this._slystate !== 'down') {
+                        var elemen = $dom(this);
+                        var height = elemen.cstyle('height');
+                        var disply = elemen.cstyle('display');
+
+                        if (disply === 'none') {
+                            elemen.css('display', 'inherit');
+                            disply = elemen.cstyle('display');
+                        }
+
+                        if (disply === 'inline') {
+                            disply = 'inline-block';
+                        }
+
+                        if (height === 'auto' || height.search('%') > -1 || height === '0px') {
+                            height = elemen.css({ display: disply, height: ''}).height();
+                        } else {
+                            height = elemen.height();
+                        }
+
+                        elemen.css({ display: disply, height: 0 });
+                        elemen.animate({ display: disply, height: height, overflow: 'hidden', width: this.offsetWidth }, options, callback);
+                    }
+                }
+                else if (dir === 'Left') {
+                    if (this._slxstate !== 'left') {
+                        var display = getComputedStyle(this).display;
+
+                        if (display === 'inline') {
+                            display = 'inline-block';
+                        }
+
+                        $dom(this).animate({ width: 0, overflow: 'hidden', height: this.offsetHeight, display: display, }, options, callback);
+                    }
+                }
+                else if (dir === 'Right') {
+                    if (this._slxstate !== 'right') {
+                        var elemen = $dom(this);
+                        var width = elemen.cstyle('width');
+                        var disply = elemen.cstyle('display');
+
+                        if (disply === 'none') {
+                            elemen.css('display', 'inherit');
+                            disply = elemen.cstyle('display');
+                        }
+
+                        if (disply === 'inline') {
+                            disply = 'inline-block';
+                        }
+
+                        if (width === 'auto' || width.search('%') > -1 || width === '0px') {
+                            width = elemen.css({ display: disply, width: ''}).width();
+                        } else {
+                            width = elemen.width();
+                        }
+
+                        elemen.css({ display: disply, width: 0 });
+                        elemen.animate({ display: disply, width: width, overflow: 'hidden', height: this.offsetHeight }, options, callback);
+                    }
+                }
+                else if (dir === 'ToggleY') {
+                    if (this._slystate === 'down') {
+                        $dom(this).slide('Up', options, callback);
+                    } else if (this._slystate === 'up') {
+                        $dom(this).slide('Down', options, callback);
+                    }
+                }
+                else if (dir === 'ToggleX') {
+                    if (this._slxstate === 'left') {
+                        $dom(this).slide('Right', options, callback);
+                    } else if (this._slxstate === 'right') {
+                        $dom(this).slide('Left', options, callback);
+                    }
+                }
+            });
+        }
+    };
+    foreach(['Left', 'Right', 'Up', 'Down', 'ToggleX', 'ToggleY'], function (dir) {
+        $dom.module['slide' + dir] = function(options, callback) {
+            return this.slide(dir, options, callback);
+        }
+    });
+
+    /* Fade Effects */
+    $dom.module.fade = function(dir, options, callback) {
+        if (isString(dir)) {
+            return this.each(function() {
+                if (!this._fdstate) this._fdstate = 'visible';
+
+                if (dir === 'In') {
+                    this._fdstate = 'visible';
+
+                    $dom(this).animate({ opacity: 1 }, options, callback);
+                }
+
+                else if (dir === 'Out') {
+                    this._fdstate = 'invisible';
+
+                    $dom(this).animate({ opacity: 0 }, options, callback);
+                }
+
+                else if (dir === 'Toggle') {
+                    if (this._fdstate === 'visible') {
+                        $dom(this).fade('Out', options, callback);
+                    }
+                    else if (this._fdstate === 'invisible') {
+                        $dom(this).fade('In', options, callback);
+                    }
+                }
+            });
+        }
+    };
+    foreach(['In', 'Out', 'Toggle'], function (dir) {
+        $dom.module['fade' + dir] = function(options, callback) {
+            return this.fade(dir, options, callback);
+        };
+    });
+
 })(window, DOMList);

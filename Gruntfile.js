@@ -33,6 +33,8 @@ module.exports = function(grunt) {
                         'source/mod.bool.js',
                         'source/mod.event.js',
                         'source/mod.event.alias.js',
+                        'source/mod.css.js',
+                        'source/mod.animation.js',
                     ]
                 }
             },

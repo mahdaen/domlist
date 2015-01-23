@@ -62,6 +62,25 @@
         }
     }
 
+    /* Object.merge prototype */
+    Object.prototype.merge = function() {
+        var nobj = {};
+
+        for (var c = 0; c < arguments.length; ++c) {
+            if (isObject(arguments[c])) {
+                foreach(arguments[c], function (key, value) {
+                    nobj[key] = value;
+                });
+            }
+        }
+
+        return nobj;
+    };
+
+    Object.defineProperty(Object.prototype, 'merge', {
+        enumerable: false
+    });
+
     /* CustomEvent Polyfill */
     var CustomEvent = function (name, options) {
         var event;

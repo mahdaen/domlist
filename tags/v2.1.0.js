@@ -1,6 +1,6 @@
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList
+     * @apiGroup 1. DOMList
      *
      * @api {selector} $dom(query,context); $dom()
      * @apiName DOMList
@@ -36,7 +36,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList
+     * @apiGroup 1. DOMList
      * @api {extend} $dom.exnted(name,handler); $dom.extend()
      * @apiName Extend
      * @apiDescription Register DOMList Modules.
@@ -51,7 +51,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup DOMList
+     * @apiGroup 1. DOMList
      *
      * @api {domdata} $dom.data(name,value,context); $dom.data()
      * @apiName DOMData
@@ -92,7 +92,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {push} DOMList.push(element); .push()
      * @apiName Push
@@ -111,7 +111,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {first} DOMList.first(); .first()
      * @apiName First
@@ -123,7 +123,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {firstchild} DOMList.firstChild(); .firstChild()
      * @apiName FirstChild
@@ -135,7 +135,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {last} DOMList.last(); .last()
      * @apiName Last
@@ -147,7 +147,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {lastchild} DOMList.lastChild(); .lastChild()
      * @apiName LastChild
@@ -159,7 +159,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {nth} DOMList.nth(index); .nth()
      * @apiName NTH
@@ -173,7 +173,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {nthChild} DOMList.nthChild(index); .nthChild()
      * @apiName NthChild
@@ -187,7 +187,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {children} DOMList.children(); .children()
      * @apiName Children
@@ -199,7 +199,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {finder} DOMList.find(query); .find()
      * @apiName Find
@@ -214,7 +214,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {filter} DOMList.filter(query); .filter()
      * @apiName Filter
@@ -228,7 +228,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {iterator} DOMList.each(handler); .each()
      * @apiName Iterator
@@ -246,7 +246,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {attr} DOMList.attr(name,value); .attr()
      * @apiName Attr
@@ -291,7 +291,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {remattr} DOMList.remAttr(name); .remAttr()
      * @apiName RemAttr
@@ -307,7 +307,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {data} DOMList.data(name,value); .data()
      * @apiName Data
@@ -328,7 +328,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {remdata} DOMList.remData(name); .remData()
      * @apiName RemData
@@ -343,7 +343,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {prop} DOMList.prop(name,value); .prop()
      * @apiName Prop
@@ -359,7 +359,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {val} DOMList.val(value); .val()
      * @apiName Val
@@ -374,7 +374,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {remove} DOMList.remove(); .remove()
      * @apiName Remove
@@ -386,7 +386,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {sort} DOMList.sortBy(attr,options); .sortBy()
      * @apiName Sort
@@ -412,7 +412,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {toarray} DOMList.toArray(); .toArray()
      * @apiName ToArray
@@ -424,7 +424,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {parent} DOMList.parent() .parent()
      * @apiName Parent
@@ -437,7 +437,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {parentuntil} DOMList.parentUntil(query); .parentUntil()
      * @apiName ParentUntil
@@ -456,7 +456,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      * @api {parents} DOMList.parents(); .parents()
      * @apiName Parents
      * @apiDescription Get all parent element of all selected elements as DOMList object.
@@ -467,7 +467,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {comment} DOMList.comment() .comment()
      * @apiName Comment
@@ -476,7 +476,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {match} DOMList.mathch(handler); .match()
      * @apiName Match
@@ -495,7 +495,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {get} DOMList.get(index); .get()
      * @apiName Get
@@ -510,7 +510,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {indexof} DOMList.indexOf(element); .indexOf()
      * @apiName IndexOf
@@ -529,7 +529,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {tostring} DOMList.toString(); .toString()
      * @apiName ToString
@@ -542,7 +542,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {wrap} DOMList.wrap(htmlstring); .wrap()
      * @apiName Wrap
@@ -556,7 +556,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      * @api {wrapchild} DOMList.wrapChild(htmlstring); .wrapChild()
      * @apiName WrapChild
      * @apiDescription Wrap child elements of selected elements with new element.
@@ -570,7 +570,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {siblings} DOMList.siblings(); .siblings()
      * @apiName Siblings
@@ -582,7 +582,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
 
      * @api {slice} DOMList.slice(index); .slice()
      * @apiName Slice
@@ -597,7 +597,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {remprop} DOMList.remProp(name); .remProp()
      * @apiName RemProp
@@ -612,7 +612,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {replace} DOMList.replace(target,source); .replace()
      * @apiName Replace
@@ -632,7 +632,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {replacewith} DOMList.replaceWith(source); .replaceWith()
      * @apiName ReplaceWith
@@ -648,7 +648,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      * @api {next} DOMList.next(query); .next()
      * @apiName Next
      * @apiDescription Get the next element after first selected element inside parent element.
@@ -667,7 +667,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {nextall} DOMList.nextAll(query); .nextAll()
      * @apiName NextAll
@@ -687,7 +687,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {nextuntil} DOMList.nextUntil(query); .nextUntil()
      * @apiName nextuntil
@@ -706,7 +706,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      * @api {prev} DOMList.prev(query); .prev()
      * @apiName Prev
      * @apiDescription Get the prev element after first selected element inside parent element.
@@ -725,7 +725,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {prevall} DOMList.prevAll(query); .prevAll()
      * @apiName PrevAll
@@ -745,7 +745,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Core
+     * @apiGroup 2. Core
      *
      * @api {prevuntil} DOMList.prevUntil(query); .prevUntil()
      * @apiName prevuntil
@@ -764,7 +764,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Class
+     * @apiGroup 3. Class
      *
      * @api {addclass} DOMList.addClass(name); .addClass()
      * @apiName AddClass
@@ -780,7 +780,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Class
+     * @apiGroup 3. Class
      *
      * @api {remclass} DOMList.remClass(name); .remClass()
      * @apiName RemClass
@@ -795,7 +795,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Class
+     * @apiGroup 3. Class
      *
      * @api {toggleclass} DOMList.toggleClass(name); .toggleClass()
      * @apiName ToggleClass
@@ -810,7 +810,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {append} DOMList.append(childs); .append()
      * @apiName Append
@@ -839,7 +839,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {prepend} DOMList.prepend(childs) .prepend()
      * @apiName Prepend
@@ -868,7 +868,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {appendto} DOMList.appendTo(destination) .appendTo()
      * @apiName AppendTo
@@ -882,7 +882,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {perependto} DOMList.prependTo(destination) .prependTo()
      * @apiName PrependTo
@@ -896,7 +896,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
      * @apiName insertBefore
@@ -910,7 +910,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
      * @apiName insertAfter
@@ -924,7 +924,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {text} DOMList.text(value); .text()
      * @apiName Text
@@ -939,7 +939,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {Texts} DOMList.texts(); .texts()
      * @apiName Texts
@@ -951,7 +951,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {html} DOMList.html(value); .html()
      * @apiName HTML
@@ -966,7 +966,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {HTMLs} DOMList.htmls(); .htmls()
      * @apiName HTMLs
@@ -978,7 +978,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {clone} DOMList.clone(); .clone()
      * @apiName Clone
@@ -990,7 +990,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Injects
+     * @apiGroup 4. Injects
      *
      * @api {empty} DOMList.empty(); .empty()
      * @apiName Empty
@@ -1002,7 +1002,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Checker
+     * @apiGroup 5. Checker
      *
      * @api {hasattr} DOMList.hasAttr(name); .hasAttr()
      * @apiName HasAttr
@@ -1018,7 +1018,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Checker
+     * @apiGroup 5. Checker
      *
      * @api {hasdata} DOMList.hasData(name); .hasData()
      * @apiName HasData
@@ -1034,7 +1034,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Checker
+     * @apiGroup 5. Checker
      *
      * @api {hasclass} DOMList.hasClass(name); .hasClass()
      * @apiName HasClass
@@ -1050,7 +1050,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Checker
+     * @apiGroup 5. Checker
      *
      * @api {is} DOMList.is(query); .is()
      * @apiName Is
@@ -1065,7 +1065,7 @@
 
     /**
      * @apiVersion 2.0.0
-     * @apiGroup Checker
+     * @apiGroup 5. Checker
      *
      * @api {not} DOMList.not(query); .not()
      * @apiName Not
@@ -1080,7 +1080,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup EventProvider
+     * @apiGroup 6. EventProvider
      *
      * @api {eventprovider} EventProvider .about
      * @apiName EventProvider
@@ -1089,7 +1089,7 @@
 
         /**
          * @apiVersion 2.1.0
-         * @apiGroup EventProvider
+         * @apiGroup 6. EventProvider
          *
          * @api EventProvider.search(name); .search()
          * @apiName evSearch
@@ -1103,7 +1103,7 @@
 
         /**
          * @apiVersion 2.1.0
-         * @apiGroup EventProvider
+         * @apiGroup 6. EventProvider
          * @api {register} EventProvider.register(name,maker,options); .register()
          * @apiName evRegister
          * @apiDescription Register custom event.
@@ -1136,7 +1136,7 @@
 
         /**
          * @apiVersion 2.1.0
-         * @apiGroup EventProvider
+         * @apiGroup 6. EventProvider
          *
          * @api {dispatch} EventProvider.dispatch(name,targetElement,properties); .dispatch()
          * @apiName evDispatch
@@ -1161,7 +1161,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      * @api {ready} DOMList.ready(handler); $dom.ready()
      * @apiName Ready
      * @apiDescription Add handler to handle when document is ready to manipulate.
@@ -1174,7 +1174,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      * @api {loaded} DOMList.loaded(handler); $dom.loaded()
      * @apiName Loaded
      * @apiDescription Add handler to handle when document is fully loaded.
@@ -1187,7 +1187,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {listen} DOMList.listen(name,type,handler); .listen()
      * @apiName Listen
@@ -1221,7 +1221,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {unlisten} DOMList.unlisten(name,type); .unlisten()
      * @apiName Unlisten
@@ -1249,7 +1249,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {handle} DOMList.handle(type,handler); .handle()
      * @apiName Handle
@@ -1271,7 +1271,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {unhandle} DOMList.unhandle(type); .unhandle()
      * @apiName Unhandle
@@ -1289,7 +1289,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {trigger} DOMList.trigger(type,properties); .trigger()
      * @apiName Trigger
@@ -1320,7 +1320,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {alias} DOMList.$alias(handler); $alias
      * @apiName Alias
@@ -1335,7 +1335,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {blur} DOMList.blur(handler);  .blur()
      * @apiName blur
@@ -1344,7 +1344,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {focus} DOMList.focus(handler);  .focus()
      * @apiName focus
@@ -1353,7 +1353,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {focusin} DOMList.focusin(handler);  .focusin()
      * @apiName focusin
@@ -1362,7 +1362,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {focusout} DOMList.focusout(handler);  .focusout()
      * @apiName focusout
@@ -1371,7 +1371,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {load} DOMList.load(handler);  .load()
      * @apiName load
@@ -1380,7 +1380,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {resize} DOMList.resize(handler);  .resize()
      * @apiName resize
@@ -1389,7 +1389,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {scroll} DOMList.scroll(handler);  .scroll()
      * @apiName scroll
@@ -1398,7 +1398,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {unload} DOMList.unload(handler);  .unload()
      * @apiName unload
@@ -1407,7 +1407,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {click} DOMList.click(handler);  .click()
      * @apiName click
@@ -1416,7 +1416,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {dblclick} DOMList.dblclick(handler);  .dblclick()
      * @apiName dblclick
@@ -1425,7 +1425,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {switch} DOMList.switch(handler);  .switch()
      * @apiName switch
@@ -1443,7 +1443,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {hover} DOMList.hover(handler);  .hover()
      * @apiName hover
@@ -1461,7 +1461,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mousedown} DOMList.mousedown(handler);  .mousedown()
      * @apiName mousedown
@@ -1470,7 +1470,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mouseup} DOMList.mouseup(handler);  .mouseup()
      * @apiName mouseup
@@ -1479,7 +1479,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mousemove} DOMList.mousemove(handler);  .mousemove()
      * @apiName mousemove
@@ -1488,7 +1488,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mouseover} DOMList.mouseover(handler);  .mouseover()
      * @apiName mouseover
@@ -1497,7 +1497,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mouseout} DOMList.mouseout(handler);  .mouseout()
      * @apiName mouseout
@@ -1506,7 +1506,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mouseenter} DOMList.mouseenter(handler);  .mouseenter()
      * @apiName mouseenter
@@ -1515,7 +1515,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {mouseleave} DOMList.mouseleave(handler);  .mouseleave()
      * @apiName mouseleave
@@ -1524,7 +1524,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {change} DOMList.change(handler);  .change()
      * @apiName change
@@ -1533,7 +1533,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {select} DOMList.select(handler);  .select()
      * @apiName select
@@ -1542,7 +1542,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {submit} DOMList.submit(handler);  .submit()
      * @apiName submit
@@ -1551,7 +1551,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {keydown} DOMList.keydown(handler);  .keydown()
      * @apiName keydown
@@ -1560,7 +1560,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {keyup} DOMList.keyup(handler);  .keyup()
      * @apiName keyup
@@ -1569,7 +1569,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {keypress} DOMList.keypress(handler);  .keypress()
      * @apiName keypress
@@ -1578,7 +1578,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {error} DOMList.error(handler);  .error()
      * @apiName error
@@ -1587,7 +1587,7 @@
 
     /**
      * @apiVersion 2.1.0
-     * @apiGroup Events
+     * @apiGroup 7. Events
      *
      * @api {contet} DOMList.contextmenu(handler);  .contextmenu()
      * @apiName contextmenu

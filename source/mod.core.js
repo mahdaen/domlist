@@ -606,7 +606,7 @@
             } else {
                 var first = $this[0];
 
-                if (first.hasOwnProperty(name)) {
+                if (first[name]) {
                     return first[name];
                 }
             }
