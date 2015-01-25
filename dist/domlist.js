@@ -1217,7 +1217,14 @@ window.circle = function(obj, reversed) {
     }
 
     /* Registering DOMList to Window */
-    $root.$dom = $root.DOMList = function(query, context) { return new DOMList(query, context) };
+    $root.DOMList = function(query, context) { return new DOMList(query, context) };
+
+    /* Creating Wrapper*/
+    if (!$root.jQuery) {
+        $root.$ = $root.DOMList;
+    } else {
+        $root.$dom = $root.DOMList;
+    }
 
     /**
      * @apiVersion 2.0.0

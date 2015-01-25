@@ -299,9 +299,9 @@ function() {
         }); else if (isDOMList(query)) return query;
         return this;
     };
-    $root.$dom = $root.DOMList = function(query, context) {
+    $root.DOMList = function(query, context) {
         return new DOMList(query, context);
-    }, $root.DOMList.extend = function(name, handler) {
+    }, $root.jQuery ? $root.$dom = $root.DOMList : $root.$ = $root.DOMList, $root.DOMList.extend = function(name, handler) {
         return isString(name) && isFunction(handler) ? $root.DOMList.module[name] = handler : isObject(name) && foreach(name, function(name, handler) {
             isFunction(handler) && ($root.DOMList.module[name] = handler);
         }), name;

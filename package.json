@@ -1,6 +1,6 @@
 {
   "name": "domlist",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Native document.queySelectorAll helper.",
   "keywords": [
     "domlist",
