@@ -119,7 +119,8 @@
     };
 
     /* Register EventProvider to window */
-    $root.EventProvider = new EventProvider();
+    var eventProvider = new EventProvider;
+    $root.EventProvider = eventProvider;
 
     /* Function to add listener to document DOMContentLoaded and Loaded */
     document.onreadystatechange = function() {
@@ -130,6 +131,31 @@
             document.isloaded = true;
         }
     }
+
+    /* Adding Queue Counter */
+    eventProvider.loadQueue = 0;
+
+    /* Document Ready Hanlder */
+    eventProvider.readyHandler = function() {
+        var $this = document;
+
+        foreach($this._evcol.ready, function (handler) {
+            handler.call($this);
+        });
+    };
+
+    /* Document Loaded Hanlder */
+    eventProvider.loadedHandler = function() {
+        var $this = document;
+
+        if (eventProvider.loadQueue <= 0 && !$this.iscomplete) {
+            $this.iscomplete = true;
+
+            foreach($this._evcol.loaded, function (handler) {
+                handler.call($this);
+            });
+        }
+    };
 
     var DocLoadListener = function(type, handler) {
         var $this = document;
@@ -160,24 +186,32 @@
             $this.onreadystatechange = function() {
                 /* Hanling ready event */
                 if ($this.readyState === 'interactive') {
-                    setTimeout(function() {
-                        foreach($this._evcol.ready, function (handler) {
-                            handler.call($this);
+                    $dom('img').each(function() {
+                        eventProvider.loadQueue++;
 
-                            $this.isready = true;
+                        $dom(this).handle(['load', 'error'], function() {
+                            eventProvider.loadQueue--;
+
+                            if ($this.isloaded === true) {
+                                eventProvider.loadedHandler();
+                            }
                         });
-                    }, 300);
+                    });
+
+                    $this.isready = true;
+
+                    setTimeout(function() {
+                        eventProvider.readyHandler();
+                    }, 100);
                 }
 
                 /* Handling loaded event */
                 else if ($this.readyState === 'complete') {
-                    setTimeout(function() {
-                        foreach($this._evcol.loaded, function (handler) {
-                            handler.call($this);
+                    $this.isloaded = true;
 
-                            $this.isloaded = true;
-                        });
-                    }, 300);
+                    setTimeout(function() {
+                        eventProvider.loadedHandler();
+                    }, 100);
                 }
             }
         }
@@ -305,7 +339,7 @@
                     elem._evcol[type]._init = false;
 
                     /* Tell Event Provider (if available) to provide custom event to this element */
-                    var cev = $root.EventProvider.search(type);
+                    var cev = eventProvider.search(type);
                     if (cev) cev.maker.call(elem);
 
                     /* Creating Default Handler */
@@ -409,14 +443,14 @@
     };
 
     /**
-     * @apiVersion 2.1.0
+     * @apiVersion 2.3.2
      * @apiGroup Events
      *
      * @api {handle} DOMList.handle(type,handler); .handle()
      * @apiName Handle
      * @apiDescription Add event handler to selected elements.
      *
-     * @apiParam {Multi} type String event type or object contains events.
+     * @apiParam {Multi} type String event type or object contains events or array type list.
      * @apiParam {Function} [handler] Function to handle event.
      *
      * @apiExample {js} Sample
@@ -428,12 +462,21 @@
      *     click: function() {},
      *     mouseenter: function() {}
      * });
+     *
+     * // Handle multiple event with single handler.
+     * $dom('span').handle(['click', 'focus'], function() {});
      */
     $dom.module.handle = function(type, handler) {
+        var $this = this;
+
         if (isString(type) && isFunction(handler)) {
-            this.listen('default', type, handler);
+            $this.listen('default', type, handler);
         } else if (isObject(type)) {
-            this.listen('default', type);
+            $this.listen('default', type);
+        } else if (isArray(type) && isFunction(handler)) {
+            foreach(type, function (type) {
+                $this.listen('default', type, handler);
+            });
         }
 
         return this;
@@ -513,7 +556,7 @@
                 });
 
                 /* Look at Custom Event first */
-                if ($root.EventProvider.search(type)) {
+                if (eventProvider.search(type)) {
                     EventProvider.dispatch(type, elem, props);
                 }
 

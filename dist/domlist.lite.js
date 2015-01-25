@@ -271,7 +271,7 @@ function() {
     "use strict";
     var DOMList = function(query, context) {
         var modern, $this = this;
-        if (modern = document.querySelectorAll ? !1 : !1, this.length = 0, "string" == typeof query) {
+        if (modern = document.querySelectorAll ? !0 : !1, this.length = 0, "string" == typeof query) {
             var result, $this = this;
             if (isHTML(context)) result = modern ? context.querySelectorAll(query) : window.Sizzle ? Sizzle(query, context) : []; else if (isDOMList(context)) {
                 var length = 0;
@@ -904,8 +904,20 @@ function() {
                 }), elem.dispatchEvent(event);
             }
         }
-    }, $root.EventProvider = new EventProvider(), document.onreadystatechange = function() {
+    };
+    var eventProvider = new EventProvider();
+    $root.EventProvider = eventProvider, document.onreadystatechange = function() {
         "interactive" === document.readyState ? document.isready = !0 : "complete" === document.readyState && (document.isloaded = !0);
+    }, eventProvider.loadQueue = 0, eventProvider.readyHandler = function() {
+        var $this = document;
+        foreach($this._evcol.ready, function(handler) {
+            handler.call($this);
+        });
+    }, eventProvider.loadedHandler = function() {
+        var $this = document;
+        eventProvider.loadQueue <= 0 && !$this.iscomplete && ($this.iscomplete = !0, foreach($this._evcol.loaded, function(handler) {
+            handler.call($this);
+        }));
     };
     var DocLoadListener = function(type, handler) {
         var $this = document;
@@ -916,15 +928,15 @@ function() {
         }), isString(type) && isFunction(handler) && $this._evcol[type].push(handler), $this.isready && "ready" === type && handler.call($this), 
         $this.isloaded && "loaded" === type && handler.call($this), $this._evcol._init && ($this._evcol._init = !1, 
         $this.onreadystatechange = function() {
-            "interactive" === $this.readyState ? setTimeout(function() {
-                foreach($this._evcol.ready, function(handler) {
-                    handler.call($this), $this.isready = !0;
+            "interactive" === $this.readyState ? ($dom("img").each(function() {
+                eventProvider.loadQueue++, $dom(this).handle([ "load", "error" ], function() {
+                    eventProvider.loadQueue--, $this.isloaded === !0 && eventProvider.loadedHandler();
                 });
-            }, 300) : "complete" === $this.readyState && setTimeout(function() {
-                foreach($this._evcol.loaded, function(handler) {
-                    handler.call($this), $this.isloaded = !0;
-                });
-            }, 300);
+            }), $this.isready = !0, setTimeout(function() {
+                eventProvider.readyHandler();
+            }, 100)) : "complete" === $this.readyState && ($this.isloaded = !0, setTimeout(function() {
+                eventProvider.loadedHandler();
+            }, 100));
         }), $this;
     };
     $dom.ready = function(handler) {
@@ -946,7 +958,7 @@ function() {
                 });
             }), elem._evcol && elem._evcol[type] && elem._evcol[type]._init) {
                 elem._evcol[type]._init = !1;
-                var cev = $root.EventProvider.search(type);
+                var cev = eventProvider.search(type);
                 cev && cev.maker.call(elem);
                 var defHandler = function(e) {
                     var $self = this;
@@ -978,8 +990,10 @@ function() {
             });
         })), this;
     }, $dom.module.handle = function(type, handler) {
-        return isString(type) && isFunction(handler) ? this.listen("default", type, handler) : isObject(type) && this.listen("default", type), 
-        this;
+        var $this = this;
+        return isString(type) && isFunction(handler) ? $this.listen("default", type, handler) : isObject(type) ? $this.listen("default", type) : isArray(type) && isFunction(handler) && foreach(type, function(type) {
+            $this.listen("default", type, handler);
+        }), this;
     }, $dom.module.unhanlde = function(type) {
         return (isString(type) || isArray(type)) && this.unlisten("default", type), this;
     };
@@ -993,7 +1007,7 @@ function() {
             var event, elem = this, group = "Event";
             foreach(eventGroup, function(grp, types) {
                 types.indexOf(type) > -1 && (group = grp);
-            }), $root.EventProvider.search(type) ? EventProvider.dispatch(type, elem, props) : document.createEvent ? (event = document.createEvent(group), 
+            }), eventProvider.search(type) ? EventProvider.dispatch(type, elem, props) : document.createEvent ? (event = document.createEvent(group), 
             event.initEvent(type), isObject(props) && foreach(props, function(key, value) {
                 event[key] = value;
             }), elem.dispatchEvent(event)) : document.createEventObject && (event.createEventObject(), 
@@ -1118,6 +1132,7 @@ function() {
         }), this.first().prop("orientation"));
     };
 }(window, DOMList), function($root, $dom) {
+    "use strict";
     $dom.module.animate = function(props, options, callback) {
         if (!window.TweenMax) return this;
         var duration;
