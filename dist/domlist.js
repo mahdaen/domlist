@@ -1095,7 +1095,7 @@ window.circle = function(obj, reversed) {
 
         /* Check does support native selector */
         if (document.querySelectorAll) {
-            modern = false;
+            modern = true;
         } else {
             modern = false;
         }
@@ -5027,6 +5027,8 @@ window.circle = function(obj, reversed) {
     };
 })(window, DOMList);
 (function($root, $dom) {
+    'use strict';
+
     /* Animation Module */
     $dom.module.animate = function(props, options, callback) {
         if (!window.TweenMax) return this;

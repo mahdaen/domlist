@@ -50,7 +50,7 @@
 
         /* Check does support native selector */
         if (document.querySelectorAll) {
-            modern = false;
+            modern = true;
         } else {
             modern = false;
         }
