@@ -2170,6 +2170,42 @@
     "groupTitle": "7__Events"
   },
   {
+    "version": "2.3.2",
+    "group": "7__Events",
+    "type": "loaded",
+    "url": "DOMList.loaded(handler);",
+    "title": "$dom.loaded()",
+    "name": "Loaded",
+    "description": "<p>Add handler to handle when document is fully loaded. This event wont fired until all images loaded. Since v2.3.2, you can delay the load event with increasing loadQueue counter, since this event will loaded after loadQueue value is 0.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": false,
+            "field": "handler",
+            "description": "<p>Function that handle when document is loaded to manipulate.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom.loaded(function() { console.log('document loaded'); });",
+        "type": "js"
+      },
+      {
+        "title": "Queue Sample",
+        "content": "$.ready(function() {\n    // Create custom background image loader.\n    $dom('[bg-img]').each(function() {\n        // Increase queue.\n        EventProvider.loadQueue++;\n\n        // Create image to detect load status.\n        var img = $dom('<img>').attr('src', this.getAttribute('bg-img'));\n\n        // Handle img load event to decrease queue.\n        img.get().onload = function() {\n            EventProvider.loadQueue--;\n\n            // Fire loadHandler if window already loaded to check the loadQueue count\n            // and check whether should be executed.\n            if (window.isloaded) EventProvider.loadHandler();\n        };\n    });\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.3.2.js",
+    "groupTitle": "7__Events"
+  },
+  {
     "version": "2.1.0",
     "group": "7__Events",
     "type": "loaded",
@@ -3376,5 +3412,43 @@
     },
     "filename": "tags/v2.3.0.js",
     "groupTitle": "9__Animation"
+  },
+  {
+    "version": "2.3.2",
+    "group": "Events",
+    "type": "handle",
+    "url": "DOMList.handle(type,handler);",
+    "title": ".handle()",
+    "name": "Handle",
+    "description": "<p>Add event handler to selected elements.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Multi",
+            "optional": false,
+            "field": "type",
+            "description": "<p>String event type or object contains events or array type list.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": true,
+            "field": "handler",
+            "description": "<p>Function to handle event.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "// Hanlde single event.\n$dom('span').handle('click', function() {});\n\n// Handle multiple events.\n$dom('span').handle({\n    click: function() {},\n    mouseenter: function() {}\n});\n\n// Handle multiple event with single handler.\n$dom('span').handle(['click', 'focus'], function() {});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.3.2.js",
+    "groupTitle": "Events"
   }
 ]
