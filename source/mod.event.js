@@ -72,7 +72,7 @@
             if (isString(name) && isFunction(provider)) {
                 this.events[name] = {
                     maker: provider,
-                    event: new $root.CustomEvent(name, options)
+                    event: new CustomEvent(name, options)
                 };
             }
 

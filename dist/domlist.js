@@ -3930,7 +3930,7 @@ window.circle = function(obj, reversed) {
             if (isString(name) && isFunction(provider)) {
                 this.events[name] = {
                     maker: provider,
-                    event: new $root.CustomEvent(name, options)
+                    event: new CustomEvent(name, options)
                 };
             }
 
@@ -4459,7 +4459,7 @@ window.circle = function(obj, reversed) {
         return this;
     }
 })(window, DOMList);
-(function($root, $dom) {
+(function($root, $) {
     'use strict';
 
     /* EVENT ALIASES */
@@ -4745,7 +4745,7 @@ window.circle = function(obj, reversed) {
     var alias = 'blur focus focusin focusout load resize scroll unload click dblclick switch hover mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu'.split(/\s+/);
 
     foreach(alias, function (name) {
-        $dom.module[name] = function(handler) {
+        $.module[name] = function(handler) {
             if (isFunction(handler)) {
                 return this.handle(name, handler);
             } else {
@@ -4756,8 +4756,8 @@ window.circle = function(obj, reversed) {
 
     /* Creating Hover Event */
     EventProvider.register('hover', function() {
-        $dom(this).listen('HoverEvent', {
-            'mouseenter': function() {
+        $(this).listen('HoverEvent', {
+            'mouseenter': function(e) {
                 EventProvider.dispatch('hover', this, { status: 'enter' });
             },
             'mouseleave': function() {
@@ -4768,7 +4768,7 @@ window.circle = function(obj, reversed) {
 
     /* Creating Switch Event */
     EventProvider.register('switch', function() {
-        var $this = $dom(this);
+        var $this = $(this);
 
         if (!$this.hasAttr('off') && !$this.hasAttr('on')) {
             $this.attr('off', '');

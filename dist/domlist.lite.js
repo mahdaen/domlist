@@ -893,7 +893,7 @@ function() {
         register: function(name, provider, options) {
             return isString(name) && isFunction(provider) && (this.events[name] = {
                 maker: provider,
-                event: new $root.CustomEvent(name, options)
+                event: new CustomEvent(name, options)
             }), this.events[name].event;
         },
         dispatch: function(name, elem, props) {
@@ -1016,15 +1016,15 @@ function() {
             }), elem.fireEvent(type, event));
         }), this;
     };
-}(window, DOMList), function($root, $dom) {
+}(window, DOMList), function($root, $) {
     "use strict";
     var alias = "blur focus focusin focusout load resize scroll unload click dblclick switch hover mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(/\s+/);
     foreach(alias, function(name) {
-        $dom.module[name] = function(handler) {
+        $.module[name] = function(handler) {
             return isFunction(handler) ? this.handle(name, handler) : this.trigger(name);
         };
     }), EventProvider.register("hover", function() {
-        $dom(this).listen("HoverEvent", {
+        $(this).listen("HoverEvent", {
             mouseenter: function() {
                 EventProvider.dispatch("hover", this, {
                     status: "enter"
@@ -1037,7 +1037,7 @@ function() {
             }
         });
     }), EventProvider.register("switch", function() {
-        var $this = $dom(this);
+        var $this = $(this);
         $this.hasAttr("off") || $this.hasAttr("on") || $this.attr("off", ""), $this.listen("ClickToggle", "click", function() {
             this["switch"] || (this["switch"] = "off"), "off" === this["switch"] ? (this["switch"] = "on", 
             $this.attr("on", "").remAttr("off")) : (this["switch"] = "off", $this.attr("off", "").remAttr("on")), 
