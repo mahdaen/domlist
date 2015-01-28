@@ -189,13 +189,17 @@
                     $dom('img').each(function() {
                         eventProvider.loadQueue++;
 
-                        $dom(this).handle(['load', 'error'], function() {
+                        if (this.complete) {
                             eventProvider.loadQueue--;
+                        } else {
+                            $dom(this).handle(['load', 'error'], function() {
+                                eventProvider.loadQueue--;
 
-                            if ($this.isloaded === true) {
-                                eventProvider.loadedHandler();
-                            }
-                        });
+                                if ($this.isloaded === true) {
+                                    eventProvider.loadedHandler();
+                                }
+                            });
+                        }
                     });
 
                     $this.isready = true;

@@ -929,7 +929,7 @@ function() {
         $this.isloaded && "loaded" === type && handler.call($this), $this._evcol._init && ($this._evcol._init = !1, 
         $this.onreadystatechange = function() {
             "interactive" === $this.readyState ? ($dom("img").each(function() {
-                eventProvider.loadQueue++, $dom(this).handle([ "load", "error" ], function() {
+                eventProvider.loadQueue++, this.complete ? eventProvider.loadQueue-- : $dom(this).handle([ "load", "error" ], function() {
                     eventProvider.loadQueue--, $this.isloaded === !0 && eventProvider.loadedHandler();
                 });
             }), $this.isready = !0, setTimeout(function() {
