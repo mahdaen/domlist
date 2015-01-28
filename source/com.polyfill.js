@@ -82,14 +82,14 @@
     });
 
     /* CustomEvent Polyfill */
-    var CustomEvent = function (name, options) {
+    var CustomEvent = function (eventName, options) {
         var event;
 
-        if (isString(name)) {
-            options = options || {bubbles: false, cancelable: false, detail: undefined};
+        if (isString(eventName)) {
+            options = options || { bubbles: false, cancelable: false, detail: undefined };
 
             event = document.createEvent('CustomEvent');
-            event.initCustomEvent(name, options.bubbles, options.cancelable, options.detail);
+            event.initCustomEvent(eventName, options.bubbles, options.cancelable, options.detail);
         }
 
         return event;
@@ -99,7 +99,7 @@
     CustomEvent.prototype = $root.Event.prototype;
 
     /* Register to window if no default CustomEvent */
-    if (!$root.CustomEvent) $root.CustomEvent = CustomEvent;
+    if (!$root.CustomEvent || !isFunction($root.CustomEvent)) $root.CustomEvent = CustomEvent;
 
     /*
      * classList.js: Cross-browser full element.classList implementation.
