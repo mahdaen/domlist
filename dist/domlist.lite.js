@@ -181,16 +181,16 @@ function() {
     }, Object.defineProperty(Object.prototype, "merge", {
         enumerable: !1
     });
-    var CustomEvent = function(name, options) {
+    var CustomEvent = function(eventName, options) {
         var event;
-        return isString(name) && (options = options || {
+        return isString(eventName) && (options = options || {
             bubbles: !1,
             cancelable: !1,
             detail: void 0
-        }, event = document.createEvent("CustomEvent"), event.initCustomEvent(name, options.bubbles, options.cancelable, options.detail)), 
+        }, event = document.createEvent("CustomEvent"), event.initCustomEvent(eventName, options.bubbles, options.cancelable, options.detail)), 
         event;
     };
-    CustomEvent.prototype = $root.Event.prototype, $root.CustomEvent || ($root.CustomEvent = CustomEvent), 
+    CustomEvent.prototype = $root.Event.prototype, $root.CustomEvent && isFunction($root.CustomEvent) || ($root.CustomEvent = CustomEvent), 
     "document" in self && ("classList" in document.createElement("_") ? !function() {
         "use strict";
         var testElement = document.createElement("_");
