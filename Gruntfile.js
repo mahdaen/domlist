@@ -25,6 +25,7 @@ module.exports = function(grunt) {
                         'source/com.polyfill.js',
                         'source/com.core.js',
                         'source/com.data.js',
+                        'source/com.ajax.js',
 
                         /* Modules */
                         'source/mod.core.js',

@@ -36,7 +36,7 @@
 
 /**
  * @apiVersion 2.3.2
- * @apiGroup Events
+ * @apiGroup 7. Events
  *
  * @api {handle} DOMList.handle(type,handler); .handle()
  * @apiName Handle

@@ -345,6 +345,98 @@ function() {
     $dom.data = $root.DOMData = function(name, value, context) {
         return new DOMData(name, value, context);
     };
+}(window, DOMList), function(root, $) {
+    "use strict";
+    var AJAXList = {
+        "default": []
+    }, DOMAjax = function(options) {
+        var $this = this;
+        if (!isObject(options) || !options.url || !isURL(options.url)) throw "Request needs URL to proceed.";
+        var xhr = XMLHttpRequest || ActiveXObject;
+        return this.request = new xhr("MSXML2.XMLHTTP.3.0"), this.async = !0, this.body = void 0, 
+        this.handlers = {}, this.headers = void 0, this.name = void 0, this.params = void 0, 
+        this.method = null, this.type = "JSON", this.url = null, this.withCredentials = void 0, 
+        foreach(options, function(key, value) {
+            $this.hasOwnProperty(key) ? $this[key] = value : $this.handlers[key] = value;
+        }), this.method = isString(this.method) ? this.method.toUpperCase() : "GET", this.params && (this.encodeParams(options.params), 
+        this.url += (this.url.indexOf("?") > 0 ? "&" : "?") + this.params, "GET" === this.method), 
+        this.request.open(this.method, this.url, this.async), this.headers && this.setRequestHeader(), 
+        this.withCredentials && (this.request.withCredentials = this.withCredentials), this.request.onreadystatechange = function(event) {
+            4 === $this.request.readyState && $this.handle("success", event);
+        }, this.request.onerror = function(event) {
+            var error = new Error("Unable to process request.");
+            $this.handle("error", event, error);
+        }, foreach([ "abort", "loadstart", "loadend", "load", "progress", "timeout" ], function(type) {
+            $this.request["on" + type] = function(event) {
+                $this.handle(type, event);
+            };
+        }), this.name ? AJAXList[this.name] = this : AJAXList["default"].push(this), this.request.send(this.body ? this.body : this.params), 
+        this;
+    };
+    DOMAjax.prototype = {
+        stop: function() {
+            return this.request.abort(), this;
+        },
+        extract: function() {
+            var result;
+            if ("json" === this.type.toLowerCase()) try {
+                result = JSON.parse(this.request.responseText);
+            } catch (error) {
+                throw "Unable to parse response to JSON.";
+            } else result = this.request.responseText;
+            return this.response = result, this;
+        },
+        encodeParams: function(params) {
+            var qtable = [];
+            return foreach(params, function(key, value) {
+                var key = encodeURIComponent(key);
+                qtable.push(null == value ? key : key + "=" + encodeURIComponent(value));
+            }), this.params = qtable.join("&"), this;
+        },
+        setRequestHeader: function() {
+            var $this = this;
+            return isObject(this.headers) && foreach(this.headers, function(name, value) {
+                $this.request.setRequestHeader(name, value);
+            }), this;
+        },
+        handle: function(type, event, error) {
+            return error ? this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, error, this.request) : "success" === type ? (this.extract(), 
+            this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, this.response, this.request, event)) : this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, this.request, event), 
+            this;
+        }
+    }, foreach([ "abort", "load", "error", "success", "progress", "loadstart", "loadend", "timeout" ], function(type) {
+        DOMAjax.prototype[type] = function(handler) {
+            return isFunction(handler) && (this.handlers[type] = handler), this;
+        };
+    }), $.ajax = function(options) {
+        return new DOMAjax(options);
+    }, $.abort = function(name) {
+        isString(name) && AJAXList[name] ? AJAXList[name].stop() : foreach(AJAXList["default"], function(ajax) {
+            ajax.stop();
+        });
+    }, $.get = function(url, options) {
+        return $.ajax(Object.merge(options, {
+            url: url,
+            method: "GET"
+        }));
+    }, $.post = function(url, params, options) {
+        return $.ajax(Object.merge(options, {
+            url: url,
+            params: params,
+            method: "POST"
+        }));
+    }, $.put = function(url, params, options) {
+        return $.ajax(Object.merge(options, {
+            url: url,
+            params: params,
+            method: "PUT"
+        }));
+    }, $["delete"] = function(url, options) {
+        return $.ajax(Object.merge(options, {
+            url: url,
+            method: "DELETE"
+        }));
+    };
 }(window, DOMList), function($dom) {
     "use strict";
     $dom.module.push = function(elem) {
@@ -495,7 +587,7 @@ function() {
             $this.each(function(i) {
                 var val = this.getAttribute(attr);
                 list.push(isString(val) ? val + "<>" + i : "zabc<>" + i);
-            }), list = "number" === option.type ? list.sort(function(a, b) {
+            }), list = "number" === option.method ? list.sort(function(a, b) {
                 var ap = Number(a.split("<>")[0]), bp = Number(b.split("<>")[0]);
                 return ap || (ap = 999999999999999), bp || (bp = 999999999999999), ap > bp ? 1 : -1;
             }) : list.sort(), "descending" === option.direction && (list = list.reverse());

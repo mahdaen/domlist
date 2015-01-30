@@ -715,7 +715,7 @@
             });
 
             /* Use custom sort compare if type is number.*/
-            if (option.type === 'number') {
+            if (option.method === 'number') {
                 /* Sort values with custom compare */
                 list = list.sort(function(a, b) {
                     var ap = Number(a.split('<>')[0]);
