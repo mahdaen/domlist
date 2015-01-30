@@ -351,7 +351,7 @@ function() {
         "default": []
     }, DOMAjax = function(options) {
         var $this = this;
-        if (!isObject(options) || !options.url || !isURL(options.url)) throw "Request needs URL to proceed.";
+        if (!isObject(options) || !options.url || !isString(options.url)) throw "Request needs URL to proceed.";
         var xhr = XMLHttpRequest || ActiveXObject;
         return this.request = new xhr("MSXML2.XMLHTTP.3.0"), this.async = !0, this.body = void 0, 
         this.handlers = {}, this.headers = void 0, this.name = void 0, this.params = void 0, 
@@ -360,8 +360,10 @@ function() {
             $this.hasOwnProperty(key) ? $this[key] = value : $this.handlers[key] = value;
         }), this.method = isString(this.method) ? this.method.toUpperCase() : "GET", this.params && (this.encodeParams(options.params), 
         this.url += (this.url.indexOf("?") > 0 ? "&" : "?") + this.params, "GET" === this.method), 
-        this.request.open(this.method, this.url, this.async), this.headers && this.setRequestHeader(), 
-        this.withCredentials && (this.request.withCredentials = this.withCredentials), this.request.onreadystatechange = function(event) {
+        this.request.open(this.method, this.url, this.async), this.request.setRequestHeader("X-Requested-With", "XMLHttpRequest"), 
+        isString(this.params) && this.request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), 
+        this.headers && this.setRequestHeader(), this.withCredentials && (this.request.withCredentials = this.withCredentials), 
+        this.request.onreadystatechange = function(event) {
             4 === $this.request.readyState && $this.handle("success", event);
         }, this.request.onerror = function(event) {
             var error = new Error("Unable to process request.");
@@ -370,6 +372,10 @@ function() {
             $this.request["on" + type] = function(event) {
                 $this.handle(type, event);
             };
+        }), this.request.upload && foreach([ "abort", "error", "loadstart", "loadend", "progress", "load", "timeout" ], function(type) {
+            $this.request.upload.addEventListener(type, function(event) {
+                $this.handle(type, event);
+            });
         }), this.name ? AJAXList[this.name] = this : AJAXList["default"].push(this), this.request.send(this.body ? this.body : this.params), 
         this;
     };
@@ -382,7 +388,7 @@ function() {
             if ("json" === this.type.toLowerCase()) try {
                 result = JSON.parse(this.request.responseText);
             } catch (error) {
-                throw "Unable to parse response to JSON.";
+                result = this.request.responseText;
             } else result = this.request.responseText;
             return this.response = result, this;
         },
@@ -400,7 +406,7 @@ function() {
             }), this;
         },
         handle: function(type, event, error) {
-            return error ? this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, error, this.request) : "success" === type ? (this.extract(), 
+            return error || "error" === type ? this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, error, this.request) : "success" === type ? (this.extract(), 
             this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, this.response, this.request, event)) : this.handlers[type] && isFunction(this.handlers[type]) && this.handlers[type].call(this, this.request, event), 
             this;
         }

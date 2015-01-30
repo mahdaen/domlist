@@ -1514,7 +1514,7 @@ window.circle = function(obj, reversed) {
         var $this = this;
 
         /* Request should use URL */
-        if (!isObject(options) || !options.url || !isURL(options.url)) throw 'Request needs URL to proceed.';
+        if (!isObject(options) || !options.url || !isString(options.url)) throw 'Request needs URL to proceed.';
 
         /* Creating Request Object */
         var xhr = XMLHttpRequest || ActiveXObject;
@@ -1558,7 +1558,11 @@ window.circle = function(obj, reversed) {
         this.request.open(this.method, this.url, this.async);
 
         /* Applying Headers */
+        this.request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        if (isString(this.params)) this.request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         if (this.headers) this.setRequestHeader();
+
 
         /* Applying Options to Request */
         if (this.withCredentials) this.request.withCredentials = this.withCredentials;
@@ -1588,6 +1592,15 @@ window.circle = function(obj, reversed) {
                 $this.handle(type, event);
             };
         });
+
+        /* Upload event listener */
+        if (!!this.request.upload) {
+            foreach(['abort', 'error', 'loadstart', 'loadend', 'progress', 'load', 'timeout'], function(type) {
+                $this.request.upload.addEventListener(type, function(event) {
+                    $this.handle(type, event);
+                });
+            });
+        }
 
         /* Adding to Ajax List */
         if (this.name) {
@@ -1623,8 +1636,7 @@ window.circle = function(obj, reversed) {
                 try {
                     result = JSON.parse(this.request.responseText);
                 } catch (error) {
-                    throw 'Unable to parse response to JSON.';
-                    result = error;
+                    result = this.request.responseText;
                 }
             } else {
                 result = this.request.responseText;
@@ -1664,7 +1676,7 @@ window.circle = function(obj, reversed) {
 
         /* Request Handler */
         handle: function(type, event, error) {
-            if (error) {
+            if (error || type === 'error') {
                 if (this.handlers[type] && isFunction(this.handlers[type])) {
                     this.handlers[type].call(this, error, this.request);
                 }
