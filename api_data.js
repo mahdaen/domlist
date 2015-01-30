@@ -2087,6 +2087,44 @@ define({ "api": [
     "groupTitle": "7__Events"
   },
   {
+    "version": "2.3.2",
+    "group": "7__Events",
+    "type": "handle",
+    "url": "DOMList.handle(type,handler);",
+    "title": ".handle()",
+    "name": "Handle",
+    "description": "<p>Add event handler to selected elements.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Multi",
+            "optional": false,
+            "field": "type",
+            "description": "<p>String event type or object contains events or array type list.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": true,
+            "field": "handler",
+            "description": "<p>Function to handle event.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "// Hanlde single event.\n$dom('span').handle('click', function() {});\n\n// Handle multiple events.\n$dom('span').handle({\n    click: function() {},\n    mouseenter: function() {}\n});\n\n// Handle multiple event with single handler.\n$dom('span').handle(['click', 'focus'], function() {});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.3.2.js",
+    "groupTitle": "7__Events"
+  },
+  {
     "version": "2.1.0",
     "group": "7__Events",
     "type": "handle",
@@ -3414,41 +3452,254 @@ define({ "api": [
     "groupTitle": "9__Animation"
   },
   {
-    "version": "2.3.2",
-    "group": "Events",
-    "type": "handle",
-    "url": "DOMList.handle(type,handler);",
-    "title": ".handle()",
-    "name": "Handle",
-    "description": "<p>Add event handler to selected elements.</p> ",
+    "version": "2.4.0",
+    "group": "A__DOMAjax",
+    "type": "ajax",
+    "url": "$dom.ajax(options);",
+    "title": "$dom.ajax()",
+    "name": "ajax",
+    "description": "<p>Perform AJAX request.</p> ",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Multi",
+            "type": "Object",
             "optional": false,
-            "field": "type",
-            "description": "<p>String event type or object contains events or array type list.</p> "
+            "field": "options",
+            "description": "<p>Object that held ajax options.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "options.url",
+            "description": "<p>String target URL.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "options.method",
+            "description": "<p>String method name. Default is GET.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "options.type",
+            "description": "<p>String type of result should be. Default is JSON.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "options.params",
+            "description": "<p>Object parameters to send in request.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "options.name",
+            "description": "<p>String name of current request. Usable when you want to abort the request.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": true,
+            "field": "options.async",
+            "description": "<p>Boolean does use async or not. Default is true.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "options.body",
+            "description": "<p>Object request body to send.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": true,
+            "field": "options.withCredentials",
+            "description": "<p>Boolean does use credentials or not. Default is false.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "options.headers",
+            "description": "<p>Object to set headers in request.</p> "
           },
           {
             "group": "Parameter",
             "type": "Function",
             "optional": true,
-            "field": "handler",
-            "description": "<p>Function to handle event.</p> "
+            "field": "options.handler",
+            "description": "<p>Function to handle request event. <br/> Available event is: success, error, loadstart, load, loadend, abort, timeout, progress. <br/> All events also available as ajax prototype. <br/> Success event will get: (data,xhr,event) as parameters. <br/> Errors event will get: (error,xhr) as parameters. <br/> Global event will get: (xhr,event) as parameters. <br/></p> "
           }
         ]
       }
     },
     "examples": [
       {
-        "title": "Sample",
-        "content": "// Hanlde single event.\n$dom('span').handle('click', function() {});\n\n// Handle multiple events.\n$dom('span').handle({\n    click: function() {},\n    mouseenter: function() {}\n});\n\n// Handle multiple event with single handler.\n$dom('span').handle(['click', 'focus'], function() {});",
+        "title": "Sample - Simple",
+        "content": "// Simple ajax request\n$dom.ajax({\n    url: 'http://code.mahdaen.name/api/v3/projects?private_token=9d9234kdiw2',\n    success: function(data, xhr, event) {\n        console.log(data, xhr, event);\n    }\n});",
+        "type": "js"
+      },
+      {
+        "title": "Sample - With Params",
+        "content": "// Ajax request with params.\n$dom.ajax({\n    url: 'http://code.mahdaen.name/api/v3/projects/1/issues',\n    params: {\n        private_token: '9d9234kdiw2',\n        id: 1,\n        title: 'Test post issue'\n    },\n    method: 'POST',\n    success: function(data, xhr, event) {\n        console.log('Issue \"' + data.title + '\" created.');\n    }\n);",
+        "type": "js"
+      },
+      {
+        "title": "Sample - Event Handler",
+        "content": "$dom.get('http://code.mahdaen.name/api/v3/projects?private_token=2kis934kk9')\n    .success(function(data,xhr,event) {})\n    .error(function(error,xhr) {})\n    .progress(function(xhr,event) {})\n    .timeout(function(xhr,event) {});",
+        "type": "js"
+      },
+      {
+        "title": "Sample - Abort",
+        "content": "var gProj = $dom.get('http://code.mahdaen.name/api/v3/projects?private_token=2993kdksfi', {\n    name: 'getProjects'\n});\n\n// Stop directly.\ngProj.stop();\n\n// Stop using abort.\n$dom.abort('getProjects');\n\n// Stop all ajax requests.\n$dom.abort();",
         "type": "js"
       }
     ],
-    "filename": "tags/v2.3.2.js",
-    "groupTitle": "Events"
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
+  },
+  {
+    "version": "2.4.0",
+    "group": "A__DOMAjax",
+    "type": "ajaxdelete",
+    "url": "$dom.delete(url,options);",
+    "title": "$dom.delete()",
+    "name": "ajaxdelete",
+    "description": "<p>Perform ajax request with &#39;DELETE&#39; method.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>String target URL.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Object request options.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
+  },
+  {
+    "version": "2.4.0",
+    "group": "A__DOMAjax",
+    "type": "ajaxget",
+    "url": "$dom.get(url,options);",
+    "title": "$dom.get()",
+    "name": "ajaxget",
+    "description": "<p>Perform ajax request with &#39;GET&#39; method.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>String target URL.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Object request options.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
+  },
+  {
+    "version": "2.4.0",
+    "group": "A__DOMAjax",
+    "type": "ajaxpost",
+    "url": "$dom.post(url,options);",
+    "title": "$dom.post()",
+    "name": "ajaxpost",
+    "description": "<p>Perform ajax request with &#39;POST&#39; method.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>String target URL.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Object request options.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
+  },
+  {
+    "version": "2.4.0",
+    "group": "A__DOMAjax",
+    "type": "ajaxput",
+    "url": "$dom.put(url,options);",
+    "title": "$dom.put()",
+    "name": "ajaxput",
+    "description": "<p>Perform ajax request with &#39;PUT&#39; method.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>String target URL.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Object request options.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
+  },
+  {
+    "version": "2.4.0",
+    "group": "A__DOMAjax",
+    "type": "stop",
+    "url": "$dom.stop();",
+    "title": "$dom.stop()",
+    "name": "stop",
+    "description": "<p>Stop current ajax request.</p> ",
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
   }
 ] });
