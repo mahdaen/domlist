@@ -3692,6 +3692,44 @@
     "groupTitle": "A__DOMAjax"
   },
   {
+    "version": "2.4.2",
+    "group": "A__DOMAjax",
+    "type": "loadURL",
+    "url": "DOMList.loadURL(url,callback);",
+    "title": ".loadURL()",
+    "name": "loadURL",
+    "description": "<p>Set content of selected elements by loading contents from URL.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>String target URL.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": true,
+            "field": "callback",
+            "description": "<p>Function that will be called when content loaded or error occurs.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "// Without callback\n$dom('.profile').loadURL('http://domain.com/profile?id=23999');\n\n// With callback\n$dom('.profile').loadURL('http://domain.com/profile?id=293944', function(data,err) {\n    if (!err) {\n        console.log('success');\n    }\n});",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "A__DOMAjax"
+  },
+  {
     "version": "2.4.0",
     "group": "A__DOMAjax",
     "type": "stop",
