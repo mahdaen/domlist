@@ -126,5 +126,27 @@
  * @apiDescription Stop current ajax request.
  */
 
+/**
+ * @apiVersion 2.4.2
+ * @apiGroup A. DOMAjax
+ *
+ * @api {loadURL} DOMList.loadURL(url,callback); .loadURL()
+ * @apiName loadURL
+ * @apiDescription Set content of selected elements by loading contents from URL.
+ *
+ * @apiParam {String} url String target URL.
+ * @apiParam {Function} [callback] Function that will be called when content loaded or error occurs.
+ *
+ * @apiExample {js} Sample
+ * // Without callback
+ * $dom('.profile').loadURL('http://domain.com/profile?id=23999');
+ *
+ * // With callback
+ * $dom('.profile').loadURL('http://domain.com/profile?id=293944', function(data,err) {
+ *     if (!err) {
+ *         console.log('success');
+ *     }
+ * });
+ */
 
 //

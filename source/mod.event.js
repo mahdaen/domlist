@@ -6,28 +6,9 @@
         this.events = {};
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup EventProvider
-     *
-     * @api {eventprovider} EventProvider .about
-     * @apiName EventProvider
-     * @apiDescription Create or trigger custom event to element.
-     */
+    /* Event Provider Core Function */
     EventProvider.prototype = {
-        /**
-         * @apiVersion 2.1.0
-         * @apiGroup EventProvider
-         *
-         * @api EventProvider.search(name); .search()
-         * @apiName evSearch
-         * @apiDescription Search custom event.
-         *
-         * @apiParam {String} name String event name.
-         *
-         * @apiExample {js} Sample
-         * EventProvider.search('swipe'); // Return swipe event provider object.
-         */
+        /* Search Event Provider */
         search: function(name) {
             if (isString(name)) {
                 return isObject(this.events[name]) ? this.events[name] : undefined;
@@ -36,38 +17,7 @@
             return undefined;
         },
 
-        /**
-         * @apiVersion 2.1.0
-         * @apiGroup EventProvider
-         * @api {register} EventProvider.register(name,maker,options); .register()
-         * @apiName evRegister
-         * @apiDescription Register custom event.
-         *
-         * @apiParam {String} name String custom event name.
-         * @apiParam {Function} maker Function that handle event initialization. This function will be called by element if element listen to that event. You must manually trigger that event under this function.
-         * @apiParam {Object} options Custom event options. E.g { bubbles: false, cancelable: false, detail: undefind }
-         *
-         * @apiExample {js} Sample
-         * // Registering custom event.
-         * EventProvider.register('maxclick', function() {
-         *     // Listen click to the element.
-         *     $dom(this).click(function() {
-         *         if (!this.maxclick) this.maxclick = 1;
-         *
-         *         if (this.maxclick === 5) {
-         *             // Trigger the event to target and add maxclick property to event object.
-         *             EventProvider.dispatch('maxclick', this, { maxclick: this.maxclick });
-         *         } else {
-         *             this.maxclick++;
-         *         }
-         *     });
-         * });
-         *
-         * // Listening event.
-         * $dom('span').handle('maxclick', function(e) {
-         *     console.log('Your reached max click: ' + e.maxclick);
-         * });
-         */
+        /* Register Event Provider */
         register: function(name, provider, options) {
             if (isString(name) && isFunction(provider)) {
                 this.events[name] = {
@@ -79,30 +29,7 @@
             return this.events[name].event;
         },
 
-        /**
-         * @apiVersion 2.1.0
-         * @apiGroup EventProvider
-         *
-         * @api {dispatch} EventProvider.dispatch(name,targetElement,properties); .dispatch()
-         * @apiName evDispatch
-         * @apiDescription Trigger custom event to element.
-         *
-         * @apiParam {String} Custom event name.
-         * @apiParam {HTMLElement} HTML Element to trigger custom event on.
-         * @apiParam {Object} [properties] Properties that will be added to event object. E.g { a: 1, b: 2 }. Then when event listener will get 'event.a' and 'event.b'.
-         *
-         * @apiExample {js} Sample
-         * $dom('span')
-         *     // Create listener.
-         *     .handle('foo', function(e) {
-         *         console.log(e.a, e.b);
-         *     })
-         *
-         *     // Triggering event.
-         *     .each(function() {
-         *         EventProvider.dispatch('foo', this, { a: 1, b: 2 });
-         *     });
-         */
+        /* Dispatch Event Provider */
         dispatch: function(name, elem, props) {
             if (isString(name) && isHTML(elem) && this.events[name]) {
                 var event = this.events[name].event;
@@ -223,71 +150,17 @@
         return $this;
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup Events
-     * @api {ready} DOMList.ready(handler); $dom.ready()
-     * @apiName Ready
-     * @apiDescription Add handler to handle when document is ready to manipulate.
-     *
-     * @apiParam {Function} handler Function that handle when document is ready to manipulate.
-     *
-     * @apiExample {js} Sample
-     * $dom.ready(function() { console.log('document ready'); });
-     */
+    /* Document Ready Event */
     $dom.ready = function(handler) {
         return new DocLoadListener('ready', handler);
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup Events
-     * @api {loaded} DOMList.loaded(handler); $dom.loaded()
-     * @apiName Loaded
-     * @apiDescription Add handler to handle when document is fully loaded.
-     *
-     * @apiParam {Function} handler Function that handle when document is loaded to manipulate.
-     *
-     * @apiExample {js} Sample
-     * $dom.loaded(function() { console.log('document loaded'); });
-     */
+    /* Document Fully Loaded Event */
     $dom.loaded = function(handler) {
         return new DocLoadListener('loaded', handler);
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup Events
-     *
-     * @api {listen} DOMList.listen(name,type,handler); .listen()
-     * @apiName Listen
-     * @apiDescription Add named event handler to selected elements.
-     * Named event handler give possibility to remove event handler only that has specific name, not remove all event handler.
-     *
-     * @apiParam {Multi} name String handler name, or object contains names, types and handlers.
-     * @apiParam {Multi} type String event type, or object contains types.
-     * @apiParam {Function} handler Function to handle event.
-     *
-     * @apiExample {js} Sample #1
-     * // Handle click on spans with name fooclick.
-     * $dom('span').listen('fooclick', 'click', function() {});
-     *
-     * // Handle multiple event with name foo.
-     * $dom('span').listen('foo', {
-     *     click: function() {},
-     *     mouseenter: function() {}
-     * );
-     *
-     * // Handle mutiple name and events.
-     * $dom('span').listen({
-     *     foo: {
-     *         click: function() {}
-     *     },
-     *     bar: {
-     *         click: function() {}
-     *     }
-     * });
-     */
+    /* Event Listener */
     $dom.module.listen = function(name, type, handler) {
         this.each(function() {
             var elem = this;
@@ -376,33 +249,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup Events
-     *
-     * @api {unlisten} DOMList.unlisten(name,type); .unlisten()
-     * @apiName Unlisten
-     * @apiDescription Remove named event handler from selected elements.
-     *
-     * @apiParam {Multi} name handler name or array handler names.
-     * @apiParam {Multi} [type] String event type or array event types. Leave blank to remove all event from that name.
-     *
-     * @apiExample {js} Sample
-     * // Remove fooclick handler.
-     * $dom('span').unlisten('fooclick');
-     *
-     * // Remove click event from foo.
-     * $dom('span').unlisten('foo', 'click');
-     *
-     * // Remove click event from foo and bar.
-     * $dom('span').unlisten(['foo', 'bar'], 'click');
-     *
-     * // Remove click and mouseenter event from foo.
-     * $dom('span').unlisten('foo', ['click', 'mouseenter']);
-     *
-     * // Remove click and mouseenter event from foo and bar.
-     * $dom('span').unlisten(['foo', 'bar'], ['click', 'moueseenter']);
-     */
+    /* Event Unlistener */
     $dom.module.unlisten = function(name, type) {
         var self = this;
         if (isString(name)) {
@@ -446,30 +293,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.3.2
-     * @apiGroup Events
-     *
-     * @api {handle} DOMList.handle(type,handler); .handle()
-     * @apiName Handle
-     * @apiDescription Add event handler to selected elements.
-     *
-     * @apiParam {Multi} type String event type or object contains events or array type list.
-     * @apiParam {Function} [handler] Function to handle event.
-     *
-     * @apiExample {js} Sample
-     * // Hanlde single event.
-     * $dom('span').handle('click', function() {});
-     *
-     * // Handle multiple events.
-     * $dom('span').handle({
-     *     click: function() {},
-     *     mouseenter: function() {}
-     * });
-     *
-     * // Handle multiple event with single handler.
-     * $dom('span').handle(['click', 'focus'], function() {});
-     */
+    /* Handle Events */
     $dom.module.handle = function(type, handler) {
         var $this = this;
 
@@ -486,23 +310,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup Events
-     *
-     * @api {unhandle} DOMList.unhandle(type); .unhandle()
-     * @apiName Unhandle
-     * @apiDescription Remove event handler from selected elements.
-     *
-     * @apiParam {Multi} type String event type or array type list.
-     *
-     * @apiExample {js} Sample
-     * // Remove single event.
-     * $dom('span').unhandle('click');
-     *
-     * // Remove multiple event.
-     * $dom('span').unhandle(['click', 'mouseenter']);
-     */
+    /* Unhandle events */
     $dom.module.unhanlde = function(type) {
         if (isString(type) || isArray(type)) {
             this.unlisten('default', type);
@@ -518,33 +326,7 @@
         FocusEvent: 'blur focus focusin focusout'.split(/\s+/)
     };
 
-    /**
-     * @apiVersion 2.1.0
-     * @apiGroup Events
-     *
-     * @api {trigger} DOMList.trigger(type,properties); .trigger()
-     * @apiName Trigger
-     * @apiDescription Dispatch an event to selected elements. You can also use alias .dispatch().
-     *
-     * @apiParam {String} type String event type. You can use array to dispatch multiple event.
-     * @apiParam {Object} properties Object contains additional properties to added to event object.
-     *
-     * @apiExample {js} Sample
-     * // Dispatch click event to button.
-     * $dom('button').trigger('click');
-     *
-     * // Dispatch multiple event.
-     * $dom('button').trigger(['focus', 'click']);
-     *
-     * // Dispatch click event with additional properties.
-     * // Create listener.
-     * $dom('button').click(function(e) {
-     *     console.log(e.sender);
-     * };
-     *
-     * // Trigger
-     * $dom('button').trigger('click', { sender: 'document' });
-     */
+    /* Trigger Events */
     $dom.module.trigger = $dom.module.dispatch = function(type, props) {
         /* Event type should be string or array */
         if (isString(type)) {

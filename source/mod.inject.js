@@ -1,34 +1,7 @@
 (function($root, $dom) {
     'use strict';
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {append} DOMList.append(childs); .append()
-     * @apiName Append
-     * @apiDescription Append childs to first selected elements.
-     *
-     * @apiParam {Any} childs HTML Element, DOMList, Array, HTML Formatted String, or String CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * // Append HTML Element.
-     * var elm = document.querySelector('foo');
-     * $dom('.wrapper').append(elm);
-     *
-     * @apiExample {js} Sample #2
-     * // Append DOMList or Array.
-     * var elm = $dom('.foo');
-     * $dom('.wrapper').append(elm);
-     *
-     * @apiExample {js} Sample #3
-     * // Append HTML formatted string.
-     * $dom('.wrapper').append('<span class="bar">');
-     *
-     * @apiExample {js} Sample #4
-     * // Append with query.
-     * $dom('.wrapper').append('.foo');
-     */
+    /* Append Childrens */
     $dom.module.append = function(childs) {
         var $this = this;
 
@@ -66,34 +39,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {prepend} DOMList.prepend(childs) .prepend()
-     * @apiName Prepend
-     * @apiDescription Prepend elements to first selected element.
-     *
-     * @apiParam {Any} childs HTML Element, DOMList, Array, HTML Formatted String, or String CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * // Prepend HTML Element.
-     * var elm = document.querySelector('foo');
-     * $dom('.wrapper').prepend(elm);
-     *
-     * @apiExample {js} Sample #2
-     * // Prepend DOMList or Array.
-     * var elm = $dom('.foo');
-     * $dom('.wrapper').prepend(elm);
-     *
-     * @apiExample {js} Sample #3
-     * // Prepend HTML formatted string.
-     * $dom('.wrapper').prepend('<span class="bar">');
-     *
-     * @apiExample {js} Sample #4
-     * // Prepend with query.
-     * $dom('.wrapper').prepend('.foo');
-     */
+    /* Prepend Childrens */
     $dom.module.prepend = function(childs) {
         var $this = this;
 
@@ -164,19 +110,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {appendto} DOMList.appendTo(destination) .appendTo()
-     * @apiName AppendTo
-     * @apiDescription Append selected elements to destination element.
-     *
-     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.foo').appendTo('.wrapper');
-     */
+    /* Append this to target element */
     $dom.module.appendTo = function(destination) {
         var $this = this;
 
@@ -213,19 +147,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {perependto} DOMList.prependTo(destination) .prependTo()
-     * @apiName PrependTo
-     * @apiDescription Prepend selected elements to destination element.
-     *
-     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.foo').prependTo('.wrapper');
-     */
+    /* Prepend this to target element */
     $dom.module.prependTo = function(destination) {
         var $this = this;
 
@@ -303,19 +225,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {insertbefore} DOMList.insertBefore(destination) .insertBefore()
-     * @apiName insertBefore
-     * @apiDescription Insert selected elements before the destination element.
-     *
-     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.foo').insertBefore('.bar');
-     */
+    /* Insert this before element */
     $dom.module.insertBefore = function(destination) {
         var $this = this;
 
@@ -357,19 +267,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {insertafter} DOMList.insertAfter(destination) .insertAfter()
-     * @apiName insertAfter
-     * @apiDescription Insert selected elements after the destination element.
-     *
-     * @apiParam {Any} destination HTML Element, DOMList, or CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.foo').insertAfter('.bar');
-     */
+    /* Insert this after element */
     $dom.module.insertAfter = function(destination) {
         var $this = this;
 
@@ -411,20 +309,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {text} DOMList.text(value); .text()
-     * @apiName Text
-     * @apiDescription Get the first selected elements innerText or set all selected elements innerText.
-     *
-     * @apiParam {Any} value Inner text value.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').text(); // Get first selected span innerText
-     * $dom('span').text('foo'); // Set all span innerText to foo.
-     */
+    /* Get or set innerText */
     $dom.module.text = function(value) {
         if (this.length <= 0) return this;
 
@@ -443,17 +328,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {Texts} DOMList.texts(); .texts()
-     * @apiName Texts
-     * @apiDescription Get selected elements innerText.
-     *
-     * @apiExample {js} Sample #1
-     * $('span').texts();
-     */
+    /* Get or set all innerText from selected elements */
     $dom.module.texts = function() {
         var result = [];
 
@@ -464,20 +339,7 @@
         return result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {html} DOMList.html(value); .html()
-     * @apiName HTML
-     * @apiDescription Get the first selected elements innerHTML or set all selected elements innerHTML.
-     *
-     * @apiParam {Any} value Inner html value. Using DOMList or Array Element List will append them to the first selected element.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').html(); // Get first selected span innerHTML
-     * $dom('span').html('foo'); // Set all span innerHTML to foo.
-     */
+    /* Get or set innerHTML */
     $dom.module.html = function(value) {
         if (this.length <= 0) return this;
 
@@ -498,17 +360,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {HTMLs} DOMList.htmls(); .htmls()
-     * @apiName HTMLs
-     * @apiDescription Get selected elements innerHTML
-     *
-     * @apiExample {js} Sample #1
-     * $('span').htmls();
-     */
+    /* Get or set all innerHTML from selected elements */
     $dom.module.htmls = function() {
         var result = [];
 
@@ -519,17 +371,7 @@
         return result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {clone} DOMList.clone(); .clone()
-     * @apiName Clone
-     * @apiDescription Clone selected elements.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').clone();
-     */
+    /* Clone selected elements */
     $dom.module.clone = function() {
         var cloned = [];
 
@@ -541,17 +383,7 @@
         return $dom(cloned);
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Injects
-     *
-     * @api {empty} DOMList.empty(); .empty()
-     * @apiName Empty
-     * @apiDescription Empty all selected elements.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').empty();
-     */
+    /* Empty selected elements */
     $dom.module.empty = function() {
         this.each(function() {
             try {

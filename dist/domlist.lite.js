@@ -345,7 +345,7 @@ function() {
     $dom.data = $root.DOMData = function(name, value, context) {
         return new DOMData(name, value, context);
     };
-}(window, DOMList), function(root, $) {
+}(window, DOMList), function($) {
     "use strict";
     var AJAXList = {
         "default": []
@@ -364,7 +364,7 @@ function() {
         isString(this.params) && this.request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), 
         this.headers && this.setRequestHeader(), this.withCredentials && (this.request.withCredentials = this.withCredentials), 
         this.request.onreadystatechange = function(event) {
-            4 === $this.request.readyState && $this.handle("success", event);
+            4 === $this.request.readyState && ($this.request.status >= 200 < 300 ? $this.handle("success", event) : $this.handle("error", event));
         }, this.request.onerror = function(event) {
             var error = new Error("Unable to process request.");
             $this.handle("error", event, error);
@@ -442,8 +442,17 @@ function() {
             url: url,
             method: "DELETE"
         }));
+    }, $.module.loadURL = function(url, callback) {
+        var $this = this;
+        return isString(url) && $.get(url, {
+            type: "html"
+        }).success(function(data) {
+            $this.html(data), isFunction(callback) && callback.call(null, data);
+        }).error(function(error) {
+            isFunction(callback) && callback.call(null, error, !0);
+        }), this;
     };
-}(window, DOMList), function($dom) {
+}(DOMList), function($dom) {
     "use strict";
     $dom.module.push = function(elem) {
         var $this = this;

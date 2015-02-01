@@ -1,23 +1,5 @@
-/**
- * Modules That's Returns Boolean.
- */
-
 (function($dom) {
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Checker
-     *
-     * @api {hasattr} DOMList.hasAttr(name); .hasAttr()
-     * @apiName HasAttr
-     * @apiDescription Check does the first selected element has specific attribute or not.
-     *
-     * @apiParam {Any} name String attribute name to check.<br>Use array to check does have one of attributes, or string separated by space to check does has both attribute.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').hasAttr('foo'); // Does has attribute foo.
-     * $dom('span').hasAttr(['foo', 'bar']); // Does has attribute foo or bar.
-     * $dom('span').hasAttr('foo bar'); // Does has attribute foo and bar.
-     */
+    /* Has Attribute Checker */
     $dom.module.hasAttr = function(name) {
         var has = false, hasfalse = false;
 
@@ -52,21 +34,7 @@
         return has;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Checker
-     *
-     * @api {hasdata} DOMList.hasData(name); .hasData()
-     * @apiName HasData
-     * @apiDescription Check does first selected element has specific data attribute.
-     *
-     * @apiParam {Any} String data-attribute name. Use array to check does has one of data-attribute, or use string to check does has both data-attribute.
-     *
-     * @apiExample Sample #1
-     * $dom('span').hasData('foo'); // Check does has data-attribute 'data-foo'.
-     * $dom('span').hasData(['foo', 'bar']); // Check does has data-attribute 'data-foo' or 'data-bar'.
-     * $dom('span').hasData('foo bar'); // Check does has data-attribute 'data-foo' and 'data-bar'.
-     */
+    /* Has Data Attribut Checker */
     $dom.module.hasData = function(name) {
         var has = false, hasfalse = false;
 
@@ -89,21 +57,7 @@
         return this.hasAttr(name);
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Checker
-     *
-     * @api {hasclass} DOMList.hasClass(name); .hasClass()
-     * @apiName HasClass
-     * @apiDescription Check does first selected element has specific class.
-     *
-     * @apiParam {Any} name String class name. Use array to check does has on of class, or use string space-delimiter to check does has both class.
-     *
-     * @apiExample Sample#1
-     * $dom('span').hasClass('foo'); // Check does has class foo.
-     * $dom('span').hasClass(['foo', 'bar']); // Check does has class foo or bar.
-     * $dom('span').hasClass('foo bar'); // Check does has class foo and bar.
-     */
+    /* Has Class Checker */
     $dom.module.hasClass = function(name) {
         var has = false, hasfalse = false;
 
@@ -138,20 +92,7 @@
         return has;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Checker
-     *
-     * @api {is} DOMList.is(query); .is()
-     * @apiName Is
-     * @apiDescription Check does first selected element is match with query or not.
-     *
-     * @apiParam {String} query CSS Selector string or HTML Element.
-     *
-     * @apiExample {js} Sample
-     * $dom('span.foo').is('.foo'); // true
-     * $dom('span.foo').is('.bar'); // false if span.foo don't have class bar.
-     */
+    /* Check is equal with condition */
     $dom.module.is = function(query) {
         if (this.length <= 0) return false;
 
@@ -164,20 +105,7 @@
         return false;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Checker
-     *
-     * @api {not} DOMList.not(query); .not()
-     * @apiName Not
-     * @apiDescription Check does first selected element is not match with query or not.
-     *
-     * @apiParam {String} query CSS Selector string or HTML Element.
-     *
-     * @apiExample {js} Sample
-     * $dom('span.foo').not('.foo'); // false
-     * $dom('span.foo').not('.bar'); // true if span.foo don't have class bar.
-     */
+    /* Check not equal with conditon */
     $dom.module.not = function(query) {
         return !this.is(query) ? true : false;
     };

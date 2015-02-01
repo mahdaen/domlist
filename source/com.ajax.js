@@ -6,7 +6,7 @@
  * @license MIT
  */
 
-(function(root, $) {
+(function($) {
     'use strict';
 
     /* Creating ajax list to save requested ajax. */
@@ -75,7 +75,7 @@
         /* Creating Request Hanlder */
         this.request.onreadystatechange = function(event) {
             if ($this.request.readyState === 4) {
-                if ($this.request.status == 200 || 201 || 202 || 203 || 204) {
+                if ($this.request.status >= 200 < 300) {
                     $this.handle('success', event);
                 }
                 else {
@@ -239,4 +239,21 @@
     $.delete = function(url, options) {
         return $.ajax(Object.merge(options, { url: url, method: 'DELETE' }));
     };
-})(window, DOMList);
+
+    /* DOMList Modules */
+    $.module.loadURL = function(url, callback) {
+        var $this = this;
+
+        if (isString(url)) {
+            $.get(url, { type: 'html' }).success(function(data) {
+                $this.html(data);
+
+                if (isFunction(callback)) callback.call(null, data);
+            }).error(function(error) {
+                if (isFunction(callback)) callback.call(null, error, true);
+            });
+        }
+
+        return this;
+    };
+})(DOMList);

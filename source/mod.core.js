@@ -1,24 +1,7 @@
 (function($dom) {
     'use strict';
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {push} DOMList.push(element); .push()
-     * @apiName Push
-     * @apiDescription Push single element or multiple element (DOMList or Array) to current DOMList. Using CSS selector string as element also accepted.
-     *
-     * @apiParam {Multi} element HTML Element, DOMList, Array Element List, or CSS Selector String.
-     *
-     * @apiExample Sample
-     * var foo = $dom('.foo');
-     * var bar = $dom('.bar')[0];
-     *
-     * foo.push(bar); // Push bar to foo.
-     * foo.push([bar]); // Push bar to foo.
-     * foo.push('.bar'); // Push bar to foo.
-     */
+    /* Module to push element to DOMList */
     $dom.module.push = function(elem) {
         var $this = this;
 
@@ -37,32 +20,12 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {first} DOMList.first(); .first()
-     * @apiName First
-     * @apiDescription Get the first child of selected elements. Return DOMList object.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').first();
-     */
+    /* Module to get first selected element in DOMList */
     $dom.module.first = function() {
         return this.length > 0 ? $dom(this[0]) : this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {firstchild} DOMList.firstChild(); .firstChild()
-     * @apiName FirstChild
-     * @apiDescription Get the first child of the first selected elements. Return DOMList object.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.container').firstChild();
-     */
+    /* Module to get first child element in first selected element */
     $dom.module.firstChild = function() {
         if (this.length <= 0) return this;
 
@@ -76,32 +39,12 @@
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {last} DOMList.last(); .last()
-     * @apiName Last
-     * @apiDescription Get the last child of selected elements. Return DOMList object.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').last();
-     */
+    /* Module to get last selected element in DOMList */
     $dom.module.last = function() {
         return this.length > 0 ? $dom(this[this.length - 1]) : this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {lastchild} DOMList.lastChild(); .lastChild()
-     * @apiName LastChild
-     * @apiDescription Get the last child of the first selected elements. Return DOMList object.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.container').lastChild();
-     */
+    /* Module to get last child element in first selected element */
     $dom.module.lastChild = function() {
         if (this.length <= 0) return this;
 
@@ -115,36 +58,12 @@
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {nth} DOMList.nth(index); .nth()
-     * @apiName NTH
-     * @apiDescription Get the selected elements by specific index. Return DOMList object.
-     *
-     * @apiParam {Number} index Index number. Start from 0.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').nth(0);
-     */
+    /* Module to get element by index number in DOMList */
     $dom.module.nth = function(i) {
         return isNumber(i) && this.hasOwnProperty(i) ? $dom(this[i]) : $dom();
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {nthChild} DOMList.nthChild(index); .nthChild()
-     * @apiName NthChild
-     * @apiDescription Get the child elements by specific index from the first selected elements. Return DOMList object.
-     *
-     * @apiParam {Number} index Index number. Start from 0.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.container').nthChild(3);
-     */
+    /* Module to get child element by index number in first selected element */
     $dom.module.nthChild = function(i) {
         if (this.length <= 0) return this;
 
@@ -158,17 +77,7 @@
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {children} DOMList.children(); .children()
-     * @apiName Children
-     * @apiDescription Get child elements of first selected element.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.container').children();
-     */
+    /* Module to get the child elements in first selected element */
     $dom.module.children = function() {
         var result = $dom();
 
@@ -186,39 +95,14 @@
         return result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {finder} DOMList.find(query); .find()
-     * @apiName Find
-     * @apiDescription Find elements from current selected elements.
-     *
-     * @apiParam {String} query CSS Selector string.
-     *
-     * @apiExample {js} Sample #1
-     * var wrap = $dom('.wrapper');
-     * var span = wrap.find('span');
-     */
+    /* Module to find element inside first selected element */
     $dom.module.find = function(query) {
         if (isString(query)) {
             return $dom(query, this);
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {filter} DOMList.filter(query); .filter()
-     * @apiName Filter
-     * @apiDescription Filter the selected elements with specific CSS Selector.
-     *
-     * @apiParam {String} query String CSS Selector to filter.
-     *
-     * @apiExample Sample #1
-     * $dom('span').filter('.a'); // Get all span and filter that has class 'a'.
-     */
+    /* Module to filter selected elements */
     $dom.module.filter = function(query) {
         var $this = this, $result = $dom();
 
@@ -253,23 +137,7 @@
         return $result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {iterator} DOMList.each(handler); .each()
-     * @apiName Iterator
-     * @apiDescription Iterate each element inside DOMList.
-     *
-     * @apiParam {Function} handler Function that handle each element. Element index will be provide as argument when calling handler.
-     * @apiParam {Boolean} [reversed] Does iteration is reversed or not.
-     *
-     * @apiExample {js} Sample #1
-     * var span = $dom('span');
-     * span.each(function(i) {
-         *     console.log(i, this);
-         * });
-     */
+    /* Module to iterate selected elements */
     $dom.module.each = function(handler, reversed) {
         if (this.length <= 0) return this;
 
@@ -288,50 +156,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {attr} DOMList.attr(name,value); .attr()
-     * @apiName Attr
-     * @apiDescription Attribute getter and setter. You can set value with anythings. They will be automatically converted. When you get the value, they also will be converted automatically.
-     *
-     * @apiParam {Any} name String attribute name or Object containing list of attributes or Array containing attribute name list.
-     * @apiParam {Any} [value] Attribute value.
-     *
-     * @apiExample {js} Sample #1
-     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-     *
-     * // Get all attributes.
-     * var attr = $dom('.foo').attr();
-     * //>> attr => { class: "foo", bar: 10, foo: false, foobar: [1,2,3] }
-     *
-     * @apiExample {js} Sample #2
-     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-     *
-     * // Get single attribute value.
-     * var attr = $dom('.foo').attr('foo');
-     * //>> attr => false
-     *
-     * @apiExample {js} Sample #3
-     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-     *
-     * // Set single attribute and value.
-     * $dom('.foo').attr('barfoo', { a: 1, b: 2, c: 3 });
-     *
-     * @apiExample {js} Sample #4
-     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-     *
-     * // Set multiple attribute and value.
-     * $dom('.foo').attr({ foo: true, bar: 100, foobar: { a: 1, b: 2, c: 3 } });
-     *
-     * @apiExample {js} Sample #5
-     * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
-     *
-     * // Set multiple attribute without values.
-     * $dom('.foo').attr(['solved', 'required', 'async']);
-     *
-     */
+    /* Module to set or get elements attribute */
     $dom.module.attr = function(name, value) {
         var $this = this;
 
@@ -429,21 +254,7 @@
         return $this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {remattr} DOMList.remAttr(name); .remAttr()
-     * @apiName RemAttr
-     * @apiDescription Remove one or many attribute from selected elements.
-     *
-     * @apiParam {Any} name String attribute name or array name list.<br />Use space to separate the attribute name for multiple removal. E.g 'foo bar'.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').remAtrr('foo'); // Remove single attribute.
-     * $dom('span').remAttr(['foo', 'bar']); // Remove multiple attribute.
-     * $dom('span').remAttr('foo bar'); // Remove multiple attribute.
-     */
+    /* Module to remove elements attribute */
     $dom.module.remAttr = function(name) {
         if (isString(name)) {
             if (name.match(/\s+/)) {
@@ -473,26 +284,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {data} DOMList.data(name,value); .data()
-     * @apiName Data
-     * @apiDescription Get first selected element data or set all selected elements data.
-     *
-     * @apiParam {Any} name String data-attribute name. E.g. 'profile' for 'data-profile'.<br>Use string space-delimiter to get or set multiple data-attribute. E.g 'foo bar' for 'data-foo data-bar'.
-     * @apiParam {Any} [value] Value to set. Leave blank if yout want to get the data-attribute-value. Use array to wrap values if you set multiple data-attribute.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('span').data(); // Get all data-attributes.
-     *
-     * $dom('span').data('foo'); // Get value of 'data-foo'.
-     * $dom('span').data('foo', {a: 1, b: 2}); // Set 'data-foo' value.
-     *
-     * $dom('span').data('foo bar'); // Get data-foo and data-bar.
-     * $dom('span').data('foo bar', [200, {a: 1, b: 2}]); // Set data-foo with 200, data-bar with object.
-     */
+    /* Module to get or set elements data attribute */
     $dom.module.data = function(name, value) {
         var $this = this;
 
@@ -542,20 +334,7 @@
         return $this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {remdata} DOMList.remData(name); .remData()
-     * @apiName RemData
-     * @apiDescription Remove data-attribute from selected elements.
-     *
-     * @apiParam {String} name String data-attribute name. E.g 'foo' for 'data-foo'.<br>Use space-delimiter to separate multiple name. E.g 'foo bar' for 'data-foo data-bar'.
-     *
-     * @apiExample Sample #1
-     * $dom('span').remData('foo'); // Remove data-foo.
-     * $dom('span').remData('foo bar'); // Remove data-foo and data-bar.
-     */
+    /* Module to remove elements data attribute */
     $dom.module.remData = function(name) {
         var $this = this;
 
@@ -574,21 +353,7 @@
         return $this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {prop} DOMList.prop(name,value); .prop()
-     * @apiName Prop
-     * @apiDescription Get the first selected elements property value or set all selected elements property value.<br />If element also have attribute with that name, setting property will also set the attribute.
-     *
-     * @apiParam {String} name String property name.
-     * @apiParam {Any} [value] String property value.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('input[type="text"]').prop('value'); // Get value.
-     * $dom('input[type="text"]').prop('value', 'Foo'); // Set value to Foo.
-     */
+    /* Module to get or set elements properties */
     $dom.module.prop = function(name, value) {
         var $this = this;
 
@@ -615,20 +380,7 @@
         return $this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {val} DOMList.val(value); .val()
-     * @apiName Val
-     * @apiDescription Get the first selected elements value or set all selected elements value.
-     *
-     * @apiParam {Any} [value] Value to set. Leave blank if you want to get the value.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('input[type="text"]').val(); // Get value.
-     * $dom('input[type="text"]').val('Foo'); // Set value to Foo.
-     */
+    /* Module to get or set elements value */
     $dom.module.val = function(value) {
         if (isDefined(value)) {
             this.prop('value', value);
@@ -637,17 +389,7 @@
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {remove} DOMList.remove(); .remove()
-     * @apiName Remove
-     * @apiDescription Remove selected elements.
-     *
-     * @apiExample {js} Sample #1
-     * $dom('.foo').remove();
-     */
+    /* Module to remove selected elements from document */
     $dom.module.remove = function() {
         this.each(function() {
             this.remove();
@@ -656,31 +398,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {sort} DOMList.sortBy(attr,options); .sortBy()
-     * @apiName Sort
-     * @apiDescription Sort selected elements by attribute value.
-     *
-     * @apiParam {String} attr Attribute name.
-     * @apiParam {Object} [options] Options to define value type or sort direction. type: 'string'|'number', direction: 'ascending'|'descending'.
-     *
-     * @apiExample {js} Sample #1
-     * // <span class="a" age="10" name="John"></span>
-     * // <span class="c" age="5" name="Michael"></span>
-     * // <span class="b" age="8" name="Gabriele"></span>
-     *
-     * // Sort by class.
-     * $dom('span').sortBy('class');
-     *
-     * // Sort by age with numeric sorter.
-     * $dom('span').sortBy('age', { type: 'number' });
-     *
-     * // Sort by name descending.
-     * $dom('span').sortBy('name', { direction: 'descending' });
-     */
+    /* Module to sort selected elements by attribute name */
     $dom.module.sortBy = function(attr, options) {
         var $this = this;
 
@@ -759,17 +477,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {toarray} DOMList.toArray(); .toArray()
-     * @apiName ToArray
-     * @apiDescription Convert DOMList to array.
-     *
-     * @apiExample Sample
-     * $dom('span').toArray(); // Convert DOMList contains span to array.
-     */
+    /* Module to convert DOMList to array */
     $dom.module.toArray = function() {
         var arr = [];
 
@@ -780,18 +488,7 @@
         return arr;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {parent} DOMList.parent() .parent()
-     * @apiName Parent
-     * @apiDescription Get the parent element of first selected element as DOMList object. Use 'true' as argument to get all parent elements.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').parent(); // Get the parent element of first span.
-     * $dom('span').parent(true); // Get parent element of all span.
-     */
+    /* Module to get parent element */
     $dom.module.parent = function(isall) {
         if (this.length <= 0) return this;
 
@@ -809,24 +506,7 @@
         return $result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {parentuntil} DOMList.parentUntil(query); .parentUntil()
-     * @apiName ParentUntil
-     * @apiDescription Get recrusive parent element of first selected element until match with query.
-     *
-     * @apiParam {String} query CSS Selector to match parent element or Function to handle each parent element to return true or false.
-     *
-     * @apiExample {js} Sample
-     * $dom('.foo').parentUntil('.container'); // Get the container of .foo.
-     *
-     * // Using function as query.
-     * $dom('.foo').parentUntil(function() {
-     *     return $dom(this).hasClass('container') : true : false
-     * });
-     */
+    /* Module to get parent element until meet with condition */
     $dom.module.parentUntil = function(query) {
         if (this.parent().get() === $dom('body').get()) return $dom();
 
@@ -849,16 +529,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     * @api {parents} DOMList.parents(); .parents()
-     * @apiName Parents
-     * @apiDescription Get all parent element of all selected elements as DOMList object.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').parents(); // Get the parent element of each span.
-     */
+    /* Module to get parent elements of each selected elements */
     $dom.module.parents = function() {
         var result = $dom();
 
@@ -869,14 +540,7 @@
         return result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {comment} DOMList.comment() .comment()
-     * @apiName Comment
-     * @apiDescription Comment out a block of selected elements.
-     */
+    /* Module to convert as comment */
     $dom.module.comment = function() {
         this.each(function() {
             this.orgHTML = this.outerHTML;
@@ -886,24 +550,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {match} DOMList.mathch(handler); .match()
-     * @apiName Match
-     * @apiDescription Filter selected elements using function.
-     * Hanlder should return true or false to tell matcher should current element should included or not.
-     * Hanlder will become an HTML Element.
-     * Matcher will return new DOMList object or null if no element matched.
-     *
-     * @apiParam {Function} handler Function to handler HTML Element to return true or false.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').match(function() {
-     *     return this.hasAttribute('href') ? true : false;
-     * });
-     */
+    /* Module to match selected element with condition */
     $dom.module.match = function(handler) {
         if (!isFunction(handler) || this.length <= 0) return this;
 
@@ -916,20 +563,7 @@
         return result.length > 0 ? result : null;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {get} DOMList.get(index); .get()
-     * @apiName Get
-     * @apiDescription Get HTML Element from selected elements by specific index. If no index defined, return first element.
-     *
-     * @apiParam {Number} index Index position of element. Started from 0.
-     *
-     * @apiExample {js} Sample
-     * // Get second element from selected elements.
-     * $dom('span').get(1);
-     */
+    /* Module to get element by index position and return as HTMLElement */
     $dom.module.get = function(index) {
         if (isNumber(index)) {
             return this[index] ? this[index] : undefined;
@@ -938,24 +572,7 @@
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {indexof} DOMList.indexOf(element); .indexOf()
-     * @apiName IndexOf
-     * @apiDescription Get index of element from selected elements.
-     *
-     * @apiParam {HTMLElement} element HTML ELement or string CSS Selector. Return -1 if not found.
-     *
-     * @apiExample {js} Sample
-     * // Get index number using HTML Element.
-     * var span = $dom('span').get(2);
-     * $dom('span').indexOf(span); // Return 2
-     *
-     * // Get index number using selector.
-     * $dom('span').indexOf('.foo');
-     */
+    /* Module to get index number of element */
     $dom.module.indexOf = function(elem) {
         if (isHTML(elem)) {
             return this.toArray().indexOf(elem);
@@ -966,18 +583,7 @@
         return -1;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {tostring} DOMList.toString(); .toString()
-     * @apiName ToString
-     * @apiDescription Convert first selected element to HTML String. Use 'true` as argument to convert all selected elements and return array.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').toString(); // Convert first selected element and return HTML String.
-     * $dom('span').toString(true); // Convert all elements and return array contains each HTML String.
-     */
+    /* Module to convert selected elements to HTML Stirng */
     $dom.module.toString = function(isall) {
         if (this.length <= 0) return undefined;
 
@@ -994,19 +600,7 @@
         }
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {wrap} DOMList.wrap(htmlstring); .wrap()
-     * @apiName Wrap
-     * @apiDescription Wrap selected elements with new element.
-     *
-     * @apiParam {HTMLString} htmlstring HTML String to wrap element.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').wrap('<div class="wrapper">');
-     */
+    /* Module to wrap selected element with new element */
     $dom.module.wrap = function(htmlstring) {
         if (isHTMLString(htmlstring)) {
             var result = $dom();
@@ -1021,19 +615,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     * @api {wrapchild} DOMList.wrapChild(htmlstring); .wrapChild()
-     * @apiName WrapChild
-     * @apiDescription Wrap child elements of selected elements with new element.
-     *
-     * @apiParam {HTMLString} htmlstring HTML String to wrap child element.
-     *
-     * @apiExample {js} Sample
-     * // Wrap the container childrens with new container.
-     * $dom('.container').wrapChild('<div class="inner-container">');
-     */
+    /* Module to wrap child elements of selected elements with new element */
     $dom.module.wrapChild = function(htmlstring) {
         if (isHTMLString(htmlstring)) {
             var result = $dom();
@@ -1062,17 +644,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {siblings} DOMList.siblings(); .siblings()
-     * @apiName Siblings
-     * @apiDescription Get sibling elements of first selected elements.
-     *
-     * @apiExample {js} Sample
-     * $dom('body').siblings(); // Return DOMList with <head> element since head is sibling of body.
-     */
+    /* Module to get siblings element */
     $dom.module.siblings = function() {
         if (this.length <= 0) return this;
 
@@ -1088,20 +660,7 @@
         return result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-
-     * @api {slice} DOMList.slice(index); .slice()
-     * @apiName Slice
-     * @apiDescription Remove element from the selected elements with specific index.
-     *
-     * @apiParam {Number} index Element index number. Use array to remove multiple element.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').slice(2); // Remove thrid element from selected elements.
-     * $dom('span').slice([0,3,2]); // Remove multiple element from selected elements.
-     */
+    /* Module to reduce selected elements */
     $dom.module.slice = function(index) {
         var result = $dom();
 
@@ -1118,20 +677,7 @@
         return result;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {remprop} DOMList.remProp(name); .remProp()
-     * @apiName RemProp
-     * @apiDescription Remove properties from selected elements. If properties also available in attributes, it's removed too.
-     *
-     * @apiParam {String} property String property name or array property name list.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').remProp('foo'); // Remove foo prop.
-     * $dom('span').remProp(['foo', 'bar']); // Remove foo and bar prop.
-     */
+    /* Module to remove properties from selected elements */
     $dom.module.remProp = function(prop) {
         if (isString(prop)) {
             this.each(function() {
@@ -1152,25 +698,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {replace} DOMList.replace(target,source); .replace()
-     * @apiName Replace
-     * @apiDescription Replace matched target in selected elements with new element or existing element.
-     *
-     * @apiParam {String} CSS Selector or HTML Element.
-     * @apiParam {String} HTML String to create new element or existing HTML Element.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').replace('.foo', '<span class="bar">'); // Replace using CSS Selector and HTML String.
-     *
-     * var foo = $dom('span').filter('.foo').get();
-     * var bar = $dom('span').filter('.bar').get();
-     *
-     * $dom('span').replace(foo, bar); // Replace using HTML Element.
-     */
+    /* Module to replace selected elements with other element */
     $dom.module.replace = function(trg, src) {
         if (isString(trg)) {
             return this.filter(trg).replaceWith(src);
@@ -1181,21 +709,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {replacewith} DOMList.replaceWith(source); .replaceWith()
-     * @apiName ReplaceWith
-     * @apiDescription Replace each selected elements with new element or existing element.
-     * Replacing with HTML Element will only replace the first selected element.
-     *
-     * @apiParam {String} source HTML String to create new element or existing HTML Element.
-     *
-     * @apiExample {js} Sample
-     * $dom('span').replaceWith('<a href="#">'); // Replace all span with new anchor element.
-     * $dom('span').replaceWith(document.getElementById('foo')); // Replace with existing element.
-     */
+    /* Module to replace all element with new element */
     $dom.module.replaceWith = function(elem) {
         if (this.length <= 0) return this;
 
@@ -1211,24 +725,7 @@
         return this;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     * @api {next} DOMList.next(query); .next()
-     * @apiName Next
-     * @apiDescription Get the next element after first selected element inside parent element.
-     *
-     * @apiParam {String} [query] CSS Selector to match the next element or Function to handle each next element and return true if match.
-     *
-     * @apiExample {js} Sample
-     * $dom('span.foo').next(); // Get the next element after span.foo inside parent element.
-     * $dom('span.foo').next('.bar'); // Get the next element after span.foo and the first match with .bar inside parent element.
-     *
-     * // Using function as query.
-     * $dom('.foo').next(function() {
-     *     return $dom(this).hasClass('bar') : true : false;
-     * });
-     */
+    /* Module to get next sibiling element */
     $dom.module.next = function(query) {
         if (this.length <= 0) return this;
 
@@ -1261,25 +758,7 @@
         return res;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {nextall} DOMList.nextAll(query); .nextAll()
-     * @apiName NextAll
-     * @apiDescription Get all element after first selected element.
-     *
-     * @apiParam {String} [query] CSS Selector to match the next element or Function to handle each next element and return true if match.
-     *
-     * @apiExample {js} Sample
-     * $dom('.foo').nextAll(); // Get all elements after .foo inside parent element.
-     * $dom('.foo').nextAll('.bar'); // Get all .bar elements after .foo inside parent element.
-     *
-     * // Using function as query.
-     * $dom('.foo').nextAll(function() {
-     *     return $dom(this).hasClass('bar') : true : false;
-     * });
-     */
+    /* Module to get next sibling elements after this element */
     $dom.module.nextAll = function(query) {
         if (this.length <= 0) return this;
 
@@ -1312,24 +791,7 @@
         return res;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {nextuntil} DOMList.nextUntil(query); .nextUntil()
-     * @apiName nextuntil
-     * @apiDescription Get all element after first selected element until found matched query.
-     *
-     * @apiParam {String} query CSS Selector to match the next element or Function to handle each next element and return true if match.
-     *
-     * @apiExample {js} Sample
-     * $dom('.foo').nextUntil('.bar'); // Get all elements after .foo until found .bar inside parent element.
-     *
-     * // Using function as query.
-     * $dom('.foo').nextUntil(function() {
-     *     return $dom(this).hasClass('bar') : true : false;
-     * });
-     */
+    /* Module to get next element until meet with condition */
     $dom.module.nextUntil = function(query) {
         if (this.length <= 0) return this;
 
@@ -1354,24 +816,7 @@
         return res;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     * @api {prev} DOMList.prev(query); .prev()
-     * @apiName Prev
-     * @apiDescription Get the prev element after first selected element inside parent element.
-     *
-     * @apiParam {String} [query] CSS Selector to match the prev element or Function to handle each prev element and return true if match.
-     *
-     * @apiExample {js} Sample
-     * $dom('span.foo').prev(); // Get the prev element after span.foo inside parent element.
-     * $dom('span.foo').prev('.bar'); // Get the prev element after span.foo and the first match with .bar inside parent element.
-     *
-     * // Using function as query.
-     * $dom('.foo').prev(function() {
-     *     return $dom(this).hasClass('bar') : true : false;
-     * });
-     */
+    /* Module to get previous element */
     $dom.module.prev = function(query) {
         if (this.length <= 0) return this;
 
@@ -1404,25 +849,7 @@
         return res;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {prevall} DOMList.prevAll(query); .prevAll()
-     * @apiName PrevAll
-     * @apiDescription Get all element before first selected element.
-     *
-     * @apiParam {String} [query] CSS Selector to match the prev element or Function to handle each prev element and return true if match.
-     *
-     * @apiExample {js} Sample
-     * $dom('.foo').prevAll(); // Get all elements before .foo inside parent element.
-     * $dom('.foo').prevAll('.bar'); // Get all .bar elements before .foo inside parent element.
-     *
-     * // Using function as query.
-     * $dom('.foo').prevAll(function() {
-     *     return $dom(this).hasClass('bar') : true : false;
-     * });
-     */
+    /* Module to get all previous elements */
     $dom.module.prevAll = function(query) {
         if (this.length <= 0) return this;
 
@@ -1455,24 +882,7 @@
         return res;
     };
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup Core
-     *
-     * @api {prevuntil} DOMList.prevUntil(query); .prevUntil()
-     * @apiName prevuntil
-     * @apiDescription Get all element before first selected element until found matched query.
-     *
-     * @apiParam {String} query CSS Selector to match the prev element or Function to handle each prev element and return true if match.
-     *
-     * @apiExample {js} Sample
-     * $dom('.foo').prevUntil('.bar'); // Get all elements before .foo until found .bar inside parent element.
-     *
-     * // Using function as query.
-     * $dom('.foo').prevUntil(function() {
-     *     return $dom(this).hasClass('bar') : true : false;
-     * });
-     */
+    /* Module to get all previous elements until meet with condition */
     $dom.module.prevUntil = function(query) {
         if (this.length <= 0) return this;
 

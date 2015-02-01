@@ -1,44 +1,5 @@
 (function($root, $dom) {
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup DOMList
-     *
-     * @api {domdata} $dom.data(name,value,context); $dom.data()
-     * @apiName DOMData
-     * @apiDescription Select elements that has data-attribute name or has data-attribute name with equal value. Using without arguments will select all elements that has data-attribute.
-     *
-     * @apiParam {Multi} name String data-attribute name. Use space-delimiter to select multiple name. Object contains data-attribute name and value. Array contains attributes name.
-     * @apiParam {Multi} [value] Compare with value if you use string in 'name'. If value is HTML element or DOMList, it's used as context.
-     * @apiParam {Multi} [context] HTML Element or DOMList as context.
-     *
-     * @apiExample {js} Sample #1
-     * $dom.data(); // Select elements that has data-attribute.
-     *
-     * @apiExample {js} Sample #2
-     * // It's like $dom('[data-foo="bar"]');
-     *
-     * $dom.data('foo', 'bar'); // Select elements that has data-attribute 'data-foo' and 'data-foo' value is 'bar'.
-     *
-     * $dom.data('foo bar'); // Select elements that has 'data-foo' or 'data-bar'.
-     * $dom.data(['foo', 'bar']); // Select elements that has 'data-foo' or 'data-bar'.
-     *
-     * @apiExample {js} Sample #3
-     * // It's like $dom('[data-foo="bar"], [data-bar="bar"]');
-     *
-     * $dom.data('foo bar', 'bar'); // Select elements that has 'data-foo' or 'data-bar' and both value is 'bar'.
-     *
-     * @apiExample {js} Sample #4
-     * // It's like $dom('[data-foo], [data-bar]', div);
-     *
-     * var div = $dom('.foobar');
-     * $dom.data('foo bar', div); // Select elements that has 'data-foo' or 'data-bar' from 'div' above.
-     *
-     * @apiExample {js} Sample #5
-     * // Using object as name will find elements that has both condition.
-     * // It's like $dom('[data-foo="bar"][data-bar]');
-     *
-     * $dom.data({ 'foo': 'bar', 'data-bar': '' }); // Select elements that has 'data-foo' and 'data-bar' and 'data-foo' value is 'bar'.
-     */
+    /* Core DOMData Selector */
     var DOMData = function(name, value, context) {
         /* Converting Value to JSON if object or array */
         if (isObject(value) || isArray(value)) {

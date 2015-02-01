@@ -10,41 +10,7 @@
 (function($root) {
     'use strict';
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup DOMList
-     *
-     * @api {selector} $dom(query,context); $dom()
-     * @apiName DOMList
-     *
-     * @apiDescription
-     * Select elements using CSS Selector or create new element using HTML formatted string.
-     * <br><br>
-     * Primary, DOMList using native .querySelectorAll() that's only supported by modern browsers (Chrome 31+, Firefox 33+, IE9+, Safari 7+).
-     * <br><br>
-     * If you want to use DOMList in older browser, you can load jQuery Sizzle before DOMList. DOMList will looking for Sizzle and use it if .querySelectorAll not found.
-     * <br/><br/>
-     *
-     * @apiParam {String} query HTML Element, DOMList, CSS Selector string or HTML formatted string for create element.
-     * @apiParam {Object} [context] CSS Selector String, HTML Element or DOMList to search in.
-     *
-     * @apiExample {js} Sample #1
-     * // Find elements with tag-name 'button'.
-     * var btn = $dom('button');
-     *
-     * @apiExample {js} Sample #2
-     * // Create new element using HTML formatted string.
-     * var btn = $dom('<a href="#" class="button">Anchor</a>');
-     *
-     * @apiExample {js} Sample #3
-     * // Find elements with tag-name 'button' from 'section'.
-     * var sc = $dom('section');
-     * var bt = $dom('button', sc);
-     *
-     * @apiExample {js} Sample #4
-     * // Find elements with tag-name 'button' from 'section' using CSS Selector string as context.
-     * var bt = $dom('button', '.wrapper');
-     */
+    /* DOMList Selector */
     var DOMList = function(query, context) {
         var $this = this, modern;
 
@@ -181,20 +147,7 @@
         $root.$dom = $root.DOMList;
     }
 
-    /**
-     * @apiVersion 2.0.0
-     * @apiGroup DOMList
-     * @api {extend} $dom.exnted(name,handler); $dom.extend()
-     * @apiName Extend
-     * @apiDescription Register DOMList Modules.
-     *
-     * @apiParam {Multi} name String module name or object contains modules.
-     * @apiParam {function} [handler] Function that handle module.
-     *
-     * @apiExample Sample
-     * $dom.extend('foo', function() {}); // Add module 'foo' to DOMList.
-     * $dom.extend({ foo: function() {}, bar: function() {} }); // Add multiple modules to DOMList.
-     */
+    /* Module Extender */
     $root.DOMList.extend = function(name, handler) {
         if (isString(name) && isFunction(handler)) {
             $root.DOMList.module[name] = handler;
