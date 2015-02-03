@@ -137,24 +137,7 @@ function() {
     window.func = function($name, $handler) {
         return new func($name, $handler);
     };
-}(), window.circle = function(obj, reversed) {
-    if (window.isObject(obj)) {
-        var nobj = {}, keys = Object.keys(obj), last = keys.length - 1;
-        return reversed ? (nobj[keys[last]] = obj[keys[last]], window.foreach(obj, function(key, value) {
-            key !== keys[last] && (nobj[key] = value);
-        })) : (window.foreach(obj, function(key, value) {
-            key !== keys[0] && (nobj[key] = value);
-        }), nobj[keys[0]] = obj[keys[0]]), nobj;
-    }
-    if (window.isArray(obj)) {
-        var narr = [], last = this.length - 1;
-        return reversed ? (narr.push(obj[last]), window.foreach(obj, function(value, index) {
-            index !== last && narr.push(value);
-        })) : (window.foreach(obj, function(value, index) {
-            0 !== index && narr.push(value);
-        }), narr.push(obj[0])), narr;
-    }
-}, function($root) {
+}(), function($root) {
     Array.isArray || (Array.prototype.isArray = function() {
         return "[object Array]" === Object.prototype.toString.call(this);
     }), Array.indexOf || (Array.prototype.indexOf = function(searchElement, fromIndex) {

@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                 files: {
                     'dist/domlist.js': [
                         /* Externals */
-                        'node_modules/native-js/dist/nativejs.js',
+                        'node_modules/native-js/dist/nativejs.clean.js',
 
                         /* Cores */
                         'source/com.polyfill.js',
