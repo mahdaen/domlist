@@ -149,4 +149,67 @@
  * });
  */
 
+/**
+ * @apiVersion 2.4.3
+ * @apiGroup 2. Core
+ *
+ * @api {attr} DOMList.attr(name,value,nodata); .attr()
+ * @apiName Attr
+ * @apiDescription Attribute getter and setter. You can set value with anythings. They will be automatically converted. When you get the value, they also will be converted automatically.
+ *
+ * @apiParam {Any} name String attribute name or Object containing list of attributes or Array containing attribute name list.
+ * @apiParam {Any} [value] Attribute value.
+ * @apiParam {boolean} [nodata] To get attribute as is without converting the result.
+ *
+ * @apiExample {js} Sample #1
+ * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+ *
+ * // Get all attributes.
+ * var attr = $dom('.foo').attr();
+ * //>> attr => { class: "foo", bar: 10, foo: false, foobar: [1,2,3] }
+ *
+ * @apiExample {js} Sample #2
+ * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+ *
+ * // Get single attribute value.
+ * var attr = $dom('.foo').attr('foo');
+ * //>> attr => false
+ *
+ * @apiExample {js} Sample #3
+ * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+ *
+ * // Set single attribute and value.
+ * $dom('.foo').attr('barfoo', { a: 1, b: 2, c: 3 });
+ *
+ * @apiExample {js} Sample #4
+ * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+ *
+ * // Set multiple attribute and value.
+ * $dom('.foo').attr({ foo: true, bar: 100, foobar: { a: 1, b: 2, c: 3 } });
+ *
+ * @apiExample {js} Sample #5
+ * // <span class="foo" bar="10" foo="false" foobar="[1,2,3]"></span>
+ *
+ * // Set multiple attribute without values.
+ * $dom('.foo').attr(['solved', 'required', 'async']);
+ *
+ */
+
+/**
+ * @apiVersion 2.4.3
+ * @apiGroup 8. CSS
+ *
+ * @api {ratio} DOMList.ratio(ratio,reverse); .ratio()
+ * @apiName ratio
+ * @apiDescription Get or set box ratio of first selected element.
+ *
+ * @apiParam {string} ratio String ratio. e.g 16:9
+ * @apiParam {boolean} reverse If reserved, then ratio count is width by height instead of height by width.
+ *
+ * @apiExample {js} Sample
+ * $dom('span').ratio(); // Get the box ratio.
+ * $dom('span').ratio('16:9'); // Set box height by width.
+ * $dom('span').ratio('16:9', true); // Set box width by height.
+ */
+
 //

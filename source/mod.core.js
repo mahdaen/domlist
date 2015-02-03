@@ -157,7 +157,7 @@
     };
 
     /* Module to set or get elements attribute */
-    $dom.module.attr = function(name, value) {
+    $dom.module.attr = function(name, value, nodata) {
         var $this = this;
 
         /* Skip if no items */
@@ -186,37 +186,50 @@
                 /* Getting attribute value */
                 var result = $this[0].getAttribute(name), parsed;
 
-                /* Try to convert result as object. If success, return it */
-                try { parsed = JSON.parse(result) } catch (err) {}
-                if (parsed) return parsed;
+                if (!nodata) {
+                    /* Try to convert result as object. If success, return it */
+                    try {
+                        parsed = JSON.parse(result);
+                    } catch (err) {
+                        try {
+                            eval('parsed = {' + result + '}');
+                        } catch (err) {
+                            try {
+                                eval('parsed = [' + result.replace(';', ',') + ']');
+                            } catch (err) {}
+                        }
+                    }
 
-                /* Convert result as data if possible and return it */
+                    if (parsed) return parsed;
 
-                /* Boolean */
-                if (result === 'true') {
-                    return true;
-                } else if (result === 'false') {
-                    return false;
-                }
+                    /* Convert result as data if possible and return it */
 
-                /* Convert to undefined */
-                else if (result === 'undefined') {
-                    return undefined;
-                }
+                    /* Boolean */
+                    if (result === 'true') {
+                        return true;
+                    } else if (result === 'false') {
+                        return false;
+                    }
 
-                /* Convert to null */
-                else if (result === 'null') {
-                    return null;
-                }
+                    /* Convert to undefined */
+                    else if (result === 'undefined') {
+                        return undefined;
+                    }
 
-                /* Convert to NaN */
-                else if (result === 'NaN') {
-                    return NaN;
-                }
+                    /* Convert to null */
+                    else if (result === 'null') {
+                        return null;
+                    }
 
-                /* Convert to number */
-                else if (Number(result)) {
-                    return Number(result);
+                    /* Convert to NaN */
+                    else if (result === 'NaN') {
+                        return NaN;
+                    }
+
+                    /* Convert to number */
+                    else if (Number(result)) {
+                        return Number(result);
+                    }
                 }
 
                 /* Return as plain result */

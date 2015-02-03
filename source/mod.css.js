@@ -205,7 +205,7 @@
     });
 
     /* Box Ratio Getter and Setter */
-    $dom.module.ratio = function(value) {
+    $dom.module.ratio = function(value, reverse) {
         if (this.length <= 0) return this;
 
         /* If value is defined, then set it */
@@ -216,11 +216,23 @@
                 // Getting box ratio part.
                 var part = this.ratio.split(':');
 
-                // Getting the box height depend on ratio.
-                var height = Math.round($dom(this).width() / part[0] * part[1]);
+                /* Get height by width */
+                if (!reverse) {
+                    // Getting the box height depend on ratio.
+                    var height = Math.round($dom(this).width() / part[0] * part[1]);
 
-                // Setting the box height.
-                $dom(this).height(height);
+                    // Setting the box height.
+                    $dom(this).height(height);
+                }
+
+                /* Get width by height */
+                else {
+                    /* Getting box width depend on ratio */
+                    var width = Math.round($dom(this).height() / part[1] * part[0]);
+
+                    /* Setting the box width */
+                    $dom(this).width(width);
+                }
             });
 
             return this;

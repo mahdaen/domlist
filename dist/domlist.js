@@ -93,7 +93,7 @@ window.__nconfig = {};
      * isObject(bar); // false
      */
     var isObject = function($object) {
-        return typeof $object === 'object' && !$object.length ? true : false;
+        return $object !== null && typeof $object === 'object' && !$object.length ? true : false;
     };
     window.isObject = function($object) { return isObject($object) };
 
@@ -1828,7 +1828,7 @@ window.circle = function(obj, reversed) {
     };
 
     /* Module to set or get elements attribute */
-    $dom.module.attr = function(name, value) {
+    $dom.module.attr = function(name, value, nodata) {
         var $this = this;
 
         /* Skip if no items */
@@ -1857,37 +1857,50 @@ window.circle = function(obj, reversed) {
                 /* Getting attribute value */
                 var result = $this[0].getAttribute(name), parsed;
 
-                /* Try to convert result as object. If success, return it */
-                try { parsed = JSON.parse(result) } catch (err) {}
-                if (parsed) return parsed;
+                if (!nodata) {
+                    /* Try to convert result as object. If success, return it */
+                    try {
+                        parsed = JSON.parse(result);
+                    } catch (err) {
+                        try {
+                            eval('parsed = {' + result + '}');
+                        } catch (err) {
+                            try {
+                                eval('parsed = [' + result.replace(';', ',') + ']');
+                            } catch (err) {}
+                        }
+                    }
 
-                /* Convert result as data if possible and return it */
+                    if (parsed) return parsed;
 
-                /* Boolean */
-                if (result === 'true') {
-                    return true;
-                } else if (result === 'false') {
-                    return false;
-                }
+                    /* Convert result as data if possible and return it */
 
-                /* Convert to undefined */
-                else if (result === 'undefined') {
-                    return undefined;
-                }
+                    /* Boolean */
+                    if (result === 'true') {
+                        return true;
+                    } else if (result === 'false') {
+                        return false;
+                    }
 
-                /* Convert to null */
-                else if (result === 'null') {
-                    return null;
-                }
+                    /* Convert to undefined */
+                    else if (result === 'undefined') {
+                        return undefined;
+                    }
 
-                /* Convert to NaN */
-                else if (result === 'NaN') {
-                    return NaN;
-                }
+                    /* Convert to null */
+                    else if (result === 'null') {
+                        return null;
+                    }
 
-                /* Convert to number */
-                else if (Number(result)) {
-                    return Number(result);
+                    /* Convert to NaN */
+                    else if (result === 'NaN') {
+                        return NaN;
+                    }
+
+                    /* Convert to number */
+                    else if (Number(result)) {
+                        return Number(result);
+                    }
                 }
 
                 /* Return as plain result */
@@ -3816,7 +3829,7 @@ window.circle = function(obj, reversed) {
     });
 
     /* Box Ratio Getter and Setter */
-    $dom.module.ratio = function(value) {
+    $dom.module.ratio = function(value, reverse) {
         if (this.length <= 0) return this;
 
         /* If value is defined, then set it */
@@ -3827,11 +3840,23 @@ window.circle = function(obj, reversed) {
                 // Getting box ratio part.
                 var part = this.ratio.split(':');
 
-                // Getting the box height depend on ratio.
-                var height = Math.round($dom(this).width() / part[0] * part[1]);
+                /* Get height by width */
+                if (!reverse) {
+                    // Getting the box height depend on ratio.
+                    var height = Math.round($dom(this).width() / part[0] * part[1]);
 
-                // Setting the box height.
-                $dom(this).height(height);
+                    // Setting the box height.
+                    $dom(this).height(height);
+                }
+
+                /* Get width by height */
+                else {
+                    /* Getting box width depend on ratio */
+                    var width = Math.round($dom(this).height() / part[1] * part[0]);
+
+                    /* Setting the box width */
+                    $dom(this).width(width);
+                }
             });
 
             return this;

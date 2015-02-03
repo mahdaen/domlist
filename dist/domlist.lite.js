@@ -18,7 +18,7 @@ if (!window) var window = {};
         return isString($object);
     };
     var isObject = function($object) {
-        return "object" != typeof $object || $object.length ? !1 : !0;
+        return null === $object || "object" != typeof $object || $object.length ? !1 : !0;
     };
     window.isObject = function($object) {
         return isObject($object);
@@ -503,7 +503,7 @@ function() {
         }) : foreach(this, function(node, i) {
             handler.call(node, i, node);
         })), this);
-    }, $dom.module.attr = function(name, value) {
+    }, $dom.module.attr = function(name, value, nodata) {
         var $this = this;
         if (!(this.length <= 0)) {
             if (isString(name)) {
@@ -511,11 +511,28 @@ function() {
                 $this.each(function() {
                     this.setAttribute(name, value), this.hasOwnProperty(name) && (this[name] = value);
                 }), this;
-                var parsed, result = $this[0].getAttribute(name);
-                try {
-                    parsed = JSON.parse(result);
-                } catch (err) {}
-                return parsed ? parsed : "true" === result ? !0 : "false" === result ? !1 : "undefined" === result ? void 0 : "null" === result ? null : "NaN" === result ? 0/0 : Number(result) ? Number(result) : result;
+                var result = $this[0].getAttribute(name), parsed;
+                if (!nodata) {
+                    try {
+                        parsed = JSON.parse(result);
+                    } catch (err) {
+                        try {
+                            eval("parsed = {" + result + "}");
+                        } catch (err) {
+                            try {
+                                eval("parsed = [" + result.replace(";", ",") + "]");
+                            } catch (err) {}
+                        }
+                    }
+                    if (parsed) return parsed;
+                    if ("true" === result) return !0;
+                    if ("false" === result) return !1;
+                    if ("undefined" === result) return void 0;
+                    if ("null" === result) return null;
+                    if ("NaN" === result) return 0/0;
+                    if (Number(result)) return Number(result);
+                }
+                return result;
             }
             if (isObject(name)) foreach(name, function(key, value) {
                 $this.attr(key, value);
@@ -1215,11 +1232,17 @@ function() {
         $dom.module[method.toLowerCase()] = function(value) {
             return this.length <= 0 ? 0 : isDefined(value) ? this.css(method.toLowerCase(), value) : this.get()["offset" + method];
         };
-    }), $dom.module.ratio = function(value) {
+    }), $dom.module.ratio = function(value, reverse) {
         return this.length <= 0 ? this : isString(value) && value.match(/^\d+:\d+$/) ? (this.each(function() {
             this.ratio = value;
-            var part = this.ratio.split(":"), height = Math.round($dom(this).width() / part[0] * part[1]);
-            $dom(this).height(height);
+            var part = this.ratio.split(":");
+            if (reverse) {
+                var width = Math.round($dom(this).height() / part[1] * part[0]);
+                $dom(this).width(width);
+            } else {
+                var height = Math.round($dom(this).width() / part[0] * part[1]);
+                $dom(this).height(height);
+            }
         }), this) : this.get().ratio ? this.get().ratio : this.get().ratio = countRatio(this.width(), this.height());
     }, $dom.module.offset = function() {
         return this.length <= 0 ? this : {
