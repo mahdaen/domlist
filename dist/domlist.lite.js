@@ -1364,4 +1364,49 @@ function() {
             return this.fade(dir, options, callback);
         };
     });
-}(window, DOMList);
+}(window, DOMList), function($) {
+    var DOMNotice = function(message, options) {
+        this.allowed = "Notification" in window ? !0 : !1, this.title = message || "", this.engine = void 0, 
+        this.options = {}, this.events = {};
+        var $this = this;
+        return isObject(options) && (foreach([ "onclick", "onclose", "onerror", "onshow" ], function(type) {
+            type in options && ($this.events[type] = options[type]);
+        }), foreach([ "icon", "tag", "body", "lang", "dir" ], function(prop) {
+            prop in options && ($this.options[prop] = options[prop]);
+        })), this.granted = !1, this.queued = !1, "granted" !== Notification.permission && "denied" !== Notification.permission ? this.ask(function(permission) {
+            "granted" === permission ? (this.granted = !0, this.queued && this.show()) : console.error("Notification: Permission denied.");
+        }) : this.granted = !0, this;
+    };
+    DOMNotice.prototype = {
+        handle: function(type, handler) {
+            return isString(type) && isFunction(handler) && (this.events["on" + type] = handler), 
+            this;
+        },
+        ask: function(handler) {
+            var $this = this;
+            return Notification.requestPermission(function(permission) {
+                isFunction(handler) && handler.call($this, permission);
+            }), this;
+        },
+        show: function(message, options) {
+            var $this = this;
+            return isString(message) && (this.title = message), isObject(options) && (this.options = Object.merge(this.options, options)), 
+            this.allowed && isString(this.title) && this.granted ? (this.engine = new Notification(this.title, this.options), 
+            foreach([ "click", "close", "error", "show" ], function(type) {
+                $this.engine["on" + type] = function(e) {
+                    $this.events["on" + type] && $this.events["on" + type].call($this, e);
+                };
+            })) : this.queued = !0, this;
+        },
+        set: function(name, value) {
+            return isString(name) && value ? this.options[name] = value : isObject(name) && (this.options = Object.merge(this.options, name)), 
+            this;
+        }
+    }, foreach([ "click", "show", "error", "close" ], function(type) {
+        DOMNotice.prototype["on" + type] = function(handler) {
+            return this.handle(type, handler);
+        };
+    }), $.notification = function(message, options) {
+        return new DOMNotice(message, options);
+    };
+}(DOMList);

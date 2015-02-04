@@ -36,6 +36,7 @@ module.exports = function(grunt) {
                         'source/mod.event.alias.js',
                         'source/mod.css.js',
                         'source/mod.animation.js',
+                        'source/mod.notification.js',
                     ]
                 }
             },
