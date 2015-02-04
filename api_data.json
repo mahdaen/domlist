@@ -156,6 +156,71 @@
     "groupTitle": "1__DOMList"
   },
   {
+    "version": "2.4.3",
+    "group": "2__Core",
+    "type": "attr",
+    "url": "DOMList.attr(name,value,nodata);",
+    "title": ".attr()",
+    "name": "Attr",
+    "description": "<p>Attribute getter and setter. You can set value with anythings. They will be automatically converted. When you get the value, they also will be converted automatically.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Any",
+            "optional": false,
+            "field": "name",
+            "description": "<p>String attribute name or Object containing list of attributes or Array containing attribute name list.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Any",
+            "optional": true,
+            "field": "value",
+            "description": "<p>Attribute value.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "boolean",
+            "optional": true,
+            "field": "nodata",
+            "description": "<p>To get attribute as is without converting the result.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample #1",
+        "content": "// <span class=\"foo\" bar=\"10\" foo=\"false\" foobar=\"[1,2,3]\"></span>\n\n// Get all attributes.\nvar attr = $dom('.foo').attr();\n//>> attr => { class: \"foo\", bar: 10, foo: false, foobar: [1,2,3] }",
+        "type": "js"
+      },
+      {
+        "title": "Sample #2",
+        "content": "// <span class=\"foo\" bar=\"10\" foo=\"false\" foobar=\"[1,2,3]\"></span>\n\n// Get single attribute value.\nvar attr = $dom('.foo').attr('foo');\n//>> attr => false",
+        "type": "js"
+      },
+      {
+        "title": "Sample #3",
+        "content": "// <span class=\"foo\" bar=\"10\" foo=\"false\" foobar=\"[1,2,3]\"></span>\n\n// Set single attribute and value.\n$dom('.foo').attr('barfoo', { a: 1, b: 2, c: 3 });",
+        "type": "js"
+      },
+      {
+        "title": "Sample #4",
+        "content": "// <span class=\"foo\" bar=\"10\" foo=\"false\" foobar=\"[1,2,3]\"></span>\n\n// Set multiple attribute and value.\n$dom('.foo').attr({ foo: true, bar: 100, foobar: { a: 1, b: 2, c: 3 } });",
+        "type": "js"
+      },
+      {
+        "title": "Sample #5",
+        "content": "// <span class=\"foo\" bar=\"10\" foo=\"false\" foobar=\"[1,2,3]\"></span>\n\n// Set multiple attribute without values.\n$dom('.foo').attr(['solved', 'required', 'async']);",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "2__Core"
+  },
+  {
     "version": "2.0.0",
     "group": "2__Core",
     "type": "attr",
@@ -2901,6 +2966,44 @@
     "groupTitle": "8__CSS"
   },
   {
+    "version": "2.4.3",
+    "group": "8__CSS",
+    "type": "ratio",
+    "url": "DOMList.ratio(ratio,reverse);",
+    "title": ".ratio()",
+    "name": "ratio",
+    "description": "<p>Get or set box ratio of first selected element.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "ratio",
+            "description": "<p>String ratio. e.g 16:9</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "boolean",
+            "optional": false,
+            "field": "reverse",
+            "description": "<p>If reserved, then ratio count is width by height instead of height by width.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample",
+        "content": "$dom('span').ratio(); // Get the box ratio.\n$dom('span').ratio('16:9'); // Set box height by width.\n$dom('span').ratio('16:9', true); // Set box width by height.",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.4.0.js",
+    "groupTitle": "8__CSS"
+  },
+  {
     "version": "2.2.0",
     "group": "8__CSS",
     "type": "ratio",
@@ -3739,5 +3842,201 @@
     "description": "<p>Stop current ajax request.</p> ",
     "filename": "tags/v2.4.0.js",
     "groupTitle": "A__DOMAjax"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "notification",
+    "url": "DOMList.notification(title,options)",
+    "title": "DOMList.notification()",
+    "name": "notification",
+    "description": "<p>Create new or manage HTML5 Notification API. With DOMNotice, you can simply show new notification or use existing notification object to show notification. DOMNotice will request permission when first time created.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "title",
+            "description": "<p>String Notification title.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "options",
+            "description": "<p>Object that contains Notifications options. options contains &quot;body, dir, tag, icon, lang&quot; and noticiation callbacks &quot;onclick, onclose, onshow, onerror&quot;.</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Sample:",
+        "content": "// Create new notifications and request permission if not already granted.\n// Notification will show after permission granted.\nvar notif = $.notification('Notification Test', { body: 'Lorem ipsum dolor' }).show();\n\n// Show another message using existing DOMNotice object.\nnotif.set('body', 'Another lorem ipsum').show('Another Test');\n\n// Using callback in existing DOMNotice object.\nnotif.onclick(function(e) { console.log(e, this) }).show('Notification with callback');",
+        "type": "js"
+      }
+    ],
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "onclick",
+    "url": "DOMNotice.onclick(handler)",
+    "title": ".onclick()",
+    "name": "onclick",
+    "description": "<p>Handle notification onclick event.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": false,
+            "field": "handler",
+            "description": "<p>Function to handle event. Hanlder will become DOMNotice object and get event as param.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "onclose",
+    "url": "DOMNotice.onclose(handler)",
+    "title": ".onclose()",
+    "name": "onclose",
+    "description": "<p>Handle notification onclose event.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": false,
+            "field": "handler",
+            "description": "<p>Function to handle event. Hanlder will become DOMNotice object and get event as param.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "onerror",
+    "url": "DOMNotice.onerror(handler)",
+    "title": ".onerror()",
+    "name": "onerror",
+    "description": "<p>Handle notification onerror event.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": false,
+            "field": "handler",
+            "description": "<p>Function to handle event. Hanlder will become DOMNotice object and get event as param.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "onshow",
+    "url": "DOMNotice.onshow(handler)",
+    "title": ".onshow()",
+    "name": "onshow",
+    "description": "<p>Handle notification onshow event.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Function",
+            "optional": false,
+            "field": "handler",
+            "description": "<p>Function to handle event. Hanlder will become DOMNotice object and get event as param.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "set",
+    "url": "DOMNotice.set(name,value)",
+    "title": ".set()",
+    "name": "set",
+    "description": "<p>Set notification options.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>String option name or Object options.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "value",
+            "description": "<p>String option value or leave blank if name is object.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
+  },
+  {
+    "version": "2.5.0",
+    "group": "B__DOMNotice",
+    "type": "show",
+    "url": "DOMNotice.show(title,options)",
+    "title": ".show()",
+    "name": "show",
+    "description": "<p>Show the notification.</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "title",
+            "description": "<p>String notification title.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": true,
+            "field": "options",
+            "description": "<p>Object notification options without callbacks.</p> "
+          }
+        ]
+      }
+    },
+    "filename": "tags/v2.5.0.js",
+    "groupTitle": "B__DOMNotice"
   }
 ]
