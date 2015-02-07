@@ -1,6 +1,6 @@
 {
     "name": "domlist",
-    "version": "2.5.1",
+    "version": "2.5.2",
     "description": "Native document.queySelectorAll helper.",
     "readme": "readme.md",
     "keywords": [
