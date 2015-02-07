@@ -55,6 +55,106 @@
 </code></pre>
 
 <h4>
+<a id="sample-domnotification-usage" class="anchor" href="#sample-domnotification-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Sample $dom.notification() usage</strong>
+</h4>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// Create new notifications and request permission if not already granted.</span>
+<span class="pl-c">// Notification will show after permission granted.</span>
+<span class="pl-s">var</span> notif <span class="pl-k">=</span> $dom.notification(<span class="pl-s1"><span class="pl-pds">'</span>Notification Test<span class="pl-pds">'</span></span>, { body<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>Lorem ipsum dolor<span class="pl-pds">'</span></span> }).show();
+
+<span class="pl-c">// Show another message using existing DOMNotice object.</span>
+notif.set(<span class="pl-s1"><span class="pl-pds">'</span>body<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>Another lorem ipsum<span class="pl-pds">'</span></span>).show(<span class="pl-s1"><span class="pl-pds">'</span>Another Test<span class="pl-pds">'</span></span>);
+
+<span class="pl-c">// Using callback in existing DOMNotice object.</span>
+notif.onclick(<span class="pl-st">function</span>(<span class="pl-vpf">e</span>) { <span class="pl-en">console</span><span class="pl-s3">.log</span>(e, <span class="pl-v">this</span>) }).show(<span class="pl-s1"><span class="pl-pds">'</span>Notification with callback<span class="pl-pds">'</span></span>);</pre></div>
+
+<h4>
+<a id="sample-attr-usage" class="anchor" href="#sample-attr-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Sample .attr() usage</strong>
+</h4>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s1"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span> <span class="pl-e">bar</span>=<span class="pl-s1"><span class="pl-pds">"</span>10<span class="pl-pds">"</span></span> <span class="pl-e">foo</span>=<span class="pl-s1"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span> <span class="pl-e">foobar</span>=<span class="pl-s1"><span class="pl-pds">"</span>[1,2,3]<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">span</span>&gt;</pre></div>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// Get all attributes.</span>
+<span class="pl-s">var</span> attr <span class="pl-k">=</span> $dom(<span class="pl-s1"><span class="pl-pds">'</span>.foo<span class="pl-pds">'</span></span>).attr();</pre></div>
+
+<p><strong>@returns</strong>: <code>{ class: "foo", bar: 10, foo: false, foobar: [1,2,3] }</code></p>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// Set multiple attribute and value.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>.foo<span class="pl-pds">'</span></span>).attr({ foo<span class="pl-k">:</span> <span class="pl-c1">true</span>, bar<span class="pl-k">:</span> <span class="pl-c1">100</span>, foobar<span class="pl-k">:</span> { a<span class="pl-k">:</span> <span class="pl-c1">1</span>, b<span class="pl-k">:</span> <span class="pl-c1">2</span>, c<span class="pl-k">:</span> <span class="pl-c1">3</span> } });</pre></div>
+
+<h4>
+<a id="sample-css-usage" class="anchor" href="#sample-css-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Sample .css() usage</strong>
+</h4>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// Set single property.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).css(<span class="pl-s1"><span class="pl-pds">'</span>background-image<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>url(...)<span class="pl-pds">'</span></span>);
+
+<span class="pl-c">// Set multiple properties.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).css({
+    backgroundImage<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>url(...)<span class="pl-pds">'</span></span>,
+    <span class="pl-s1"><span class="pl-pds">'</span>background-color<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#ccc<span class="pl-pds">'</span></span>,
+    borderradius<span class="pl-k">:</span> <span class="pl-c1">3</span>
+});
+
+<span class="pl-c">// Get single property.</span>
+<span class="pl-s">var</span> bg <span class="pl-k">=</span> $dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).css(<span class="pl-s1"><span class="pl-pds">'</span>background-image<span class="pl-pds">'</span></span>);
+
+<span class="pl-c">// Get all css.</span>
+<span class="pl-s">var</span> csses <span class="pl-k">=</span> $dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).css();</pre></div>
+
+<h4>
+<a id="sample-keyframes-usage" class="anchor" href="#sample-keyframes-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Sample .keyframes() usage</strong>
+</h4>
+
+<p><code>.keyframes()</code> require <code>GSAP</code>.</p>
+
+<div class="highlight highlight-js"><pre>$dom(<span class="pl-s1"><span class="pl-pds">'</span>.card<span class="pl-pds">'</span></span>).keyframes({
+   <span class="pl-c1">10</span><span class="pl-k">:</span> {
+       color<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>
+   },
+   <span class="pl-c1">50</span><span class="pl-k">:</span> {
+       color<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>green<span class="pl-pds">'</span></span>
+   },
+   <span class="pl-c1">100</span><span class="pl-k">:</span> {
+       color<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>
+   }
+}, {
+    duration<span class="pl-k">:</span> <span class="pl-c1">5</span>,
+    ease<span class="pl-k">:</span> Power3.easeInOut
+}, <span class="pl-st">function</span>() {
+    <span class="pl-en">console</span><span class="pl-s3">.log</span>(<span class="pl-s1"><span class="pl-pds">'</span>Keyframes finished.<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h4>
+<a id="sample-listen-usage" class="anchor" href="#sample-listen-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Sample .listen() usage</strong>
+</h4>
+
+<div class="highlight highlight-js"><pre><span class="pl-c">// Handle click on spans with name fooclick.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).listen(<span class="pl-s1"><span class="pl-pds">'</span>fooclick<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {});
+
+<span class="pl-c">// Handle multiple event with name foo.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).listen(<span class="pl-s1"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, {
+    <span class="pl-en">click</span>: <span class="pl-st">function</span>() {},
+    <span class="pl-en">mouseenter</span>: <span class="pl-st">function</span>() {}
+);
+
+<span class="pl-c">// Handle mutiple name and events.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).listen({
+    foo<span class="pl-k">:</span> {
+        <span class="pl-en">click</span>: <span class="pl-st">function</span>() {}
+    },
+    bar<span class="pl-k">:</span> {
+        <span class="pl-en">click</span>: <span class="pl-st">function</span>() {}
+    }
+});
+
+<span class="pl-c">// Remove click listener with name 'foo'.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).unlisten(<span class="pl-s1"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>);
+
+<span class="pl-c">// Remove all listener with name 'foo'.</span>
+$dom(<span class="pl-s1"><span class="pl-pds">'</span>span<span class="pl-pds">'</span></span>).unlisten(<span class="pl-s1"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>);</pre></div>
+
+<h4>
 <a id="api-docs" class="anchor" href="#api-docs" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>API Docs</strong>
 </h4>
 
