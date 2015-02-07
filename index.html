@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>DOMList by mahdaen</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>DOMList</h1>
+        <p>DOMList simplify the native .querySelectorAll()</p>
+        <p class="view"><a href="https://github.com/mahdaen/domlist">View the Project on GitHub <small>mahdaen/domlist</small></a></p>
+        <ul>
+          <li><a href="https://github.com/mahdaen/domlist/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mahdaen/domlist/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mahdaen/domlist">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="domlist" class="anchor" href="#domlist" aria-hidden="true"><span class="octicon octicon-link"></span></a>DOMList</h1>
+
+<p><strong>DOMList</strong> simplify the native <code>.querySelectorAll()</code>. It's like a jQuery, but smaller since we use the native selector, also has more difference methods. But, it's only supported by browsers that support <code>.querySelectorAll()</code> API (Chrome 31+, Firefox 33+, IE9+, Safari 7+).</p>
+
+<p>Even though it's similar with jQuery, it's has many difference like what the <code>.attr()</code> do. While jQuery only get the attribute as string, <strong>DOMList</strong> try to convert the result as javascript object. E.g:</p>
+
+<pre><code>&lt;span foo="bar: 1, foobar: 2"&gt;&lt;/span&gt;
+</code></pre>
+
+<p><strong>DOMList</strong> will return an object <code>{ bar: 1, foobar: 2 }</code> when getting the <code>foo</code> attribute.</p>
+
+<p>My target is to help the web application development. I try to keep looking the possible ways to simplify the native browser API, like when I try to simplify the usage of <code>Notifications</code> API only with <code>$.notification('Notification Test').show();</code>.</p>
+
+<p>If you want to run <strong>DOMList</strong> on old browsers that don't support <code>.querySelectorAll()</code>, you can load Sizzle before loading <strong>DOMList</strong>. <strong>DOMList</strong> will looking for Sizzle when <code>.querySelectorAll()</code> is not available.</p>
+
+<p><strong>DOMList</strong> also bundled with <a href="https://github.com/mahdaen/native-js">NativeJS</a> that have usefull functions.</p>
+
+<h4>
+<a id="downloads" class="anchor" href="#downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Downloads</strong>
+</h4>
+
+<p><strong>DOMList</strong> is available on NPM and Bower. So you can get the <strong>DOMList</strong> via <code>npm</code> and <code>bower</code>.</p>
+
+<pre><code>npm install domlist
+</code></pre>
+
+<pre><code>bower install domlist
+</code></pre>
+
+<h4>
+<a id="api-docs" class="anchor" href="#api-docs" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>API Docs</strong>
+</h4>
+
+<p>Read the docs here: <a href="https://mahdaen.github.io/domlist/apidocs">API Docs</a></p>
+
+<h4>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Contributions</strong>
+</h4>
+
+<p>Feel free to contribute to this project. The active development is located at <a href="https://gitlab.com/keong/domlist">GitLab</a>. We use github only to publish the releases. Just create a merge request on gitlab and we will check that. ;)</p>
+
+<p>We create the documentation using apiDoc and grunt. The documentation contains version comparison to makes user know the diffrence between each version. So, please write the documentation on the top of the module and add the version on that.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/mahdaen">mahdaen</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
